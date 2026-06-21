@@ -1,0 +1,13 @@
+{
+  "name": "personal-blog",
+  "version": "1.0.0",
+  "description": "Drop HTML files into posts/ and render them as a blog.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "serve": "node serve.js",
+    "dev": "node build.js && node serve.js"
+  },
+  "author": "",
+  "license": "MIT"
+}
