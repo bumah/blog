@@ -26,9 +26,9 @@ const SITE = {
   // Shown small in the corner of every page (your wordmark / nav-home link).
   title: "Terence Bumah",
   // The big hero intro on the homepage. Make this personal — it's your front door.
-  heroHeading: "Reflections, in the open.",
+  heroHeading: "Reflections in the open",
   heroText:
-    "Notes to myself on life, work, and the things I'm still figuring out. Sharing in the open in case they're useful to you too.",
+    "Life lessons, experiments, discoveries, and humble opinions.",
   // Used for the <meta name=\"description\"> SEO tag.
   description: "Personal reflections on life, work, and figuring things out.",
   author: "Terence Bumah",
@@ -171,8 +171,9 @@ ${post.body}
 function indexPage(posts) {
   const items = posts
     .map(
-      (p) => `      <li class="post-card">
+      (p) => `      <li class="post-card${p.pinned ? " post-card-pinned" : ""}">
         <a class="post-card-link" href="/posts/${escapeHtml(p.slug)}.html">
+          ${p.pinned ? `<span class="post-card-badge">Pinned</span>` : ""}
           <h3 class="post-card-title">${escapeHtml(p.title)}</h3>
           ${p.description ? `<p class="post-card-excerpt">${escapeHtml(p.description)}</p>` : ""}
           <span class="post-card-more">Read<span class="post-card-arrow">\u2192</span></span>
@@ -180,7 +181,7 @@ function indexPage(posts) {
       </li>`
     )
     .join("\n");
-  const body = `    <h2 class="section-label">Writing</h2>
+  const body = `    <h2 class="section-label">Posts</h2>
     <ul class="post-grid">
 ${items || '      <li class="post-grid-empty">No posts yet. Add an .html file to the posts/ folder.</li>'}
     </ul>`;
@@ -224,18 +225,24 @@ async function build() {
     const description =
       getMeta(raw, "description") || getFirstParagraph(raw) || "";
 
+    const pinned = (getMeta(raw, "pinned") || "").toLowerCase() === "true";
+
     posts.push({
       slug: slugify(file),
       title,
       date,
       tags,
       description,
+      pinned,
       body: getBody(raw).trim(),
     });
   }
 
-  // Newest first.
-  posts.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+  // Pinned posts first, then newest first within each group.
+  posts.sort((a, b) => {
+    if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+    return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
+  });
 
   // Write each post page.
   for (const post of posts) {

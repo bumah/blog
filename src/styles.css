@@ -159,6 +159,19 @@ body {
   transition: color 0.15s ease;
 }
 .post-card-link:hover .post-card-title { color: var(--accent); }
+.post-card-badge {
+  align-self: flex-start;
+  margin-bottom: 0.7rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.post-card-pinned .post-card-link { border-color: var(--accent); }
 .post-card-excerpt {
   margin: 0.6rem 0 0;
   color: var(--muted);
