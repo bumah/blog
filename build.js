@@ -45,9 +45,9 @@ const SITE = {
 // <meta name="category" content="Startups">. A post with no (or an unknown)
 // category falls into DEFAULT_CATEGORY. Empty sections are hidden automatically.
 const CATEGORIES = [
-  { name: "Startups", blurb: "Breakdowns of companies and the systems behind them." },
   { name: "Reflections", blurb: "Thinking in systems about life and work." },
   { name: "Longevity", blurb: "On living long \u2014 and living well." },
+  { name: "Startups", blurb: "Breakdowns of companies and the systems behind them." },
 ];
 const DEFAULT_CATEGORY = "Reflections";
 
