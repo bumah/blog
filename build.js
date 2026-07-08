@@ -26,7 +26,7 @@ const SITE = {
   // Shown small in the corner of every page (your wordmark / nav-home link).
   title: "Terence Bumah",
   // The big hero intro on the homepage. Make this personal — it's your front door.
-  heroHeading: "Reflections in the open",
+  heroHeading: "Thinking in the open",
   heroText:
     "Life lessons, experiments, discoveries, and humble opinions.",
   // Used for the <meta name=\"description\"> SEO tag.
