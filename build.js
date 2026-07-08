@@ -41,6 +41,16 @@ const SITE = {
   ],
 };
 
+// Topic sections, shown in this order on the homepage. Each post picks one via
+// <meta name="category" content="Startups">. A post with no (or an unknown)
+// category falls into DEFAULT_CATEGORY. Empty sections are hidden automatically.
+const CATEGORIES = [
+  { name: "Startups", blurb: "Breakdowns of companies and the systems behind them." },
+  { name: "Reflections", blurb: "Thinking in systems about life and work." },
+  { name: "Longevity", blurb: "On living long \u2014 and living well." },
+];
+const DEFAULT_CATEGORY = "Reflections";
+
 // ---- Tiny HTML helpers ------------------------------------------------------
 
 // Escape text destined for HTML attribute/text contexts.
@@ -168,23 +178,57 @@ ${post.body}
   return layout({ title: post.title, description: post.description, body });
 }
 
-function indexPage(posts) {
-  const items = posts
-    .map(
-      (p) => `      <li class="post-card${p.pinned ? " post-card-pinned" : ""}">
+function postCard(p) {
+  return `      <li class="post-card${p.pinned ? " post-card-pinned" : ""}">
         <a class="post-card-link" href="/posts/${escapeHtml(p.slug)}.html">
           ${p.pinned ? `<span class="post-card-badge">Pinned</span>` : ""}
           <h3 class="post-card-title">${escapeHtml(p.title)}</h3>
           ${p.description ? `<p class="post-card-excerpt">${escapeHtml(p.description)}</p>` : ""}
           <span class="post-card-more">Read<span class="post-card-arrow">\u2192</span></span>
         </a>
-      </li>`
-    )
-    .join("\n");
-  const body = `    <h2 class="section-label">Posts</h2>
-    <ul class="post-grid">
-${items || '      <li class="post-grid-empty">No posts yet. Add an .html file to the posts/ folder.</li>'}
+      </li>`;
+}
+
+function postSection({ id, label, blurb, posts }) {
+  return `    <section class="post-section" id="${id}">
+      <h2 class="section-label">${escapeHtml(label)}</h2>
+      ${blurb ? `<p class="section-blurb">${escapeHtml(blurb)}</p>` : ""}
+      <ul class="post-grid">
+${posts.map(postCard).join("\n")}
+      </ul>
+    </section>`;
+}
+
+function indexPage(posts) {
+  // Build the ordered list of sections: Featured (pinned) first, then each
+  // non-empty category in configured order. Posts keep their pinned-first,
+  // newest-first order within every group.
+  const sections = [];
+  const featured = posts.filter((p) => p.pinned);
+  if (featured.length) {
+    sections.push({ id: "featured", label: "Featured", nav: "Featured", posts: featured });
+  }
+  for (const cat of CATEGORIES) {
+    const inCat = posts.filter((p) => p.category === cat.name);
+    if (inCat.length) {
+      sections.push({ id: slugify(cat.name), label: cat.name, blurb: cat.blurb, nav: cat.name, posts: inCat });
+    }
+  }
+
+  const nav =
+    sections.length > 1
+      ? `    <nav class="section-nav">${sections
+          .map((s) => `<a href="#${s.id}">${escapeHtml(s.nav)}</a>`)
+          .join("")}</nav>`
+      : "";
+
+  const body = sections.length
+    ? `${nav}
+${sections.map(postSection).join("\n")}`
+    : `    <ul class="post-grid">
+      <li class="post-grid-empty">No posts yet. Add an .html file to the posts/ folder.</li>
     </ul>`;
+
   return layout({ title: SITE.title, description: SITE.description, body, home: true });
 }
 
@@ -227,6 +271,12 @@ async function build() {
 
     const pinned = (getMeta(raw, "pinned") || "").toLowerCase() === "true";
 
+    const rawCategory = getMeta(raw, "category") || "";
+    const matchedCategory = CATEGORIES.find(
+      (c) => c.name.toLowerCase() === rawCategory.toLowerCase()
+    );
+    const category = matchedCategory ? matchedCategory.name : DEFAULT_CATEGORY;
+
     posts.push({
       slug: slugify(file),
       title,
@@ -234,6 +284,7 @@ async function build() {
       tags,
       description,
       pinned,
+      category,
       body: getBody(raw).trim(),
     });
   }

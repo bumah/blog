@@ -110,6 +110,38 @@ body {
   line-height: 1.6;
 }
 
+/* Jump navigation between sections */
+.section-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 auto 2.5rem;
+  padding: 0 1rem;
+}
+.section-nav a {
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.section-nav a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Topic sections */
+.post-section {
+  margin-bottom: 3rem;
+  scroll-margin-top: 1.5rem;
+}
+.post-section:last-child { margin-bottom: 0; }
+
 /* Section label */
 .section-label {
   margin: 0 0 0.25rem;
@@ -119,6 +151,12 @@ body {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--faint);
+}
+.section-blurb {
+  margin: 0 0 0.5rem;
+  padding: 0 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
 /* Post card grid (home) */
