@@ -26,9 +26,7 @@ const SITE = {
   // Shown small in the corner of every page (your wordmark / nav-home link).
   title: "Terence Bumah",
   // The big hero intro on the homepage. Make this personal — it's your front door.
-  heroHeading: "Thinking in the open",
-  heroText:
-    "Life lessons, experiments, discoveries, and humble opinions.",
+  heroHeading: "Thinking in the *open*",
   // Used for the <meta name=\"description\"> SEO tag.
   description: "Personal reflections on life, work, and figuring things out.",
   author: "Terence Bumah",
@@ -121,8 +119,7 @@ function layout({ title, description, body, home = false }) {
   const header = home
     ? `<header class="site-hero">
     <p class="hero-eyebrow"><a href="/">${escapeHtml(SITE.title)}</a></p>
-    <h1 class="hero-heading">${escapeHtml(SITE.heroHeading)}</h1>
-    <p class="hero-text">${escapeHtml(SITE.heroText)}</p>
+    <h1 class="hero-heading">${escapeHtml(SITE.heroHeading).replace(/\*([^*]+)\*/g, "<em>$1</em>")}</h1>
   </header>`
     : `<header class="site-header">
     <a class="site-title" href="/">${escapeHtml(SITE.title)}</a>
@@ -138,10 +135,10 @@ function layout({ title, description, body, home = false }) {
 </head>
 <body>
   ${header}
-  <main class="container">
+  <main class="container${home ? " container-home" : ""}">
 ${body}
   </main>
-  <footer class="site-footer">
+  <footer class="site-footer${home ? " site-footer-home" : ""}">
     ${
       SITE.links && SITE.links.length
         ? `<nav class="contact-links">${SITE.links
@@ -200,35 +197,69 @@ ${posts.map(postCard).join("\n")}
     </section>`;
 }
 
+function themeBoard(cat, id, count) {
+  return `        <a class="theme-board" href="#${id}">
+          <span class="theme-board-meta">${count} post${count === 1 ? "" : "s"}</span>
+          <h3 class="theme-board-name">${escapeHtml(cat.name)}</h3>
+          <p class="theme-board-blurb">${escapeHtml(cat.blurb)}</p>
+          <span class="theme-board-arrow">\u2192</span>
+        </a>`;
+}
+
+function featuredItem(p) {
+  return `          <a class="featured-item" href="/posts/${escapeHtml(p.slug)}.html">
+            <h4 class="featured-item-title">${escapeHtml(p.title)}</h4>
+            ${p.description ? `<p class="featured-item-excerpt">${escapeHtml(p.description)}</p>` : ""}
+          </a>`;
+}
+
 function indexPage(posts) {
-  // Build the ordered list of sections: Featured (pinned) first, then each
-  // non-empty category in configured order. Posts keep their pinned-first,
-  // newest-first order within every group.
-  const sections = [];
+  // Group posts into the configured, non-empty categories (kept in order).
+  const activeCats = CATEGORIES.map((cat) => ({
+    cat,
+    id: slugify(cat.name),
+    posts: posts.filter((p) => p.category === cat.name),
+  })).filter((c) => c.posts.length);
+
   const featured = posts.filter((p) => p.pinned);
-  if (featured.length) {
-    sections.push({ id: "featured", label: "Featured", nav: "Featured", posts: featured });
-  }
-  for (const cat of CATEGORIES) {
-    const inCat = posts.filter((p) => p.category === cat.name);
-    if (inCat.length) {
-      sections.push({ id: slugify(cat.name), label: cat.name, blurb: cat.blurb, nav: cat.name, posts: inCat });
-    }
-  }
 
-  const nav =
-    sections.length > 1
-      ? `    <nav class="section-nav">${sections
-          .map((s) => `<a href="#${s.id}">${escapeHtml(s.nav)}</a>`)
-          .join("")}</nav>`
-      : "";
-
-  const body = sections.length
-    ? `${nav}
-${sections.map(postSection).join("\n")}`
-    : `    <ul class="post-grid">
+  if (!activeCats.length) {
+    const body = `    <ul class="post-grid">
       <li class="post-grid-empty">No posts yet. Add an .html file to the posts/ folder.</li>
     </ul>`;
+    return layout({ title: SITE.title, description: SITE.description, body, home: true });
+  }
+
+  // Top region: theme boards (left) + featured rail (right).
+  const boards = activeCats
+    .map(({ cat, id, posts }) => themeBoard(cat, id, posts.length))
+    .join("\n");
+
+  const rail = featured.length
+    ? `      <aside class="featured-rail">
+        <h2 class="rail-label">Featured</h2>
+        <div class="featured-list">
+${featured.map(featuredItem).join("\n")}
+        </div>
+      </aside>`
+    : "";
+
+  const top = `    <div class="home-top">
+      <div class="theme-boards">
+${boards}
+      </div>
+${rail}
+    </div>`;
+
+  // Full-width section rows below.
+  const sections = activeCats
+    .map(({ cat, id, posts }) =>
+      postSection({ id, label: cat.name, blurb: cat.blurb, posts })
+    )
+    .join("\n");
+
+  const body = `${top}
+${sections}`;
 
   return layout({ title: SITE.title, description: SITE.description, body, home: true });
 }
