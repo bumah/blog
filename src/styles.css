@@ -441,6 +441,40 @@ body {
   font-style: italic;
 }
 .post-body blockquote p:last-child { margin-bottom: 0; }
+.post-body .scorecard {
+  margin: 0 0 1.6rem;
+  overflow-x: auto;
+}
+.post-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+.post-body th,
+.post-body td {
+  text-align: left;
+  padding: 0.55rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.post-body thead th {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--faint);
+  font-weight: 600;
+  border-bottom: 1px solid var(--fg);
+}
+.post-body tbody th {
+  font-weight: 700;
+  color: var(--fg);
+  white-space: nowrap;
+}
+.post-body td strong { color: var(--accent); }
+.post-body tbody tr:last-child th,
+.post-body tbody tr:last-child td { border-bottom: none; }
 
 .back {
   margin-top: 3.5rem;
