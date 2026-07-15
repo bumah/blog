@@ -42,14 +42,15 @@ const SITE = {
 };
 
 // Topic sections, shown in this order on the homepage. Each post picks one via
-// <meta name="category" content="Startups">. A post with no (or an unknown)
+// <meta name="category" content="Failure First">. A post with no (or an unknown)
 // category falls into DEFAULT_CATEGORY. Empty sections are hidden automatically.
 const CATEGORIES = [
-  { name: "Reflections", blurb: "Thinking in systems about life and work." },
+  { name: "Failure First", blurb: "Assume the goal already failed \u2014 then work backwards to prevent it." },
+  { name: "One to Zero", blurb: "Reverse-engineering why startups won, from launch back to origin, through my SOURCE lens." },
   { name: "Longevity", blurb: "On living long \u2014 and living well." },
-  { name: "Startups", blurb: "Breakdowns of companies and the systems behind them." },
+  { name: "Notes", blurb: "Random thoughts, opinions, and things worth sharing." },
 ];
-const DEFAULT_CATEGORY = "Reflections";
+const DEFAULT_CATEGORY = "Notes";
 
 // ---- Tiny HTML helpers ------------------------------------------------------
 
