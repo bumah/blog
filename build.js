@@ -66,6 +66,14 @@ function stripTags(html) {
   return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 }
 
+// Build a plain-text intro excerpt from a post's body HTML.
+function makeExcerpt(html, maxChars = 260) {
+  const text = stripTags(html);
+  if (text.length <= maxChars) return text;
+  const cut = text.slice(0, maxChars);
+  return cut.slice(0, cut.lastIndexOf(" ")).trim() + "\u2026";
+}
+
 function getMeta(html, name) {
   // Match content wrapped in either quote type, and read until the SAME quote
   // closes it — so an apostrophe inside a double-quoted value (e.g. "Here's")
@@ -176,34 +184,15 @@ ${post.body}
   return layout({ title: post.title, description: post.description, body });
 }
 
-function postCard(p) {
-  return `      <li class="post-card${p.pinned ? " post-card-pinned" : ""}">
-        <a class="post-card-link" href="/posts/${escapeHtml(p.slug)}.html">
-          ${p.pinned ? `<span class="post-card-badge">Pinned</span>` : ""}
-          <h3 class="post-card-title">${escapeHtml(p.title)}</h3>
-          ${p.description ? `<p class="post-card-excerpt">${escapeHtml(p.description)}</p>` : ""}
-          <span class="post-card-more">Read<span class="post-card-arrow">\u2192</span></span>
-        </a>
-      </li>`;
-}
-
-function postSection({ id, label, blurb, posts }) {
-  return `    <section class="post-section" id="${id}">
-      <h2 class="section-label">${escapeHtml(label)}</h2>
-      ${blurb ? `<p class="section-blurb">${escapeHtml(blurb)}</p>` : ""}
-      <ul class="post-grid">
-${posts.map(postCard).join("\n")}
-      </ul>
-    </section>`;
-}
-
-function themeBoard(cat, id, count) {
-  return `        <a class="theme-board" href="#${id}">
-          <span class="theme-board-meta">${count} post${count === 1 ? "" : "s"}</span>
-          <h3 class="theme-board-name">${escapeHtml(cat.name)}</h3>
-          <p class="theme-board-blurb">${escapeHtml(cat.blurb)}</p>
-          <span class="theme-board-arrow">\u2192</span>
-        </a>`;
+function feedItem(p) {
+  return `        <article class="feed-item">
+          <a class="feed-item-link" href="/posts/${escapeHtml(p.slug)}.html">
+            <span class="feed-item-cat">${escapeHtml(p.category)}</span>
+            <h2 class="feed-item-title">${escapeHtml(p.title)}</h2>
+            ${p.excerpt ? `<p class="feed-item-excerpt">${escapeHtml(p.excerpt)}</p>` : ""}
+            <span class="feed-item-more">Read<span class="feed-item-arrow">\u2192</span></span>
+          </a>
+        </article>`;
 }
 
 function featuredItem(p) {
@@ -214,26 +203,15 @@ function featuredItem(p) {
 }
 
 function indexPage(posts) {
-  // Group posts into the configured, non-empty categories (kept in order).
-  const activeCats = CATEGORIES.map((cat) => ({
-    cat,
-    id: slugify(cat.name),
-    posts: posts.filter((p) => p.category === cat.name),
-  })).filter((c) => c.posts.length);
-
   const featured = posts.filter((p) => p.pinned);
+  const feed = posts.filter((p) => !p.pinned);
 
-  if (!activeCats.length) {
-    const body = `    <ul class="post-grid">
-      <li class="post-grid-empty">No posts yet. Add an .html file to the posts/ folder.</li>
-    </ul>`;
+  if (!posts.length) {
+    const body = `    <div class="home-top">
+      <div class="feed"><p class="feed-empty">No posts yet. Add an .html file to the posts/ folder.</p></div>
+    </div>`;
     return layout({ title: SITE.title, description: SITE.description, body, home: true });
   }
-
-  // Top region: theme boards (left) + featured rail (right).
-  const boards = activeCats
-    .map(({ cat, id, posts }) => themeBoard(cat, id, posts.length))
-    .join("\n");
 
   const rail = featured.length
     ? `      <aside class="featured-rail">
@@ -244,22 +222,16 @@ ${featured.map(featuredItem).join("\n")}
       </aside>`
     : "";
 
-  const top = `    <div class="home-top">
-      <div class="theme-boards">
-${boards}
+  const feedHtml = feed.length
+    ? feed.map(feedItem).join("\n")
+    : `        <p class="feed-empty">More posts coming soon.</p>`;
+
+  const body = `    <div class="home-top">
+      <div class="feed">
+${feedHtml}
       </div>
 ${rail}
     </div>`;
-
-  // Full-width section rows below.
-  const sections = activeCats
-    .map(({ cat, id, posts }) =>
-      postSection({ id, label: cat.name, blurb: cat.blurb, posts })
-    )
-    .join("\n");
-
-  const body = `${top}
-${sections}`;
 
   return layout({ title: SITE.title, description: SITE.description, body, home: true });
 }
@@ -315,6 +287,7 @@ async function build() {
       date,
       tags,
       description,
+      excerpt: makeExcerpt(getBody(raw)),
       pinned,
       category,
       body: getBody(raw).trim(),
