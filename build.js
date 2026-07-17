@@ -26,9 +26,11 @@ const SITE = {
   // Shown small in the corner of every page (your wordmark / nav-home link).
   title: "Terence Bumah",
   // The big hero intro on the homepage. Make this personal — it's your front door.
-  heroHeading: "Thinking in the *open*",
+  heroHeading: "Rethinking *Longevity*",
+  // A short line shown under the hero heading. Set to "" to hide it.
+  heroSubtext: "How I'm approaching my health and wealth, so I can live longer, better, and free from stress in my later years.",
   // Used for the <meta name=\"description\"> SEO tag.
-  description: "Personal reflections on life, work, and figuring things out.",
+  description: "Documenting my longevity journey — health and wealth — and what I'm learning along the way.",
   author: "Terence Bumah",
   // Contact / social links shown in the footer of every page.
   // Edit the URLs below; delete any line you don't want to show.
@@ -128,6 +130,7 @@ function layout({ title, description, body, home = false }) {
     ? `<header class="site-hero">
     <p class="hero-eyebrow"><a href="/">${escapeHtml(SITE.title)}</a></p>
     <h1 class="hero-heading">${escapeHtml(SITE.heroHeading).replace(/\*([^*]+)\*/g, "<em>$1</em>")}</h1>
+    ${SITE.heroSubtext ? `<p class="hero-text">${escapeHtml(SITE.heroSubtext)}</p>` : ""}
   </header>`
     : `<header class="site-header">
     <a class="site-title" href="/">${escapeHtml(SITE.title)}</a>
@@ -187,7 +190,6 @@ ${post.body}
 function feedItem(p) {
   return `        <article class="feed-item">
           <a class="feed-item-link" href="/posts/${escapeHtml(p.slug)}.html">
-            <span class="feed-item-cat">${escapeHtml(p.category)}</span>
             <h2 class="feed-item-title">${escapeHtml(p.title)}</h2>
             ${p.excerpt ? `<p class="feed-item-excerpt">${escapeHtml(p.excerpt)}</p>` : ""}
             <span class="feed-item-more">Read<span class="feed-item-arrow">\u2192</span></span>
