@@ -24,11 +24,11 @@ const STYLES_SRC = path.join(ROOT, "src", "styles.css");
 // ---- Site configuration -----------------------------------------------------
 const SITE = {
   // Shown small in the corner of every page (your wordmark / nav-home link).
-  title: "Terence Bumah",
+  title: "The Long Run",
   // The big hero intro on the homepage. Make this personal — it's your front door.
-  heroHeading: "Rethinking *Longevity*",
+  heroHeading: "The Long *Run*",
   // A short line shown under the hero heading. Set to "" to hide it.
-  heroSubtext: "How I'm approaching my health and wealth, so I can live longer, better, and free from stress in my later years.",
+  heroSubtext: "Rethinking longevity — how I'm approaching my health and wealth so I can enjoy a longer, stress-free life.",
   // Used for the <meta name=\"description\"> SEO tag.
   description: "Documenting my longevity journey — health and wealth — and what I'm learning along the way.",
   author: "Terence Bumah",
@@ -128,7 +128,6 @@ function slugify(name) {
 function layout({ title, description, body, home = false }) {
   const header = home
     ? `<header class="site-hero">
-    <p class="hero-eyebrow"><a href="/">${escapeHtml(SITE.title)}</a></p>
     <h1 class="hero-heading">${escapeHtml(SITE.heroHeading).replace(/\*([^*]+)\*/g, "<em>$1</em>")}</h1>
     ${SITE.heroSubtext ? `<p class="hero-text">${escapeHtml(SITE.heroSubtext)}</p>` : ""}
   </header>`
