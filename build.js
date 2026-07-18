@@ -28,7 +28,7 @@ const SITE = {
   // The big hero intro on the homepage. Make this personal — it's your front door.
   heroHeading: "The Long *Run*",
   // A short line shown under the hero heading. Set to "" to hide it.
-  heroSubtext: "Sharing the experiments, discoveries, and lessons from my longevity journey.",
+  heroSubtext: "Longevity isn't just about living longer — it's about living well, longer. Sharing my experiments and everything I learn about building a longer, better life.",
   // Used for the <meta name=\"description\"> SEO tag.
   description: "Documenting my longevity journey — health and wealth — and what I'm learning along the way.",
   author: "Terence Bumah",
