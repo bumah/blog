@@ -1,0 +1,42 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="title" content="Paystack: How Two Engineers Built the Stripe of Africa">
+<meta name="date" content="2025-11-02">
+<meta name="description" content="Paystack won by obsessing over one thing everyone else treated as an afterthought: making it stupidly easy for an African business to accept a payment online.">
+<title>Paystack: How Two Engineers Built the Stripe of Africa</title>
+</head>
+<body>
+
+<p>In 2020, Stripe paid a reported $200m+ to acquire a Nigerian startup that was barely four years old. That startup was Paystack, and the acquisition sent a very loud signal: the infrastructure for African commerce was being built, and it was world-class. So how did two engineers in Lagos build something Stripe wanted badly enough to buy? Let's work backwards.</p>
+
+<h2>The problem was embarrassingly basic</h2>
+
+<p>Start with the thing that's easy to miss from the outside: accepting an online payment in Nigeria was genuinely painful. Integrations were clunky, failure rates were high, and a huge share of transactions simply didn't go through. For a business, every failed payment is a lost sale and a lost customer. The "market" wasn't some exotic new behaviour — it was the same commerce happening everywhere, just badly served by the plumbing underneath it.</p>
+
+<p>The founders, Shola Akinlade and Ezra Olubi, didn't set out to reinvent finance. They set out to make one thing work reliably: a business could drop in a few lines of code and start taking payments that actually completed.</p>
+
+<h2>They won developers first, on purpose</h2>
+
+<p>Here's the move I find most instructive. Paystack treated developers as the primary customer, long before that was obvious in the market they were in. Clean documentation. A few lines to integrate. APIs that behaved the way engineers expected. It was, quite deliberately, the Stripe playbook applied to a context Stripe wasn't serving.</p>
+
+<p>Why does that matter so much? Because in payments, the developer is the person who decides which provider a business uses. Win the person doing the integration and you win the business — and you win it stickily, because ripping out payment infrastructure is a nightmare nobody volunteers for. Paystack's obsession with developer experience was a distribution strategy dressed up as a docs page.</p>
+
+<h2>Reliability was the actual product</h2>
+
+<p>It's tempting to say the product was "an API." It wasn't. The product was <em>a payment that goes through</em>. In a market with high transaction-failure rates, being the provider whose payments simply worked was a devastating advantage. Every percentage point of success rate you claw back is real money for every merchant on your platform.</p>
+
+<p>This is the unglamorous truth of a lot of infrastructure companies: the winning feature is reliability, and reliability is boring, invisible, and brutally hard. Paystack competed on the thing customers only notice when it's absent — and made that the whole pitch.</p>
+
+<h2>Deep beats broad, early on</h2>
+
+<p>Paystack didn't try to conquer all of Africa on day one. It went deep in Nigeria first — one hard, real market — and earned trust there before expanding. That focus meant it understood the local reality intimately: the banks, the card networks, the failure modes, the regulatory texture. You can't fake that knowledge, and it's exactly what makes a payments business defensible.</p>
+
+<p>By the time it expanded to Ghana, South Africa, and beyond, it was exporting a system that had already been hardened against the messiest conditions. Deep-then-broad, not broad-then-thin.</p>
+
+<h2>What I take from it</h2>
+
+<p>Reverse-engineered, Paystack's win is almost suspiciously simple. It picked a real, boring, universal problem — payments that fail — and refused to treat it as boring. It won the developers who make the buying decision. It competed on reliability, the one thing that's hard to copy and impossible to fake. And it went deep in one market before going wide.</p>
+
+<p>The lesson I keep with me: you don't need a novel market to build something enormous. You need an essential one that's being served badly, and the discipline to make the unglamorous part — the part that just has to <em>work</em> — better than anyone else. Stripe didn't buy a clever idea. It bought a company that had made commerce reliable where it wasn't.</p>
+
+</body></html>
