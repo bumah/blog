@@ -27,14 +27,14 @@ const STYLES_SRC = path.join(ROOT, "src", "styles.css");
 // ---- Site configuration -----------------------------------------------------
 const SITE = {
   // Wordmark shown top-left in the nav on every page (links home).
-  name: "TTB",
+  name: "Life After 40",
   // The big hero on the home page. Use *stars* to accent a word.
-  homeHeading: "Figuring things out, in the *open*.",
+  homeHeading: "Figuring life out *after 40*.",
   homeSubtext:
-    "Sharing my research, experiments, and lessons on innovation, health, money — and whatever else sparks my curiosity.",
+    "What I'm learning about health, money, business, and thriving after 40.",
   // Used for the <meta name="description"> SEO tag on the home page.
   description:
-    "Terence Bumah — writing in the open about longevity, and about why the world's best products and startups win.",
+    "Terence Bumah — figuring life out after 40. What I'm learning about health, money, business, and thriving in the second half.",
   author: "Terence Bumah",
   // Contact / social links shown in the footer of every page.
   links: [
@@ -48,37 +48,44 @@ const SITE = {
 // folder under posts/ named after its `slug`.
 const BLOGS = [
   {
-    slug: "the-long-run",
-    name: "The Long Run",
-    heroHeading: "The Long *Run*",
+    slug: "health",
+    name: "Health",
+    heroHeading: "Health, *after 40*.",
     heroSubtext:
-      "Longevity isn't just about living longer — it's about living well, longer. Sharing my experiments and everything I learn about building my health and wealth for the long run.",
+      "Longevity, training, and food — what I'm learning about staying strong and living well in the second half.",
     description:
-      "Documenting my longevity journey — health and wealth — and what I'm learning along the way.",
-    tagline:
-      "Documenting how I build my health and wealth for the long run — longevity, in the open.",
+      "Longevity, fitness, and health — what I'm learning about staying strong after 40.",
+    tagline: "Staying strong and living well in the second half.",
   },
   {
-    slug: "one-to-zero",
-    name: "One to Zero",
-    heroHeading: "One to *Zero*",
+    slug: "money",
+    name: "Money",
+    heroHeading: "Money, *after 40*.",
     heroSubtext:
-      "Reverse-engineering the success of the world's best products and startups — working back from what they became to the decisions that got them there.",
+      "Investing, retirement, and building the financial freedom to actually enjoy the years ahead.",
     description:
-      "Reverse-engineering the success of the world's best products and startups.",
-    tagline:
-      "Reverse-engineering the success of the world's best products and startups.",
+      "Investing, retirement, and building financial freedom after 40.",
+    tagline: "Building financial freedom for the years ahead.",
   },
   {
-    slug: "lifes-a-beach",
-    name: "Life's a Beach",
-    heroHeading: "Life's a *Beach*",
+    slug: "business",
+    name: "Business",
+    heroHeading: "Business, *after 40*.",
     heroSubtext:
-      "Life can be rough, life can be calm. Building the systems to enjoy and ride the waves.",
+      "Reverse-engineering the world's best products and startups — and what I'm learning building my own.",
     description:
-      "Personal systems for living easier, clearer, and more enjoyably.",
-    tagline:
-      "Personal systems for an easier, clearer, more enjoyable life.",
+      "Reverse-engineering the success of the world's best products and startups.",
+    tagline: "What the world's best products and startups teach us.",
+  },
+  {
+    slug: "personal-growth",
+    name: "Personal Growth",
+    heroHeading: "Growth, *after 40*.",
+    heroSubtext:
+      "The mindsets and personal systems I use to think clearer, live calmer, and get better with age.",
+    description:
+      "Mindsets and personal systems for getting better with age.",
+    tagline: "Mindsets and systems for getting better with age.",
   },
 ];
 
