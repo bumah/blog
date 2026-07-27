@@ -272,111 +272,20 @@ body {
   .home-top { grid-template-columns: 1fr; gap: 2.5rem; }
 }
 
-/* Home: two blog cards side by side */
-.blog-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  padding: 0 1rem;
-  margin-bottom: 3.5rem;
+/* Home: single chronological feed of all posts, tagged by category */
+.home-feed {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 0 1rem 2rem;
 }
-.blog-card {
+.feed-item-date {
   display: block;
-  padding: 2rem 1.9rem;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: var(--surface);
-  text-decoration: none;
-  color: var(--fg);
-  transition: border-color 0.15s ease, transform 0.15s ease;
-}
-.blog-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-}
-.blog-card-name {
-  margin: 0;
-  font-family: var(--serif);
-  font-size: 1.7rem;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-}
-.blog-card-tagline {
-  margin: 0.7rem 0 1.4rem;
-  color: var(--muted);
-  font-size: 1rem;
-  line-height: 1.55;
-}
-.blog-card-cta {
-  display: inline-block;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.blog-card-arrow {
-  display: inline-block;
-  margin-left: 0.4rem;
-  transition: transform 0.18s ease;
-}
-.blog-card:hover .blog-card-arrow { transform: translateX(4px); }
-
-/* Home: recent posts split by blog */
-.home-recents {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
-  padding: 0 1rem;
-  margin-bottom: 3.5rem;
-}
-.recents-label {
-  margin: 0 0 0.5rem;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--faint);
-}
-.recents-list { display: flex; flex-direction: column; }
-.recent-item {
-  display: block;
-  padding: 1.1rem 0;
-  border-top: 1px solid var(--border);
-  text-decoration: none;
-  color: var(--fg);
-}
-.recent-date {
-  display: block;
-  margin-bottom: 0.3rem;
+  margin-top: 0.55rem;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--faint);
-}
-.recent-title {
-  margin: 0;
-  font-family: var(--serif);
-  font-size: 1.2rem;
-  font-weight: 700;
-  line-height: 1.3;
-  transition: color 0.15s ease;
-}
-.recent-item:hover .recent-title { color: var(--accent); }
-.recents-more {
-  display: inline-block;
-  margin-top: 1rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--accent);
-  text-decoration: none;
-}
-.recents-more:hover { text-decoration: underline; }
-
-@media (max-width: 760px) {
-  .blog-cards { grid-template-columns: 1fr; }
-  .home-recents { grid-template-columns: 1fr; gap: 2rem; }
 }
 
 /* Single post */

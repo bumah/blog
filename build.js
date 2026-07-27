@@ -304,36 +304,15 @@ ${rail}
   });
 }
 
-function blogCard(blog) {
-  const count = blog.posts.length;
-  return `      <a class="blog-card" href="/${blog.slug}/">
-        <h2 class="blog-card-name">${escapeHtml(blog.name)}</h2>
-        <p class="blog-card-tagline">${escapeHtml(blog.tagline)}</p>
-        <span class="blog-card-cta">Explore ${escapeHtml(blog.name)}<span class="blog-card-arrow">\u2192</span></span>
-      </a>`;
-}
-
-function recentItem(p) {
-  return `          <a class="recent-item" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
-            ${p.date ? `<span class="recent-date">${escapeHtml(fmtDate(p.date))}</span>` : ""}
-            <h4 class="recent-title">${escapeHtml(p.title)}</h4>
-          </a>`;
-}
-
-function recentsColumn(blog) {
-  const recent = [...blog.posts]
-    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
-    .slice(0, 3);
-  const items = recent.length
-    ? recent.map(recentItem).join("\n")
-    : `          <p class="feed-empty">Posts coming soon.</p>`;
-  return `      <div class="recents-col">
-        <h3 class="recents-label">Latest from ${escapeHtml(blog.name)}</h3>
-        <div class="recents-list">
-${items}
-        </div>
-        <a class="recents-more" href="/${blog.slug}/">All ${escapeHtml(blog.name)} posts \u2192</a>
-      </div>`;
+function homeFeedItem(p) {
+  return `        <article class="feed-item">
+          <a class="feed-item-link" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
+            <span class="feed-item-cat">${escapeHtml(p.blogName)}</span>
+            <h2 class="feed-item-title">${escapeHtml(p.title)}</h2>
+            ${p.date ? `<span class="feed-item-date">${escapeHtml(fmtDate(p.date))}</span>` : ""}
+            ${p.excerpt ? `<p class="feed-item-excerpt">${escapeHtml(p.excerpt)}</p>` : ""}
+          </a>
+        </article>`;
 }
 
 function homePage() {
@@ -342,16 +321,15 @@ function homePage() {
     ${SITE.homeSubtext ? `<p class="hero-text">${escapeHtml(SITE.homeSubtext)}</p>` : ""}
   </header>`;
 
-  const cards = `    <section class="blog-cards">
-${BLOGS.map(blogCard).join("\n")}
-    </section>`;
+  const allPosts = BLOGS.flatMap((b) =>
+    b.posts.map((p) => ({ ...p, blogName: b.name }))
+  ).sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 
-  const recents = `    <section class="home-recents">
-${BLOGS.map(recentsColumn).join("\n")}
+  const body = `    <section class="home-feed">
+      <div class="feed">
+${allPosts.map(homeFeedItem).join("\n")}
+      </div>
     </section>`;
-
-  const body = `${cards}
-${recents}`;
 
   return layout({
     title: `${SITE.name} — ${SITE.author}`,
