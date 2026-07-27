@@ -107,7 +107,12 @@ function accent(str) {
 
 // Strip tags to get plain text (used for excerpts).
 function stripTags(html) {
-  return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  return html
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 // Build a plain-text intro excerpt from a post's body HTML.
