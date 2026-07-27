@@ -31,10 +31,10 @@ const SITE = {
   // The big hero on the home page. Use *stars* to accent a word.
   homeHeading: "Figuring life out *after 40*.",
   homeSubtext:
-    "What I'm learning about health, money, business, and thriving after 40.",
+    "What I'm learning about health, money, entrepreneurship, and thriving after 40.",
   // Used for the <meta name="description"> SEO tag on the home page.
   description:
-    "Terence Bumah — figuring life out after 40. What I'm learning about health, money, business, and thriving in the second half.",
+    "Terence Bumah — figuring life out after 40. What I'm learning about health, money, entrepreneurship, and thriving in the second half.",
   author: "Terence Bumah",
   // Contact / social links shown in the footer of every page.
   links: [
@@ -68,14 +68,14 @@ const BLOGS = [
     tagline: "Building financial freedom for the years ahead.",
   },
   {
-    slug: "business",
-    name: "Business",
-    heroHeading: "*Business*.",
+    slug: "entrepreneurship",
+    name: "Entrepreneurship",
+    heroHeading: "*Entrepreneurship*.",
     heroSubtext:
-      "Reverse-engineering the world's best products and startups — and what I'm learning building my own.",
+      "Reverse-engineering the world's best products and startups — and building my own in the open.",
     description:
-      "Reverse-engineering the success of the world's best products and startups.",
-    tagline: "What the world's best products and startups teach us.",
+      "Startup teardowns, product frameworks, and building my own ventures in the open.",
+    tagline: "What the best startups teach us — and what I'm building myself.",
   },
   {
     slug: "personal-growth",
@@ -320,19 +320,45 @@ function homeFeedItem(p) {
         </article>`;
 }
 
+function homeFeaturedCard(p) {
+  return `        <a class="featured-card" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
+          <span class="featured-card-cat">${escapeHtml(p.blogName)}</span>
+          <h3 class="featured-card-title">${escapeHtml(p.title)}</h3>
+          ${p.description ? `<p class="featured-card-excerpt">${escapeHtml(p.description)}</p>` : ""}
+          <span class="featured-card-more">Read<span class="feed-item-arrow">\u2192</span></span>
+        </a>`;
+}
+
 function homePage() {
   const heroHtml = `  <header class="site-hero">
     <h1 class="hero-heading">${accent(SITE.homeHeading)}</h1>
     ${SITE.homeSubtext ? `<p class="hero-text">${escapeHtml(SITE.homeSubtext)}</p>` : ""}
   </header>`;
 
-  const allPosts = BLOGS.flatMap((b) =>
+  const withBlog = BLOGS.flatMap((b) =>
     b.posts.map((p) => ({ ...p, blogName: b.name }))
-  ).sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+  );
 
-  const body = `    <section class="home-feed">
+  // Featured = one pinned post per blog, in nav order.
+  const featured = withBlog.filter((p) => p.pinned);
+  // Latest = everything else, newest first.
+  const latest = withBlog
+    .filter((p) => !p.pinned)
+    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+
+  const featuredHtml = featured.length
+    ? `    <section class="home-featured">
+      <h2 class="home-section-label">Featured</h2>
+      <div class="featured-grid">
+${featured.map(homeFeaturedCard).join("\n")}
+      </div>
+    </section>\n`
+    : "";
+
+  const body = `${featuredHtml}    <section class="home-feed">
+      <h2 class="home-section-label">Latest</h2>
       <div class="feed">
-${allPosts.map(homeFeedItem).join("\n")}
+${latest.map(homeFeedItem).join("\n")}
       </div>
     </section>`;
 
