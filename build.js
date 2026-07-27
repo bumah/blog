@@ -50,7 +50,7 @@ const BLOGS = [
   {
     slug: "health",
     name: "Health",
-    heroHeading: "Health, *after 40*.",
+    heroHeading: "*Health*.",
     heroSubtext:
       "Longevity, training, and food — what I'm learning about staying strong and living well in the second half.",
     description:
@@ -60,7 +60,7 @@ const BLOGS = [
   {
     slug: "money",
     name: "Money",
-    heroHeading: "Money, *after 40*.",
+    heroHeading: "*Money*.",
     heroSubtext:
       "Investing, retirement, and building the financial freedom to actually enjoy the years ahead.",
     description:
@@ -70,7 +70,7 @@ const BLOGS = [
   {
     slug: "business",
     name: "Business",
-    heroHeading: "Business, *after 40*.",
+    heroHeading: "*Business*.",
     heroSubtext:
       "Reverse-engineering the world's best products and startups — and what I'm learning building my own.",
     description:
@@ -80,7 +80,7 @@ const BLOGS = [
   {
     slug: "personal-growth",
     name: "Personal Growth",
-    heroHeading: "Growth, *after 40*.",
+    heroHeading: "*Growth*.",
     heroSubtext:
       "The mindsets and personal systems I use to think clearer, live calmer, and get better with age.",
     description:
