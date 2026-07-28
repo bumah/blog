@@ -242,6 +242,7 @@ function postPage(post, blog) {
   const body = `    <article class="post">
       <header class="post-header">
         <h1 class="post-title">${escapeHtml(post.title)}</h1>
+        ${post.date ? `<p class="post-date">${escapeHtml(fmtDate(post.date))}</p>` : ""}
         ${tags}
       </header>
       <div class="post-body">
@@ -314,7 +315,6 @@ function homeFeedItem(p) {
           <a class="feed-item-link" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
             <span class="feed-item-cat">${escapeHtml(p.blogName)}</span>
             <h2 class="feed-item-title">${escapeHtml(p.title)}</h2>
-            ${p.date ? `<span class="feed-item-date">${escapeHtml(fmtDate(p.date))}</span>` : ""}
             ${p.excerpt ? `<p class="feed-item-excerpt">${escapeHtml(p.excerpt)}</p>` : ""}
           </a>
         </article>`;

@@ -358,6 +358,14 @@ body {
   text-transform: uppercase;
   color: var(--faint);
 }
+.post-date {
+  margin: 1rem 0 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
 
 /* Single post */
 .post {
