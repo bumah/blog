@@ -72,7 +72,7 @@ const BLOGS = [
     name: "Entrepreneurship",
     heroHeading: "*Entrepreneurship*.",
     heroSubtext:
-      "Reverse-engineering the world's best products and startups — and building my own in the open.",
+      "Thoughts, frameworks, and lessons learned on entrepreneurship.",
     description:
       "Startup teardowns, product frameworks, and building my own ventures in the open.",
     tagline: "What the best startups teach us — and what I'm building myself.",
