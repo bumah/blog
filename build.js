@@ -27,11 +27,11 @@ const STYLES_SRC = path.join(ROOT, "src", "styles.css");
 // ---- Site configuration -----------------------------------------------------
 const SITE = {
   // Wordmark shown top-left in the nav on every page (links home).
-  name: "Life After 40",
+  name: "TTB",
   // The big hero on the home page. Use *stars* to accent a word.
-  homeHeading: "Figuring life out *after 40*.",
+  homeHeading: "Reflections, Ideas & *Experiments*.",
   homeSubtext:
-    "What I'm learning about health, money, entrepreneurship, and thriving after 40.",
+    "Lessons learned and thoughts on health, wealth, entrepreneurship, and life after 40.",
   // Used for the <meta name="description"> SEO tag on the home page.
   description:
     "Terence Bumah — figuring life out after 40. What I'm learning about health, money, entrepreneurship, and thriving in the second half.",
