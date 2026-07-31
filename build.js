@@ -87,6 +87,16 @@ const BLOGS = [
       "Mindsets and personal systems for getting better with age.",
     tagline: "Mindsets and systems for getting better with age.",
   },
+  {
+    slug: "publications",
+    name: "Publications",
+    heroHeading: "*Publications*.",
+    heroSubtext:
+      "Original frameworks and longer-form work. Ideas developed in depth, starting with The SOURCE Framework.",
+    description:
+      "Original frameworks and long-form publications by Terence Bumah.",
+    tagline: "Original frameworks, developed in depth.",
+  },
 ];
 
 // ---- Tiny HTML helpers ------------------------------------------------------
