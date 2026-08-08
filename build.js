@@ -1,15 +1,16 @@
-// Static site generator for a multi-blog publication.
-// Each blog lives in posts/<blog-slug>/ as a folder of .html files. Metadata is
+// Static site generator for a personal notebook.
+// Each post lives in posts/<topic-slug>/ as a folder of .html files. Metadata is
 // read from the HTML itself. The generator writes:
-//   /                       -> home (intros both blogs + recent posts from each)
-//   /<blog-slug>/           -> that blog's index (feed + featured rail)
-//   /<blog-slug>/<slug>.html-> a single post
+//   /                        -> home: one stream of all Posts + topic filters
+//   /<topic-slug>/           -> that topic's stream (a filtered view)
+//   /publications/           -> the Publications section
+//   /<section-slug>/<slug>.html -> a single post
 //
 // Per-post metadata is read (in order of preference) from:
 //   title       -> <meta name="title">, else <title>, else first <h1>, else filename
 //   date        -> <meta name="date" content="YYYY-MM-DD">, else file modified time
 //   description -> <meta name="description">, else first <p>, else ""
-//   pinned      -> <meta name="pinned" content="true">  (surfaces in Featured)
+//   pinned      -> <meta name="pinned" content="true">  (still read; no longer surfaced)
 //
 // You can write each post as a normal, complete HTML document. Only the contents
 // of <body> are rendered (the rest of your <head> is ignored), so the shared
@@ -29,12 +30,10 @@ const SITE = {
   // Wordmark shown top-left in the nav on every page (links home).
   name: "TTB",
   // The big hero on the home page. Use *stars* to accent a word.
-  homeHeading: "Reflections, Ideas & *Experiments*.",
-  homeSubtext:
-    "Lessons learned and thoughts on health, wealth, entrepreneurship, and life after 40.",
+  homeHeading: "Things I'm *thinking about*\u2026",
   // Used for the <meta name="description"> SEO tag on the home page.
   description:
-    "Terence Bumah — figuring life out after 40. What I'm learning about health, money, entrepreneurship, and thriving in the second half.",
+    "Terence Bumah \u2014 things I'm thinking about. Notes on health, money, entrepreneurship, and life after 40.",
   author: "Terence Bumah",
   // Contact / social links shown in the footer of every page.
   links: [
@@ -44,60 +43,53 @@ const SITE = {
   ],
 };
 
-// The blogs, shown in this order in the nav and on the home page. Each blog is a
-// folder under posts/ named after its `slug`.
+// Two sections: "posts" (the mixed stream, filterable by topic) and
+// "publications" (longer-form frameworks, kept separate). Topics are the folders
+// under posts/ whose section is "posts"; they become the filter chips.
 const BLOGS = [
   {
     slug: "health",
     name: "Health",
+    section: "posts",
     heroHeading: "*Health*.",
-    heroSubtext:
-      "Longevity, training, and food — what I'm learning about staying strong and living well in the second half.",
     description:
-      "Longevity, fitness, and health — what I'm learning about staying strong after 40.",
-    tagline: "Staying strong and living well in the second half.",
+      "Longevity, fitness, and health \u2014 what I'm learning about staying strong after 40.",
   },
   {
     slug: "money",
     name: "Money",
+    section: "posts",
     heroHeading: "*Money*.",
-    heroSubtext:
-      "Investing, retirement, and building the financial freedom to actually enjoy the years ahead.",
     description:
       "Investing, retirement, and building financial freedom after 40.",
-    tagline: "Building financial freedom for the years ahead.",
   },
   {
     slug: "entrepreneurship",
     name: "Entrepreneurship",
+    section: "posts",
     heroHeading: "*Entrepreneurship*.",
-    heroSubtext:
-      "Thoughts, frameworks, and lessons learned on entrepreneurship.",
     description:
       "Startup teardowns, product frameworks, and building my own ventures in the open.",
-    tagline: "What the best startups teach us — and what I'm building myself.",
   },
   {
     slug: "personal-growth",
     name: "Personal Growth",
+    section: "posts",
     heroHeading: "*Growth*.",
-    heroSubtext:
-      "The mindsets and personal systems I use to think clearer, live calmer, and get better with age.",
     description:
       "Mindsets and personal systems for getting better with age.",
-    tagline: "Mindsets and systems for getting better with age.",
   },
   {
     slug: "publications",
     name: "Publications",
+    section: "publications",
     heroHeading: "*Publications*.",
-    heroSubtext:
-      "Original frameworks and longer-form work. Ideas developed in depth, starting with The SOURCE Framework.",
     description:
       "Original frameworks and long-form publications by Terence Bumah.",
-    tagline: "Original frameworks, developed in depth.",
   },
 ];
+
+const TOPICS = BLOGS.filter((b) => b.section === "posts");
 
 // ---- Tiny HTML helpers ------------------------------------------------------
 
@@ -192,15 +184,13 @@ function fmtDate(iso) {
 
 // ---- Page templates ---------------------------------------------------------
 
-// Top navigation. `active` is a blog slug, or "home" for the home page.
+// Top navigation. `active` is a section key: "posts" or "publications".
 function nav(active) {
-  const links = BLOGS.map(
-    (b) =>
-      `<a class="nav-link${b.slug === active ? " is-active" : ""}" href="/${b.slug}/">${escapeHtml(b.name)}</a>`
-  ).join("");
+  const item = (name, href, key) =>
+    `<a class="nav-link${active === key ? " is-active" : ""}" href="${href}">${escapeHtml(name)}</a>`;
   return `  <nav class="site-nav">
-    <a class="nav-brand${active === "home" ? " is-active" : ""}" href="/">${escapeHtml(SITE.name)}</a>
-    <div class="nav-links">${links}</div>
+    <a class="nav-brand" href="/">${escapeHtml(SITE.name)}</a>
+    <div class="nav-links">${item("Posts", "/", "posts")}${item("Publications", "/publications/", "publications")}</div>
   </nav>`;
 }
 
@@ -239,16 +229,43 @@ ${body}
 function blogHero(blog) {
   return `  <header class="site-hero">
     <h1 class="hero-heading">${accent(blog.heroHeading)}</h1>
-    ${blog.heroSubtext ? `<p class="hero-text">${escapeHtml(blog.heroSubtext)}</p>` : ""}
   </header>`;
 }
 
+// Topic filter chips. `activeTopic` is a topic slug, or "all" on the home page.
+// The chips are real links (each topic has its own page), so they work without
+// JavaScript; on the home page a small script filters the stream in place.
+function chipRow(activeTopic) {
+  const chip = (slug, name, href) =>
+    `<a class="chip${activeTopic === slug ? " is-active" : ""}" href="${href}" data-topic="${slug}">${escapeHtml(name)}</a>`;
+  return `      <nav class="chip-row">
+        ${chip("all", "All", "/")}
+        ${TOPICS.map((t) => chip(t.slug, t.name, `/${t.slug}/`)).join("\n        ")}
+      </nav>`;
+}
+
+// One item in a stream. `showCat` adds the topic label (used on the home page,
+// where posts from every topic are mixed together).
+function streamItem(p, showCat) {
+  return `        <article class="feed-item" data-topic="${escapeHtml(p.blogSlug)}">
+          <a class="feed-item-link" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
+            ${showCat ? `<span class="feed-item-cat">${escapeHtml(p.blogName)}</span>` : ""}
+            <h2 class="feed-item-title">${escapeHtml(p.title)}</h2>
+            ${p.excerpt ? `<p class="feed-item-excerpt">${escapeHtml(p.excerpt)}</p>` : ""}
+            ${p.date ? `<span class="feed-item-date">${escapeHtml(fmtDate(p.date))}</span>` : ""}
+          </a>
+        </article>`;
+}
+
 function postPage(post, blog) {
+  const isPub = blog.section === "publications";
   const tags = post.tags.length
     ? `<ul class="tag-list">${post.tags
         .map((t) => `<li class="tag">${escapeHtml(t)}</li>`)
         .join("")}</ul>`
     : "";
+  const backHref = isPub ? "/publications/" : `/${blog.slug}/`;
+  const backText = isPub ? "All publications" : `All ${blog.name} posts`;
   const body = `    <article class="post">
       <header class="post-header">
         <h1 class="post-title">${escapeHtml(post.title)}</h1>
@@ -258,125 +275,100 @@ function postPage(post, blog) {
       <div class="post-body">
 ${post.body}
       </div>
-      <p class="back"><a href="/${blog.slug}/">&larr; All ${escapeHtml(blog.name)} posts</a></p>
+      <p class="back"><a href="${backHref}">&larr; ${escapeHtml(backText)}</a></p>
     </article>`;
   return layout({
     title: post.title,
     description: post.description,
     body,
-    active: blog.slug,
+    active: isPub ? "publications" : "posts",
   });
 }
 
-function feedItem(p) {
-  return `        <article class="feed-item">
-          <a class="feed-item-link" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
-            <h2 class="feed-item-title">${escapeHtml(p.title)}</h2>
-            ${p.excerpt ? `<p class="feed-item-excerpt">${escapeHtml(p.excerpt)}</p>` : ""}
-            <span class="feed-item-more">Read<span class="feed-item-arrow">\u2192</span></span>
-          </a>
-        </article>`;
-}
-
-function featuredItem(p) {
-  return `          <a class="featured-item" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
-            <h4 class="featured-item-title">${escapeHtml(p.title)}</h4>
-            ${p.description ? `<p class="featured-item-excerpt">${escapeHtml(p.description)}</p>` : ""}
-          </a>`;
-}
-
-function blogIndexPage(blog) {
-  const posts = blog.posts;
-  const featured = posts.filter((p) => p.pinned);
-  const feed = posts.filter((p) => !p.pinned);
-
-  const rail = featured.length
-    ? `      <aside class="featured-rail">
-        <h2 class="rail-label">Featured</h2>
-        <div class="featured-list">
-${featured.map(featuredItem).join("\n")}
-        </div>
-      </aside>`
-    : "";
-
-  const feedHtml = feed.length
-    ? feed.map(feedItem).join("\n")
+// A topic page: hero + chips (this topic active) + that topic's stream.
+function topicIndexPage(blog) {
+  const feedHtml = blog.posts.length
+    ? blog.posts.map((p) => streamItem(p, false)).join("\n")
     : `        <p class="feed-empty">More posts coming soon.</p>`;
-
-  const body = `    <div class="home-top">
+  const body = `    <section class="home-feed">
+${chipRow(blog.slug)}
       <div class="feed">
 ${feedHtml}
       </div>
-${rail}
-    </div>`;
-
+    </section>`;
   return layout({
     title: `${blog.name} — ${SITE.name}`,
     description: blog.description,
     body,
-    active: blog.slug,
+    active: "posts",
     heroHtml: blogHero(blog),
     wide: true,
   });
 }
 
-function homeFeedItem(p) {
-  return `        <article class="feed-item">
-          <a class="feed-item-link" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
-            <span class="feed-item-cat">${escapeHtml(p.blogName)}</span>
-            <h2 class="feed-item-title">${escapeHtml(p.title)}</h2>
-            ${p.excerpt ? `<p class="feed-item-excerpt">${escapeHtml(p.excerpt)}</p>` : ""}
-          </a>
-        </article>`;
+// The Publications section: hero + a single stream (no topic chips).
+function publicationsIndexPage(blog) {
+  const feedHtml = blog.posts.length
+    ? blog.posts.map((p) => streamItem(p, false)).join("\n")
+    : `        <p class="feed-empty">More coming soon.</p>`;
+  const body = `    <section class="home-feed">
+      <div class="feed">
+${feedHtml}
+      </div>
+    </section>`;
+  return layout({
+    title: `${blog.name} — ${SITE.name}`,
+    description: blog.description,
+    body,
+    active: "publications",
+    heroHtml: blogHero(blog),
+    wide: true,
+  });
 }
 
-function homeFeaturedCard(p) {
-  return `        <a class="featured-card" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
-          <span class="featured-card-cat">${escapeHtml(p.blogName)}</span>
-          <h3 class="featured-card-title">${escapeHtml(p.title)}</h3>
-          ${p.description ? `<p class="featured-card-excerpt">${escapeHtml(p.description)}</p>` : ""}
-          <span class="featured-card-more">Read<span class="feed-item-arrow">\u2192</span></span>
-        </a>`;
-}
+const FILTER_SCRIPT = `    <script>
+    (function () {
+      var row = document.querySelector('.chip-row');
+      if (!row) return;
+      var chips = row.querySelectorAll('.chip');
+      var items = document.querySelectorAll('.feed-item');
+      row.addEventListener('click', function (e) {
+        var chip = e.target.closest('.chip');
+        if (!chip || !row.contains(chip)) return;
+        e.preventDefault();
+        var topic = chip.getAttribute('data-topic');
+        chips.forEach(function (c) { c.classList.toggle('is-active', c === chip); });
+        items.forEach(function (it) {
+          var show = topic === 'all' || it.getAttribute('data-topic') === topic;
+          it.style.display = show ? '' : 'none';
+        });
+      });
+    })();
+    </script>`;
 
 function homePage() {
   const heroHtml = `  <header class="site-hero">
     <h1 class="hero-heading">${accent(SITE.homeHeading)}</h1>
-    ${SITE.homeSubtext ? `<p class="hero-text">${escapeHtml(SITE.homeSubtext)}</p>` : ""}
   </header>`;
 
-  const withBlog = BLOGS.flatMap((b) =>
+  // Everything in the "posts" section, mixed together, newest first.
+  const stream = TOPICS.flatMap((b) =>
     b.posts.map((p) => ({ ...p, blogName: b.name }))
-  );
+  ).sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 
-  // Featured = one pinned post per blog, in nav order.
-  const featured = withBlog.filter((p) => p.pinned);
-  // Latest = everything else, newest first.
-  const latest = withBlog
-    .filter((p) => !p.pinned)
-    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
-
-  const featuredHtml = featured.length
-    ? `    <section class="home-featured">
-      <h2 class="home-section-label">Featured</h2>
-      <div class="featured-grid">
-${featured.map(homeFeaturedCard).join("\n")}
-      </div>
-    </section>\n`
-    : "";
-
-  const body = `${featuredHtml}    <section class="home-feed">
-      <h2 class="home-section-label">Latest</h2>
+  const body = `    <section class="home-feed">
+${chipRow("all")}
       <div class="feed">
-${latest.map(homeFeedItem).join("\n")}
+${stream.map((p) => streamItem(p, true)).join("\n")}
       </div>
-    </section>`;
+    </section>
+${FILTER_SCRIPT}`;
 
   return layout({
     title: `${SITE.name} — ${SITE.author}`,
     description: SITE.description,
     body,
-    active: "home",
+    active: "posts",
     heroHtml,
     wide: true,
   });
@@ -428,11 +420,8 @@ async function readPostsFor(blog) {
     });
   }
 
-  // Pinned posts first, then newest first within each group.
-  posts.sort((a, b) => {
-    if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
-    return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
-  });
+  // Newest first.
+  posts.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 
   return posts;
 }
@@ -456,7 +445,9 @@ async function build() {
     }
     await writeFile(
       path.join(DIST_DIR, blog.slug, "index.html"),
-      blogIndexPage(blog),
+      blog.section === "publications"
+        ? publicationsIndexPage(blog)
+        : topicIndexPage(blog),
       "utf8"
     );
     total += blog.posts.length;
@@ -466,7 +457,7 @@ async function build() {
   await writeFile(path.join(DIST_DIR, "index.html"), homePage(), "utf8");
   await copyFile(STYLES_SRC, path.join(DIST_DIR, "styles.css"));
 
-  console.log(`Built ${total} post${total === 1 ? "" : "s"} across ${BLOGS.length} blogs -> ${path.relative(ROOT, DIST_DIR)}/`);
+  console.log(`Built ${total} post${total === 1 ? "" : "s"} across ${BLOGS.length} folders -> ${path.relative(ROOT, DIST_DIR)}/`);
   for (const blog of BLOGS) {
     console.log(`  ${blog.name} (${blog.posts.length})`);
     for (const p of blog.posts) console.log(`    - ${p.date}  ${p.title}`);
