@@ -107,12 +107,30 @@ function accent(str) {
   return escapeHtml(str).replace(/\*([^*]+)\*/g, "<em>$1</em>");
 }
 
+// Decode the HTML entities we actually use in posts, so plain-text excerpts
+// show real characters (™, ·, →) instead of literal "&trade;" strings.
+function decodeEntities(s) {
+  const map = {
+    "&mdash;": "\u2014", "&ndash;": "\u2013", "&trade;": "\u2122",
+    "&middot;": "\u00b7", "&rarr;": "\u2192", "&nbsp;": " ",
+    "&minus;": "\u2212", "&euro;": "\u20ac", "&hellip;": "\u2026",
+    "&rsquo;": "\u2019", "&lsquo;": "\u2018", "&ldquo;": "\u201c",
+    "&rdquo;": "\u201d", "&deg;": "\u00b0", "&times;": "\u00d7",
+    "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#39;": "'",
+  };
+  return s
+    .replace(/&(?:#39|[a-z]+);/gi, (m) => (m in map ? map[m] : m))
+    .replace(/&amp;/g, "&");
+}
+
 // Strip tags to get plain text (used for excerpts).
 function stripTags(html) {
-  return html
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<[^>]+>/g, " ")
+  return decodeEntities(
+    html
+      .replace(/<style[\s\S]*?<\/style>/gi, " ")
+      .replace(/<script[\s\S]*?<\/script>/gi, " ")
+      .replace(/<[^>]+>/g, " ")
+  )
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -414,7 +432,12 @@ async function readPostsFor(blog) {
       date,
       tags,
       description,
-      excerpt: makeExcerpt(getBody(raw)),
+      // Publications open with a subtitle + byline block, so an auto-excerpt
+      // scrapes that chrome. Use their authored description as the card summary.
+      excerpt:
+        blog.section === "publications"
+          ? description
+          : makeExcerpt(getBody(raw)),
       pinned,
       body: getBody(raw).trim(),
     });
