@@ -83,13 +83,16 @@ const BLOGS = [
     slug: "publications",
     name: "Publications",
     section: "publications",
-    heroHeading: "*Publications*.",
+    heroHeading: "Risk Publications",
     description:
-      "Original frameworks and long-form publications by Terence Bumah.",
+      "Risk frameworks for enterprises, longevity and startups, by Terence Bumah.",
   },
 ];
 
 const TOPICS = BLOGS.filter((b) => b.section === "posts");
+
+// Fixed running order for the publications section (overrides date sort).
+const CATEGORY_ORDER = ["Enterprises", "Longevity", "Startups"];
 
 // ---- Tiny HTML helpers ------------------------------------------------------
 
@@ -265,9 +268,13 @@ function chipRow(activeTopic) {
 // One item in a stream. `showCat` adds the topic label (used on the home page,
 // where posts from every topic are mixed together).
 function streamItem(p, showCat) {
+  // Publications carry a domain label (Enterprises/Longevity/Startups); the
+  // mixed home feed shows the topic name instead.
+  const label =
+    p.blogSlug === "publications" ? p.category : showCat ? p.blogName : "";
   return `        <article class="feed-item" data-topic="${escapeHtml(p.blogSlug)}">
           <a class="feed-item-link" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
-            ${showCat ? `<span class="feed-item-cat">${escapeHtml(p.blogName)}</span>` : ""}
+            ${label ? `<span class="feed-item-cat">${escapeHtml(label)}</span>` : ""}
             <h2 class="feed-item-title">${escapeHtml(p.title)}</h2>
             ${p.excerpt ? `<p class="feed-item-excerpt">${escapeHtml(p.excerpt)}</p>` : ""}
             ${p.date ? `<span class="feed-item-date">${escapeHtml(fmtDate(p.date))}</span>` : ""}
@@ -424,6 +431,7 @@ async function readPostsFor(blog) {
 
     const description = getMeta(raw, "description") || getFirstParagraph(raw) || "";
     const pinned = (getMeta(raw, "pinned") || "").toLowerCase() === "true";
+    const category = getMeta(raw, "category") || "";
 
     posts.push({
       slug: slugify(file),
@@ -431,6 +439,7 @@ async function readPostsFor(blog) {
       title,
       date,
       tags,
+      category,
       description,
       // Publications open with a subtitle + byline block, so an auto-excerpt
       // scrapes that chrome. Use their authored description as the card summary.
@@ -445,6 +454,14 @@ async function readPostsFor(blog) {
 
   // Newest first.
   posts.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+
+  // Publications run in a fixed domain order, not by date.
+  if (blog.section === "publications") {
+    posts.sort(
+      (a, b) =>
+        CATEGORY_ORDER.indexOf(a.category) - CATEGORY_ORDER.indexOf(b.category)
+    );
+  }
 
   return posts;
 }
