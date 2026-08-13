@@ -92,7 +92,7 @@ const BLOGS = [
 const TOPICS = BLOGS.filter((b) => b.section === "posts");
 
 // Fixed running order for the publications section (overrides date sort).
-const CATEGORY_ORDER = ["Enterprises", "Longevity", "Startups"];
+const CATEGORY_ORDER = ["Enterprises", "AI", "Longevity", "Startups"];
 
 // ---- Tiny HTML helpers ------------------------------------------------------
 
