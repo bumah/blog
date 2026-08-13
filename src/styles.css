@@ -138,6 +138,13 @@ body {
   font-style: italic;
   color: var(--accent);
 }
+.hero-subtext {
+  max-width: 34rem;
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
 .hero-text {
   max-width: 34rem;
   margin: 1.25rem 0 0;

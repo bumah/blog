@@ -1,9 +1,8 @@
 // Static site generator for a personal notebook.
 // Each post lives in posts/<section-slug>/ as a folder of .html files. Metadata
 // is read from the HTML itself. The generator writes:
-//   /                        -> home: the Notes stream
-//   /survival-system/        -> the Survival System section (fixed order)
-//   /publications/           -> the Publications section (fixed order)
+//   /                        -> home: the Notes stream (date-sorted)
+//   /working-papers/         -> the Working Papers section (fixed order)
 //   /<section-slug>/<slug>.html -> a single post
 //
 // Per-post metadata is read (in order of preference) from:
@@ -28,12 +27,14 @@ const STYLES_SRC = path.join(ROOT, "src", "styles.css");
 // ---- Site configuration -----------------------------------------------------
 const SITE = {
   // Wordmark shown top-left in the nav on every page (links home).
-  name: "TTB",
+  name: "Risk Thinking",
   // The big hero on the home page. Use *stars* to accent a word.
-  homeHeading: "Things I'm *thinking about*\u2026",
+  homeHeading: "Risk *Thinking*",
+  // One line under the home hero.
+  subtext: "Navigating everyday risk to get what you want in life.",
   // Used for the <meta name="description"> SEO tag on the home page.
   description:
-    "Terence Bumah \u2014 things I'm thinking about. Notes on health, money, entrepreneurship, and life after 40.",
+    "Risk Thinking by Terence Bumah. Navigating everyday risk to get what you want in life. Notes on health, money, business and life after 40.",
   author: "Terence Bumah",
   // Contact / social links shown in the footer of every page.
   links: [
@@ -43,12 +44,11 @@ const SITE = {
   ],
 };
 
-// Three sections, one folder each under posts/:
-//   notes           -> the main stream (lands on the home page)
-//   survival-system -> systems for different settings, in a fixed order
-//   publications    -> longer-form risk frameworks, in a fixed order
-// A curated section (survival-system, publications) carries an `order` array of
-// category labels and runs in that order instead of by date.
+// Two sections, one folder each under posts/:
+//   notes          -> the main stream (lands on the home page, date-sorted)
+//   working-papers -> longer-form risk frameworks, in a fixed order
+// A curated section (working-papers) carries an `order` array of category
+// labels and runs in that order instead of by date.
 const BLOGS = [
   {
     slug: "notes",
@@ -56,27 +56,15 @@ const BLOGS = [
     section: "posts",
     heroHeading: "*Notes*.",
     description:
-      "Short notes on health, money and life after 40, by Terence Bumah.",
+      "Short notes on the risks of everyday life, and how to stay ahead of them, by Terence Bumah.",
   },
   {
-    slug: "survival-system",
-    name: "Survival System",
-    section: "survival",
-    heroHeading: "The Survival System",
+    slug: "working-papers",
+    name: "Working Papers",
+    section: "working-papers",
+    heroHeading: "Working *Papers*",
     description:
-      "Systems I use to survive and do well across different settings, by Terence Bumah.",
-    order: [
-      "Mental", "Retirement", "Relationships", "Respect", "Money",
-      "Workplace", "Startup", "Society", "Leadership",
-    ],
-  },
-  {
-    slug: "publications",
-    name: "Publications",
-    section: "publications",
-    heroHeading: "Risk Publications",
-    description:
-      "Risk frameworks for enterprises, longevity and startups, by Terence Bumah.",
+      "Longer-form risk frameworks for enterprises, longevity and startups, by Terence Bumah.",
     order: ["Enterprises", "AI", "Longevity", "Startups"],
   },
 ];
@@ -192,14 +180,13 @@ function fmtDate(iso) {
 
 // ---- Page templates ---------------------------------------------------------
 
-// Top navigation. `active` is a section slug:
-// "notes", "survival-system" or "publications".
+// Top navigation. `active` is a section slug: "notes" or "working-papers".
 function nav(active) {
   const item = (name, href, key) =>
     `<a class="nav-link${active === key ? " is-active" : ""}" href="${href}">${escapeHtml(name)}</a>`;
   return `  <nav class="site-nav">
     <a class="nav-brand" href="/">${escapeHtml(SITE.name)}</a>
-    <div class="nav-links">${item("Notes", "/", "notes")}${item("Survival System", "/survival-system/", "survival-system")}${item("Publications", "/publications/", "publications")}</div>
+    <div class="nav-links">${item("Notes", "/", "notes")}${item("Working Papers", "/working-papers/", "working-papers")}</div>
   </nav>`;
 }
 
@@ -267,8 +254,8 @@ function postPage(post, blog) {
   const backText =
     blog.slug === "notes"
       ? "All notes"
-      : blog.slug === "publications"
-      ? "All publications"
+      : blog.slug === "working-papers"
+      ? "All working papers"
       : `Back to ${blog.name}`;
   const body = `    <article class="post">
       <header class="post-header">
@@ -313,6 +300,7 @@ ${feedHtml}
 function homePage() {
   const heroHtml = `  <header class="site-hero">
     <h1 class="hero-heading">${accent(SITE.homeHeading)}</h1>
+    ${SITE.subtext ? `<p class="hero-subtext">${escapeHtml(SITE.subtext)}</p>` : ""}
   </header>`;
 
   // The Notes stream lands on the home page, newest first.
@@ -377,10 +365,10 @@ async function readPostsFor(blog) {
       tags,
       category,
       description,
-      // Publications open with a subtitle + byline block, so an auto-excerpt
+      // Working papers open with a subtitle + byline block, so an auto-excerpt
       // scrapes that chrome. Use their authored description as the card summary.
       excerpt:
-        blog.section === "publications"
+        blog.section === "working-papers"
           ? description
           : makeExcerpt(getBody(raw)),
       pinned,
