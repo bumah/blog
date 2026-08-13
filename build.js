@@ -1,9 +1,9 @@
 // Static site generator for a personal notebook.
-// Each post lives in posts/<topic-slug>/ as a folder of .html files. Metadata is
-// read from the HTML itself. The generator writes:
-//   /                        -> home: one stream of all Posts + topic filters
-//   /<topic-slug>/           -> that topic's stream (a filtered view)
-//   /publications/           -> the Publications section
+// Each post lives in posts/<section-slug>/ as a folder of .html files. Metadata
+// is read from the HTML itself. The generator writes:
+//   /                        -> home: the Notes stream
+//   /survival-system/        -> the Survival System section (fixed order)
+//   /publications/           -> the Publications section (fixed order)
 //   /<section-slug>/<slug>.html -> a single post
 //
 // Per-post metadata is read (in order of preference) from:
@@ -43,41 +43,32 @@ const SITE = {
   ],
 };
 
-// Two sections: "posts" (the mixed stream, filterable by topic) and
-// "publications" (longer-form frameworks, kept separate). Topics are the folders
-// under posts/ whose section is "posts"; they become the filter chips.
+// Three sections, one folder each under posts/:
+//   notes           -> the main stream (lands on the home page)
+//   survival-system -> systems for different settings, in a fixed order
+//   publications    -> longer-form risk frameworks, in a fixed order
+// A curated section (survival-system, publications) carries an `order` array of
+// category labels and runs in that order instead of by date.
 const BLOGS = [
   {
-    slug: "health",
-    name: "Health",
+    slug: "notes",
+    name: "Notes",
     section: "posts",
-    heroHeading: "*Health*.",
+    heroHeading: "*Notes*.",
     description:
-      "Longevity, fitness, and health \u2014 what I'm learning about staying strong after 40.",
+      "Short notes on health, money and life after 40, by Terence Bumah.",
   },
   {
-    slug: "money",
-    name: "Money",
-    section: "posts",
-    heroHeading: "*Money*.",
+    slug: "survival-system",
+    name: "Survival System",
+    section: "survival",
+    heroHeading: "The Survival System",
     description:
-      "Investing, retirement, and building financial freedom after 40.",
-  },
-  {
-    slug: "entrepreneurship",
-    name: "Entrepreneurship",
-    section: "posts",
-    heroHeading: "*Entrepreneurship*.",
-    description:
-      "Startup teardowns, product frameworks, and building my own ventures in the open.",
-  },
-  {
-    slug: "personal-growth",
-    name: "Personal Growth",
-    section: "posts",
-    heroHeading: "*Growth*.",
-    description:
-      "Mindsets and personal systems for getting better with age.",
+      "Systems I use to survive and do well across different settings, by Terence Bumah.",
+    order: [
+      "Mental", "Retirement", "Relationships", "Respect", "Money",
+      "Workplace", "Startup", "Society", "Leadership",
+    ],
   },
   {
     slug: "publications",
@@ -86,13 +77,9 @@ const BLOGS = [
     heroHeading: "Risk Publications",
     description:
       "Risk frameworks for enterprises, longevity and startups, by Terence Bumah.",
+    order: ["Enterprises", "AI", "Longevity", "Startups"],
   },
 ];
-
-const TOPICS = BLOGS.filter((b) => b.section === "posts");
-
-// Fixed running order for the publications section (overrides date sort).
-const CATEGORY_ORDER = ["Enterprises", "AI", "Longevity", "Startups"];
 
 // ---- Tiny HTML helpers ------------------------------------------------------
 
@@ -205,13 +192,14 @@ function fmtDate(iso) {
 
 // ---- Page templates ---------------------------------------------------------
 
-// Top navigation. `active` is a section key: "posts" or "publications".
+// Top navigation. `active` is a section slug:
+// "notes", "survival-system" or "publications".
 function nav(active) {
   const item = (name, href, key) =>
     `<a class="nav-link${active === key ? " is-active" : ""}" href="${href}">${escapeHtml(name)}</a>`;
   return `  <nav class="site-nav">
     <a class="nav-brand" href="/">${escapeHtml(SITE.name)}</a>
-    <div class="nav-links">${item("Posts", "/", "posts")}${item("Publications", "/publications/", "publications")}</div>
+    <div class="nav-links">${item("Notes", "/", "notes")}${item("Survival System", "/survival-system/", "survival-system")}${item("Publications", "/publications/", "publications")}</div>
   </nav>`;
 }
 
@@ -253,25 +241,12 @@ function blogHero(blog) {
   </header>`;
 }
 
-// Topic filter chips. `activeTopic` is a topic slug, or "all" on the home page.
-// The chips are real links (each topic has its own page), so they work without
-// JavaScript; on the home page a small script filters the stream in place.
-function chipRow(activeTopic) {
-  const chip = (slug, name, href) =>
-    `<a class="chip${activeTopic === slug ? " is-active" : ""}" href="${href}" data-topic="${slug}">${escapeHtml(name)}</a>`;
-  return `      <nav class="chip-row">
-        ${chip("all", "All", "/")}
-        ${TOPICS.map((t) => chip(t.slug, t.name, `/${t.slug}/`)).join("\n        ")}
-      </nav>`;
-}
-
-// One item in a stream. `showCat` adds the topic label (used on the home page,
-// where posts from every topic are mixed together).
+// One item in a stream. `showCat` falls back to the section name when a post
+// has no category label of its own.
 function streamItem(p, showCat) {
-  // Publications carry a domain label (Enterprises/Longevity/Startups); the
-  // mixed home feed shows the topic name instead.
-  const label =
-    p.blogSlug === "publications" ? p.category : showCat ? p.blogName : "";
+  // Curated posts carry a category label (a risk domain or a survival setting);
+  // otherwise fall back to the section name when asked.
+  const label = p.category || (showCat ? p.blogName : "");
   return `        <article class="feed-item" data-topic="${escapeHtml(p.blogSlug)}">
           <a class="feed-item-link" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
             ${label ? `<span class="feed-item-cat">${escapeHtml(label)}</span>` : ""}
@@ -283,14 +258,18 @@ function streamItem(p, showCat) {
 }
 
 function postPage(post, blog) {
-  const isPub = blog.section === "publications";
   const tags = post.tags.length
     ? `<ul class="tag-list">${post.tags
         .map((t) => `<li class="tag">${escapeHtml(t)}</li>`)
         .join("")}</ul>`
     : "";
-  const backHref = isPub ? "/publications/" : `/${blog.slug}/`;
-  const backText = isPub ? "All publications" : `All ${blog.name} posts`;
+  const backHref = blog.slug === "notes" ? "/" : `/${blog.slug}/`;
+  const backText =
+    blog.slug === "notes"
+      ? "All notes"
+      : blog.slug === "publications"
+      ? "All publications"
+      : `Back to ${blog.name}`;
   const body = `    <article class="post">
       <header class="post-header">
         <h1 class="post-title">${escapeHtml(post.title)}</h1>
@@ -306,33 +285,13 @@ ${post.body}
     title: post.title,
     description: post.description,
     body,
-    active: isPub ? "publications" : "posts",
+    active: blog.slug,
   });
 }
 
-// A topic page: hero + chips (this topic active) + that topic's stream.
-function topicIndexPage(blog) {
-  const feedHtml = blog.posts.length
-    ? blog.posts.map((p) => streamItem(p, false)).join("\n")
-    : `        <p class="feed-empty">More posts coming soon.</p>`;
-  const body = `    <section class="home-feed">
-${chipRow(blog.slug)}
-      <div class="feed">
-${feedHtml}
-      </div>
-    </section>`;
-  return layout({
-    title: `${blog.name} — ${SITE.name}`,
-    description: blog.description,
-    body,
-    active: "posts",
-    heroHtml: blogHero(blog),
-    wide: true,
-  });
-}
-
-// The Publications section: hero + a single stream (no topic chips).
-function publicationsIndexPage(blog) {
+// A section page: hero + a single stream (no filters). Used for
+// survival-system and publications.
+function sectionIndexPage(blog) {
   const feedHtml = blog.posts.length
     ? blog.posts.map((p) => streamItem(p, false)).join("\n")
     : `        <p class="feed-empty">More coming soon.</p>`;
@@ -345,55 +304,32 @@ ${feedHtml}
     title: `${blog.name} — ${SITE.name}`,
     description: blog.description,
     body,
-    active: "publications",
+    active: blog.slug,
     heroHtml: blogHero(blog),
     wide: true,
   });
 }
-
-const FILTER_SCRIPT = `    <script>
-    (function () {
-      var row = document.querySelector('.chip-row');
-      if (!row) return;
-      var chips = row.querySelectorAll('.chip');
-      var items = document.querySelectorAll('.feed-item');
-      row.addEventListener('click', function (e) {
-        var chip = e.target.closest('.chip');
-        if (!chip || !row.contains(chip)) return;
-        e.preventDefault();
-        var topic = chip.getAttribute('data-topic');
-        chips.forEach(function (c) { c.classList.toggle('is-active', c === chip); });
-        items.forEach(function (it) {
-          var show = topic === 'all' || it.getAttribute('data-topic') === topic;
-          it.style.display = show ? '' : 'none';
-        });
-      });
-    })();
-    </script>`;
 
 function homePage() {
   const heroHtml = `  <header class="site-hero">
     <h1 class="hero-heading">${accent(SITE.homeHeading)}</h1>
   </header>`;
 
-  // Everything in the "posts" section, mixed together, newest first.
-  const stream = TOPICS.flatMap((b) =>
-    b.posts.map((p) => ({ ...p, blogName: b.name }))
-  ).sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+  // The Notes stream lands on the home page, newest first.
+  const notes = BLOGS.find((b) => b.slug === "notes");
+  const stream = notes ? notes.posts : [];
 
   const body = `    <section class="home-feed">
-${chipRow("all")}
       <div class="feed">
-${stream.map((p) => streamItem(p, true)).join("\n")}
+${stream.map((p) => streamItem(p, false)).join("\n")}
       </div>
-    </section>
-${FILTER_SCRIPT}`;
+    </section>`;
 
   return layout({
     title: `${SITE.name} — ${SITE.author}`,
     description: SITE.description,
     body,
-    active: "posts",
+    active: "notes",
     heroHtml,
     wide: true,
   });
@@ -455,11 +391,10 @@ async function readPostsFor(blog) {
   // Newest first.
   posts.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 
-  // Publications run in a fixed domain order, not by date.
-  if (blog.section === "publications") {
+  // Curated sections run in a fixed category order, not by date.
+  if (blog.order) {
     posts.sort(
-      (a, b) =>
-        CATEGORY_ORDER.indexOf(a.category) - CATEGORY_ORDER.indexOf(b.category)
+      (a, b) => blog.order.indexOf(a.category) - blog.order.indexOf(b.category)
     );
   }
 
@@ -485,9 +420,7 @@ async function build() {
     }
     await writeFile(
       path.join(DIST_DIR, blog.slug, "index.html"),
-      blog.section === "publications"
-        ? publicationsIndexPage(blog)
-        : topicIndexPage(blog),
+      sectionIndexPage(blog),
       "utf8"
     );
     total += blog.posts.length;
