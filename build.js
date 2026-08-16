@@ -257,6 +257,53 @@ function streamItem(p, showCat) {
         </article>`;
 }
 
+// Cover art for working papers. Each category gets a distinct, category-
+// coloured SVG motif so the papers read as visual cards, not text rows.
+const PAPER_ART = {
+  Enterprises: {
+    a: "#3a5a8c",
+    b: "#243a63",
+    motif: `<g fill="#ffffff"><circle cx="240" cy="150" r="80" fill="none" stroke="#ffffff" stroke-opacity=".22" stroke-width="2"/><circle cx="240" cy="72" r="10" opacity=".9"/><circle cx="301" cy="101" r="10" opacity=".9"/><circle cx="316" cy="167" r="10" opacity=".9"/><circle cx="274" cy="220" r="10" opacity=".9"/><circle cx="206" cy="220" r="10" opacity=".9"/><circle cx="164" cy="167" r="10" opacity=".9"/><circle cx="179" cy="101" r="10" opacity=".9"/><circle cx="240" cy="150" r="15" opacity=".95"/></g>`,
+  },
+  AI: {
+    a: "#2f6f7d",
+    b: "#1f4a55",
+    motif: `<g stroke="#ffffff" stroke-opacity=".2" stroke-width="1.6"><line x1="175" y1="100" x2="240" y2="120"/><line x1="175" y1="100" x2="240" y2="180"/><line x1="175" y1="150" x2="240" y2="120"/><line x1="175" y1="150" x2="240" y2="180"/><line x1="175" y1="200" x2="240" y2="120"/><line x1="175" y1="200" x2="240" y2="180"/><line x1="240" y1="120" x2="305" y2="150"/><line x1="240" y1="180" x2="305" y2="150"/></g><g fill="#ffffff" opacity=".92"><circle cx="175" cy="100" r="9"/><circle cx="175" cy="150" r="9"/><circle cx="175" cy="200" r="9"/><circle cx="240" cy="120" r="9"/><circle cx="240" cy="180" r="9"/><circle cx="305" cy="150" r="11"/></g>`,
+  },
+  Longevity: {
+    a: "#2f7d5f",
+    b: "#1f5540",
+    motif: `<g fill="none" stroke="#ffffff"><polygon stroke-opacity=".32" stroke-width="2.4" points="314,181 269,226 211,226 166,181 166,119 211,76 269,76 314,119"/><g stroke-opacity=".16" stroke-width="1.4"><line x1="240" y1="150" x2="314" y2="181"/><line x1="240" y1="150" x2="269" y2="226"/><line x1="240" y1="150" x2="211" y2="226"/><line x1="240" y1="150" x2="166" y2="181"/><line x1="240" y1="150" x2="166" y2="119"/><line x1="240" y1="150" x2="211" y2="76"/><line x1="240" y1="150" x2="269" y2="76"/><line x1="240" y1="150" x2="314" y2="119"/></g></g><circle cx="240" cy="150" r="11" fill="#ffffff" opacity=".9"/>`,
+  },
+  Startups: {
+    a: "#c07a2e",
+    b: "#8a5320",
+    motif: `<g fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".85"><polyline points="150,222 205,182 245,206 298,146 348,96"/><polyline points="322,96 348,96 348,122"/></g><g fill="#ffffff" opacity=".9"><circle cx="205" cy="182" r="6"/><circle cx="245" cy="206" r="6"/><circle cx="298" cy="146" r="6"/></g>`,
+  },
+};
+
+function paperCover(category) {
+  const art = PAPER_ART[category] || PAPER_ART.Enterprises;
+  const id = "pg-" + slugify(category || "paper");
+  return `<svg class="paper-svg" viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${art.a}"/><stop offset="1" stop-color="${art.b}"/></linearGradient></defs><rect width="480" height="300" fill="url(#${id})"/>${art.motif}</svg>`;
+}
+
+// One working paper: a wide horizontal card with a cover image on the left.
+function paperItem(p) {
+  const summary = p.excerpt || p.description || "";
+  return `        <article class="paper" data-topic="${escapeHtml(p.blogSlug)}">
+          <a class="paper-link" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
+            <div class="paper-cover">${paperCover(p.category)}</div>
+            <div class="paper-body">
+              ${p.category ? `<span class="paper-cat">${escapeHtml(p.category)}</span>` : ""}
+              <h2 class="paper-title">${escapeHtml(p.title)}</h2>
+              ${summary ? `<p class="paper-excerpt">${escapeHtml(summary)}</p>` : ""}
+              <span class="paper-more">Read the paper &rarr;</span>
+            </div>
+          </a>
+        </article>`;
+}
+
 function postPage(post, blog) {
   const tags = post.tags.length
     ? `<ul class="tag-list">${post.tags
@@ -292,11 +339,15 @@ ${post.body}
 // A section page: hero + a single stream (no filters). Used for
 // survival-system and publications.
 function sectionIndexPage(blog) {
+  const isPapers = blog.section === "working-papers";
+  const items = isPapers
+    ? blog.posts.map(paperItem)
+    : blog.posts.map((p) => streamItem(p, false));
   const feedHtml = blog.posts.length
-    ? blog.posts.map((p) => streamItem(p, false)).join("\n")
+    ? items.join("\n")
     : `        <p class="feed-empty">More coming soon.</p>`;
   const body = `    <section class="home-feed">
-      <div class="feed">
+      <div class="${isPapers ? "papers" : "feed"}">
 ${feedHtml}
       </div>
     </section>`;
