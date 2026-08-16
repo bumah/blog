@@ -392,17 +392,26 @@ function aboutPage() {
     <h1 class="hero-heading">Why think like a risk officer?</h1>
   </header>`;
 
+  const photo = SITE.photo
+    ? `<img src="${escapeHtml(SITE.photo)}" alt="${escapeHtml(SITE.author)}">`
+    : `<div class="photo-ph"><span>TB</span><small>Your photo</small></div>`;
+
   const body = `    <article class="post about-page">
       <div class="post-body">
-        <p>Life is full of risks, some avoidable, others not. Starting a business, investing money, taking a new job or getting married: every important decision involves uncertainty.</p>
+        <p class="about-lede">Life is full of risks, some avoidable, others not. Starting a business, investing money, taking a new job or getting married: every important decision involves uncertainty.</p>
         <p>In each case, success starts with not failing. That's what thinking like a risk officer can help you do in everyday life.</p>
         <p>My approach is simple. In each post, I look at how things can go wrong, then share practical frameworks to help you improve your odds.</p>
         <p>This isn't about avoiding risk. The goal is to take the right risks with clarity, not to avoid every risk that comes your way. Whether the subject is health, money, business or personal growth, the method is the same: identify what could go wrong, assess it and make smarter decisions.</p>
         <p>Nothing in life is guaranteed. But you can improve your chances of success by reducing your chances of failure.</p>
-        <h2>About me</h2>
-        <p>I'm Terence Bumah. I spent 20 years managing risk in financial services, where my job was to identify what could go wrong and help people navigate the risks.</p>
-        <p>Risk Thinking applies that same discipline to everyday life. The frameworks used to protect institutions can be just as useful for protecting your health, your money, your work and the choices that shape how well you live.</p>
       </div>
+      <section class="about-me">
+        <figure class="about-photo">${photo}</figure>
+        <div class="about-me-body post-body">
+          <h2>About me</h2>
+          <p>I'm Terence Bumah. I spent 20 years managing risk in financial services, where my job was to identify what could go wrong and help people navigate the risks.</p>
+          <p>Risk Thinking applies that same discipline to everyday life. The frameworks used to protect institutions can be just as useful for protecting your health, your money, your work and the choices that shape how well you live.</p>
+        </div>
+      </section>
     </article>`;
 
   return layout({
@@ -494,6 +503,18 @@ async function build() {
   // Fresh dist/.
   await rm(DIST_DIR, { recursive: true, force: true });
   await mkdir(DIST_DIR, { recursive: true });
+
+  // Pick up a personal photo for the About page if one is dropped in src/.
+  // Drop a file named terence.jpg (or .jpeg/.png/.webp) into blog/src/.
+  const photoNames = ["terence.jpg", "terence.jpeg", "terence.png", "terence.webp"];
+  for (const name of photoNames) {
+    try {
+      await stat(path.join(ROOT, "src", name));
+      await copyFile(path.join(ROOT, "src", name), path.join(DIST_DIR, name));
+      SITE.photo = "/" + name;
+      break;
+    } catch {}
+  }
 
   let total = 0;
   for (const blog of BLOGS) {

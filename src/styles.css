@@ -496,6 +496,61 @@ body {
   margin: 0;
 }
 
+/* About page */
+.about-page { margin-top: 0.5rem; }
+.about-lede {
+  font-size: 1.35rem;
+  line-height: 1.6;
+  color: var(--fg);
+}
+.about-me {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2.75rem;
+  align-items: start;
+  margin-top: 3.25rem;
+  padding-top: 2.75rem;
+  border-top: 1px solid var(--border);
+}
+.about-photo { margin: 0; }
+.about-photo img,
+.about-photo .photo-ph {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+  object-fit: cover;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.about-photo .photo-ph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.about-photo .photo-ph span {
+  font-family: var(--serif);
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: -0.02em;
+}
+.about-photo .photo-ph small {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.about-me-body { font-size: 1.12rem; line-height: 1.7; }
+.about-me-body h2 { margin-top: 0; }
+@media (max-width: 640px) {
+  .about-me { grid-template-columns: 1fr; gap: 1.75rem; }
+  .about-photo { max-width: 220px; }
+}
+
 /* Tags */
 .tag-list {
   list-style: none;
