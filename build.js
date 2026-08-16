@@ -388,15 +388,12 @@ ${stream.map((p) => streamItem(p, false)).join("\n")}
 }
 
 function aboutPage() {
-  const heroHtml = `  <header class="site-hero">
-    <h1 class="hero-heading">Why think like a risk officer?</h1>
-  </header>`;
-
   const photo = SITE.photo
     ? `<img src="${escapeHtml(SITE.photo)}" alt="${escapeHtml(SITE.author)}">`
     : `<div class="photo-ph"><span>TB</span><small>Your photo</small></div>`;
 
   const body = `    <article class="post about-page">
+      <h1 class="about-title">Why think like a risk officer?</h1>
       <div class="post-body">
         <p class="about-lede">Life is full of risks, some avoidable, others not. Starting a business, investing money, taking a new job or getting married: every important decision involves uncertainty.</p>
         <p>In each case, success starts with not failing. That's what thinking like a risk officer can help you do in everyday life.</p>
@@ -409,7 +406,7 @@ function aboutPage() {
         <div class="about-me-body post-body">
           <h2>About me</h2>
           <p>I'm Terence Bumah. I spent 20 years managing risk in financial services, where my job was to identify what could go wrong and help people navigate the risks.</p>
-          <p>Risk Thinking applies that same discipline to everyday life. The frameworks used to protect institutions can be just as useful for protecting your health, your money, your work and the choices that shape how well you live.</p>
+          <p>I try to apply that same discipline to everyday life because I believe frameworks used to protect institutions can be just as useful for improving our health, finances, relationships, and the choices that shape our lives.</p>
         </div>
       </section>
     </article>`;
@@ -420,7 +417,6 @@ function aboutPage() {
       "Why Terence Bumah thinks like a risk officer, and how 20 years managing risk in financial services shapes Risk Thinking.",
     body,
     active: "about",
-    heroHtml,
   });
 }
 

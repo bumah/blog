@@ -501,6 +501,15 @@ body {
   max-width: 52rem;
   margin: 0.5rem auto 4rem;
 }
+.about-title {
+  margin: 3rem 0 2rem;
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 6vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--fg);
+}
 /* Keep the opening argument at a comfortable reading measure. */
 .about-page > .post-body { max-width: 40rem; }
 .about-lede {
