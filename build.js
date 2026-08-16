@@ -29,9 +29,9 @@ const SITE = {
   // Wordmark shown top-left in the nav on every page (links home).
   name: "Risk Thinking",
   // The big hero on the home page. Use *stars* to accent a word.
-  homeHeading: "Risk *Thinking*",
+  homeHeading: "Think like a *risk officer*",
   // One line under the home hero.
-  subtext: "Think like a risk officer. Twenty years of managing risk, applied to real life.",
+  subtext: "20 years of managing risk, applied to real life to help you make smarter decisions about health, money, business and life.",
   // Used for the <meta name="description"> SEO tag on the home page.
   description:
     "Risk Thinking by Terence Bumah. Think like a risk officer: twenty years managing risk in financial services, applied to everyday life. Notes on health, money, business and personal growth.",
@@ -325,18 +325,19 @@ ${stream.map((p) => streamItem(p, false)).join("\n")}
 
 function aboutPage() {
   const heroHtml = `  <header class="site-hero">
-    <h1 class="hero-heading">Why think like a risk officer</h1>
+    <h1 class="hero-heading">Why think like a risk officer?</h1>
   </header>`;
 
   const body = `    <article class="post about-page">
       <div class="post-body">
-        <p>Success starts with not failing. That is what thinking like a risk officer helps you do in everyday life.</p>
-        <p>The approach is simple. I look at the different ways things can go wrong, then share simple frameworks you can apply to improve your odds. Nothing in life is guaranteed. It is all about improving your chances of success by reducing your chances of failure.</p>
-        <p>This is not about avoiding risk. The goal is to take the right risks with clear eyes, not to dodge every risk you meet. Across health, money, business and personal growth, the method stays the same: see what could go wrong, weigh it, and make the smarter move.</p>
-        <p>Every post here names a risk worth navigating and gives you a way to stay ahead of it.</p>
+        <p>Life is full of risks, some avoidable, others not. Starting a business, investing money, taking a new job or getting married: every important decision involves uncertainty.</p>
+        <p>In each case, success starts with not failing. That's what thinking like a risk officer can help you do in everyday life.</p>
+        <p>My approach is simple. In each post, I look at how things can go wrong, then share practical frameworks to help you improve your odds.</p>
+        <p>This isn't about avoiding risk. The goal is to take the right risks with clarity, not to avoid every risk that comes your way. Whether the subject is health, money, business or personal growth, the method is the same: identify what could go wrong, assess it and make smarter decisions.</p>
+        <p>Nothing in life is guaranteed. But you can improve your chances of success by reducing your chances of failure.</p>
         <h2>About me</h2>
-        <p>I am Terence Bumah. I spent 20 years managing risk in financial services, where my job was to see what could go wrong before it did, and to help take the right risks anyway.</p>
-        <p>Risk Thinking is me turning that same discipline on everyday life. The frameworks that protect banks turn out to be just as useful for protecting your health, your money, your work, and the choices that shape how well you live.</p>
+        <p>I'm Terence Bumah. I spent 20 years managing risk in financial services, where my job was to identify what could go wrong and help people navigate the risks.</p>
+        <p>Risk Thinking applies that same discipline to everyday life. The frameworks used to protect institutions can be just as useful for protecting your health, your money, your work and the choices that shape how well you live.</p>
       </div>
     </article>`;
 
