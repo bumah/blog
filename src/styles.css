@@ -497,7 +497,12 @@ body {
 }
 
 /* About page */
-.about-page { margin-top: 0.5rem; }
+.about-page {
+  max-width: 52rem;
+  margin: 0.5rem auto 4rem;
+}
+/* Keep the opening argument at a comfortable reading measure. */
+.about-page > .post-body { max-width: 40rem; }
 .about-lede {
   font-size: 1.35rem;
   line-height: 1.6;
@@ -505,11 +510,11 @@ body {
 }
 .about-me {
   display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 2.75rem;
+  grid-template-columns: 300px 1fr;
+  gap: 3rem;
   align-items: start;
-  margin-top: 3.25rem;
-  padding-top: 2.75rem;
+  margin-top: 3.5rem;
+  padding-top: 3rem;
   border-top: 1px solid var(--border);
 }
 .about-photo { margin: 0; }
@@ -517,7 +522,7 @@ body {
 .about-photo .photo-ph {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 2 / 3;
   border-radius: 16px;
   object-fit: cover;
   background: var(--surface);
@@ -548,7 +553,7 @@ body {
 .about-me-body h2 { margin-top: 0; }
 @media (max-width: 640px) {
   .about-me { grid-template-columns: 1fr; gap: 1.75rem; }
-  .about-photo { max-width: 220px; }
+  .about-photo { max-width: 260px; }
 }
 
 /* Tags */
