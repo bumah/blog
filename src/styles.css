@@ -213,60 +213,81 @@ body {
   margin-bottom: 3.5rem;
   padding: 0 1rem;
 }
-/* Main post feed (large blocks with intro text) */
-.feed { display: flex; flex-direction: column; }
-.feed-item { border-bottom: 1px solid var(--border); }
-.feed-item-link {
-  display: block;
-  padding: 1.9rem 0;
-  text-decoration: none;
-  color: var(--fg);
+/* Post grid: numbered, episode-style cards */
+.feed {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.6rem;
 }
-.feed-item:first-child .feed-item-link { padding-top: 0; }
-.feed-item-cat {
+.card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+.card-link { display: block; text-decoration: none; color: var(--fg); }
+.card-cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 10;
+  padding: 1rem;
+  background: #2c2c2c;
+}
+.card-num {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 5.5vw, 3rem);
+  line-height: 1.05;
+  color: #fff;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+.card-body { padding: 1.1rem 1.2rem 1.3rem; }
+.card-cat {
   display: inline-block;
-  margin-bottom: 0.75rem;
-  padding: 0.2rem 0.7rem;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent);
+  margin-bottom: 0.55rem;
   font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.feed-item-title {
+.card-title {
   margin: 0;
   font-family: var(--serif);
-  font-size: 1.9rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.015em;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
   transition: color 0.15s ease;
 }
-.feed-item-link:hover .feed-item-title { color: var(--accent); }
-.feed-item-excerpt {
-  margin: 0.65rem 0 0;
-  color: var(--muted);
-  font-size: 1.02rem;
-  line-height: 1.6;
-}
-.feed-item-more {
-  display: inline-block;
-  margin-top: 1rem;
-  font-size: 0.78rem;
+.card-link:hover .card-title { color: var(--accent); }
+.card-date {
+  display: block;
+  margin-top: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--faint);
 }
-.feed-item-arrow {
-  display: inline-block;
-  margin-left: 0.35rem;
-  transition: transform 0.18s ease;
-}
-.feed-item-link:hover .feed-item-arrow { transform: translateX(4px); }
 .feed-empty { color: var(--muted); }
+
+/* Category colours (cover background + label) */
+.cat-health .card-cover { background: #2f7d5f; }
+.cat-health .card-cat { color: #2f7d5f; }
+.cat-money .card-cover { background: #bf8a2e; }
+.cat-money .card-cat { color: #bf8a2e; }
+.cat-business .card-cover { background: #3a5a8c; }
+.cat-business .card-cat { color: #3a5a8c; }
+.cat-growth .card-cover { background: #6b4e9e; }
+.cat-growth .card-cat { color: #6b4e9e; }
+.cat-default .card-cat { color: var(--muted); }
 
 .featured-rail { align-self: start; }
 .rail-label {
@@ -377,20 +398,10 @@ body {
   .featured-grid { grid-template-columns: 1fr; }
 }
 
-/* Home: single chronological feed of all posts, tagged by category */
+/* Home: grid of numbered posts, tagged by category */
 .home-feed {
-  max-width: 44rem;
   margin: 0 auto;
   padding: 0 1rem 2rem;
-}
-.feed-item-date {
-  display: block;
-  margin-top: 0.55rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--faint);
 }
 .post-date {
   margin: 1rem 0 0;

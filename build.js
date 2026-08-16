@@ -26,8 +26,10 @@ const STYLES_SRC = path.join(ROOT, "src", "styles.css");
 
 // ---- Site configuration -----------------------------------------------------
 const SITE = {
-  // Wordmark shown top-left in the nav on every page (links home).
+  // Site name, used in page <title> chrome.
   name: "Risk Thinking",
+  // Wordmark shown top-left in the nav on every page (links home).
+  wordmark: "Terence Bumah",
   // The big hero on the home page. Use *stars* to accent a word.
   homeHeading: "Think like a *risk officer*",
   // One line under the home hero.
@@ -185,7 +187,7 @@ function nav(active) {
   const item = (name, href, key) =>
     `<a class="nav-link${active === key ? " is-active" : ""}" href="${href}">${escapeHtml(name)}</a>`;
   return `  <nav class="site-nav">
-    <a class="nav-brand" href="/">${escapeHtml(SITE.name)}</a>
+    <a class="nav-brand" href="/">${escapeHtml(SITE.wordmark || SITE.name)}</a>
     <div class="nav-links">${item("Notes", "/", "notes")}${item("Working Papers", "/working-papers/", "working-papers")}${item("About", "/about/", "about")}</div>
   </nav>`;
 }
@@ -228,18 +230,29 @@ function blogHero(blog) {
   </header>`;
 }
 
-// One item in a stream. `showCat` falls back to the section name when a post
-// has no category label of its own.
+// Maps each category to a CSS class that colours the card cover + label.
+const CAT_CLASS = {
+  Health: "cat-health",
+  Money: "cat-money",
+  Business: "cat-business",
+  "Personal Growth": "cat-growth",
+};
+
+// One card in a stream. Notes carry a series number ("No. 12") on the cover;
+// working papers show their category label instead. `showCat` falls back to the
+// section name when a post has no category label of its own.
 function streamItem(p, showCat) {
-  // Curated posts carry a category label (a risk domain or a survival setting);
-  // otherwise fall back to the section name when asked.
   const label = p.category || (showCat ? p.blogName : "");
-  return `        <article class="feed-item" data-topic="${escapeHtml(p.blogSlug)}">
-          <a class="feed-item-link" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
-            ${label ? `<span class="feed-item-cat">${escapeHtml(label)}</span>` : ""}
-            <h2 class="feed-item-title">${escapeHtml(p.title)}</h2>
-            ${p.excerpt ? `<p class="feed-item-excerpt">${escapeHtml(p.excerpt)}</p>` : ""}
-            ${p.date ? `<span class="feed-item-date">${escapeHtml(fmtDate(p.date))}</span>` : ""}
+  const catClass = CAT_CLASS[p.category] || "cat-default";
+  const cover = p.number != null ? `No. ${p.number}` : label || "Paper";
+  return `        <article class="card ${catClass}" data-topic="${escapeHtml(p.blogSlug)}">
+          <a class="card-link" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
+            <div class="card-cover"><span class="card-num">${escapeHtml(cover)}</span></div>
+            <div class="card-body">
+              ${label ? `<span class="card-cat">${escapeHtml(label)}</span>` : ""}
+              <h2 class="card-title">${escapeHtml(p.title)}</h2>
+              ${p.date ? `<span class="card-date">${escapeHtml(fmtDate(p.date))}</span>` : ""}
+            </div>
           </a>
         </article>`;
 }
@@ -412,6 +425,15 @@ async function readPostsFor(blog) {
     posts.sort(
       (a, b) => blog.order.indexOf(a.category) - blog.order.indexOf(b.category)
     );
+  }
+
+  // Number the Notes as a series: oldest is No. 1, newest the highest.
+  // Posts are date-sorted newest first, so index 0 gets the top number.
+  if (blog.section === "posts") {
+    const n = posts.length;
+    posts.forEach((p, i) => {
+      p.number = n - i;
+    });
   }
 
   return posts;
