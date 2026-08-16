@@ -31,10 +31,10 @@ const SITE = {
   // The big hero on the home page. Use *stars* to accent a word.
   homeHeading: "Risk *Thinking*",
   // One line under the home hero.
-  subtext: "Navigating everyday risk to get what you want in life.",
+  subtext: "Think like a risk officer. Twenty years of managing risk, applied to real life.",
   // Used for the <meta name="description"> SEO tag on the home page.
   description:
-    "Risk Thinking by Terence Bumah. Navigating everyday risk to get what you want in life. Notes on health, money, business and life after 40.",
+    "Risk Thinking by Terence Bumah. Think like a risk officer: twenty years managing risk in financial services, applied to everyday life. Notes on health, money, business and personal growth.",
   author: "Terence Bumah",
   // Contact / social links shown in the footer of every page.
   links: [
@@ -186,7 +186,7 @@ function nav(active) {
     `<a class="nav-link${active === key ? " is-active" : ""}" href="${href}">${escapeHtml(name)}</a>`;
   return `  <nav class="site-nav">
     <a class="nav-brand" href="/">${escapeHtml(SITE.name)}</a>
-    <div class="nav-links">${item("Notes", "/", "notes")}${item("Working Papers", "/working-papers/", "working-papers")}</div>
+    <div class="nav-links">${item("Notes", "/", "notes")}${item("Working Papers", "/working-papers/", "working-papers")}${item("About", "/about/", "about")}</div>
   </nav>`;
 }
 
@@ -323,6 +323,33 @@ ${stream.map((p) => streamItem(p, false)).join("\n")}
   });
 }
 
+function aboutPage() {
+  const heroHtml = `  <header class="site-hero">
+    <h1 class="hero-heading">Why think like a risk officer</h1>
+  </header>`;
+
+  const body = `    <article class="post about-page">
+      <div class="post-body">
+        <p>Success starts with not failing. That is what thinking like a risk officer helps you do in everyday life.</p>
+        <p>The approach is simple. I look at the different ways things can go wrong, then share simple frameworks you can apply to improve your odds. Nothing in life is guaranteed. It is all about improving your chances of success by reducing your chances of failure.</p>
+        <p>This is not about avoiding risk. The goal is to take the right risks with clear eyes, not to dodge every risk you meet. Across health, money, business and personal growth, the method stays the same: see what could go wrong, weigh it, and make the smarter move.</p>
+        <p>Every post here names a risk worth navigating and gives you a way to stay ahead of it.</p>
+        <h2>About me</h2>
+        <p>I am Terence Bumah. I spent 20 years managing risk in financial services, where my job was to see what could go wrong before it did, and to help take the right risks anyway.</p>
+        <p>Risk Thinking is me turning that same discipline on everyday life. The frameworks that protect banks turn out to be just as useful for protecting your health, your money, your work, and the choices that shape how well you live.</p>
+      </div>
+    </article>`;
+
+  return layout({
+    title: `About — ${SITE.name}`,
+    description:
+      "Why Terence Bumah thinks like a risk officer, and how 20 years managing risk in financial services shapes Risk Thinking.",
+    body,
+    active: "about",
+    heroHtml,
+  });
+}
+
 // ---- Build ------------------------------------------------------------------
 
 async function readPostsFor(blog) {
@@ -414,8 +441,10 @@ async function build() {
     total += blog.posts.length;
   }
 
-  // Home + stylesheet.
+  // Home + About + stylesheet.
   await writeFile(path.join(DIST_DIR, "index.html"), homePage(), "utf8");
+  await mkdir(path.join(DIST_DIR, "about"), { recursive: true });
+  await writeFile(path.join(DIST_DIR, "about", "index.html"), aboutPage(), "utf8");
   await copyFile(STYLES_SRC, path.join(DIST_DIR, "styles.css"));
 
   console.log(`Built ${total} post${total === 1 ? "" : "s"} across ${BLOGS.length} folders -> ${path.relative(ROOT, DIST_DIR)}/`);
