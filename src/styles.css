@@ -662,10 +662,49 @@ a.project:hover {
   transform: translateY(-2px);
 }
 
+/* Current project block on the Work page */
+.current {
+  margin: 2.5rem 0 0;
+}
+.current-label {
+  margin: 0 0 0.75rem !important;
+  font-family: system-ui, sans-serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent) !important;
+}
+
 /* Project detail pages */
 .detail-page {
   max-width: none;
   margin: 0.5rem 0 4rem;
+}
+.def-box {
+  max-width: var(--reading-width);
+  margin: 1.75rem 0 2.5rem;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.def-label {
+  margin: 0 0 0.6rem;
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.def-text {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--fg);
 }
 .detail-back {
   display: inline-block;

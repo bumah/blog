@@ -188,7 +188,7 @@ function nav(active) {
     `<a class="nav-link${active === key ? " is-active" : ""}" href="${href}">${escapeHtml(name)}</a>`;
   return `  <nav class="site-nav">
     <a class="nav-brand" href="/">${escapeHtml(SITE.wordmark || SITE.name)}</a>
-    <div class="nav-links">${item("Notes", "/", "notes")}${item("Working Papers", "/working-papers/", "working-papers")}${item("Work", "/work/", "work")}${item("Projects", "/projects/", "projects")}${item("About", "/about/", "about")}</div>
+    <div class="nav-links">${item("Notes", "/", "notes")}${item("Working Papers", "/working-papers/", "working-papers")}${item("Work", "/work/", "work")}${item("ULTM8", "/ultm8/", "ultm8")}${item("About", "/about/", "about")}</div>
   </nav>`;
 }
 
@@ -441,6 +441,17 @@ function workPage() {
         </ul>
         <h2>Who it is for</h2>
         <p>Founders building something new, and teams inside businesses launching or fixing a product.</p>
+        <div class="current">
+          <p class="current-label">Current project</p>
+          <a class="project" href="/ovana/">
+            <div class="project-head">
+              <h2 class="project-name">Ovana</h2>
+              <span class="project-tag">Heart health</span>
+            </div>
+            <p>An intelligent blood pressure companion that helps people catch high blood pressure early and protect their heart every day.</p>
+            <span class="project-link">Learn more &rarr;</span>
+          </a>
+        </div>
         <p class="work-cta"><a href="mailto:contact@terencebumah.com?subject=Work%20enquiry">Have something you're building? Get in touch.</a></p>
       </div>
     </article>`;
@@ -454,47 +465,6 @@ function workPage() {
   });
 }
 
-function projectsPage() {
-  const card = (name, tag, href, blurb) =>
-    `        <a class="project" href="${escapeHtml(href)}">
-          <div class="project-head">
-            <h2 class="project-name">${escapeHtml(name)}</h2>
-            <span class="project-tag">${escapeHtml(tag)}</span>
-          </div>
-          <p>${escapeHtml(blurb)}</p>
-          <span class="project-link">View project &rarr;</span>
-        </a>`;
-
-  const body = `    <article class="post text-page">
-      <h1 class="about-title">Projects</h1>
-      <div class="post-body">
-        <p class="about-lede">Alongside the writing and consulting, I build products of my own. It keeps the thinking honest: every framework here has to survive contact with a real product.</p>
-      </div>
-      <div class="projects">
-${card(
-  "Ovana",
-  "Heart health",
-  "/projects/ovana/",
-  "An intelligent blood pressure companion that helps people catch high blood pressure early and protect their heart every day."
-)}
-${card(
-  "ULTM8",
-  "Longevity",
-  "/projects/ultm8/",
-  "A longevity companion that helps you build lasting health and wealth, so you can live with more vitality and freedom, and add more life to your years."
-)}
-      </div>
-    </article>`;
-
-  return layout({
-    title: `Projects — ${SITE.name}`,
-    description:
-      "Products Terence Bumah is building, including Ovana, a hypertension companion, and ULTM8, a longevity app that scores health and wealth together.",
-    body,
-    active: "projects",
-  });
-}
-
 function ovanaPage() {
   const stat = (num, label) =>
     `        <div class="stat"><span class="stat-num">${escapeHtml(num)}</span><span class="stat-label">${escapeHtml(label)}</span></div>`;
@@ -502,7 +472,7 @@ function ovanaPage() {
     `          <li class="get-item"><svg class="get-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>${escapeHtml(t)}</span></li>`;
 
   const body = `    <article class="detail-page">
-      <a class="detail-back" href="/projects/">&larr; Projects</a>
+      <a class="detail-back" href="/work/">&larr; Work</a>
       <span class="detail-kicker">Ovana &middot; Heart health</span>
       <h1 class="about-title detail-title">An intelligent blood pressure companion</h1>
       <div class="detail-body">
@@ -534,7 +504,7 @@ ${get("Know when you need help")}
     description:
       "Ovana is an intelligent blood pressure companion that helps people catch high blood pressure early and protect their heart every day.",
     body,
-    active: "projects",
+    active: "work",
     wide: true,
   });
 }
@@ -552,19 +522,22 @@ function ultm8Page() {
         </section>`;
 
   const body = `    <article class="detail-page">
-      <a class="detail-back" href="/projects/">&larr; Projects</a>
       <span class="detail-kicker">ULTM8 &middot; Longevity</span>
       <h1 class="about-title detail-title">Add more life to your years</h1>
+      <div class="def-box">
+        <p class="def-label">What is ULTM8</p>
+        <p class="def-text">A longevity companion that helps you build lasting health and wealth so you can live with more vitality and freedom, and make the most of the years you have.</p>
+      </div>
       <div class="detail-body">
         <p class="about-lede">We are living longer than previous generations, but too many of those years are shaped by illness and financial insecurity.</p>
-        <p>I started ULTM8 to help people live with more vitality and freedom, so they can make the most of the years they have.</p>
+        <p>I started ULTM8 to help people build lasting health and wealth, so they can live with more vitality and freedom, and make the most of the years they have.</p>
         <p class="concept-label">The concept</p>
-        <p>ULTM8 is built on eight pillars, four for vitality (health) and four for freedom (wealth). It applies Risk Thinking to eight key risk factors for your healthspan and wealthspan, so you can add more life to your years by strengthening the pillars that need it most.</p>
+        <p>ULTM8 is built on eight pillars, four for vitality (health) and four for freedom (wealth). Each one is a key risk factor for your healthspan or wealthspan. ULTM8 helps you see where you stand and strengthen the pillars that need it most.</p>
       </div>
       <div class="pillar-groups">
 ${group("Vitality", "The physical capacity to stay active, capable and independent.", [
   ["Heart health", "Your cardiovascular foundations."],
-  ["Strength", "The capacity to stay capable and independent."],
+  ["Strength", "The power to lift, carry and stay physically capable."],
   ["Stamina", "The endurance to stay active and recover well."],
   ["Lifestyle", "The daily patterns underneath everything else."],
 ])}
@@ -583,7 +556,7 @@ ${group("Freedom", "The financial resilience and choices that help you shape you
     description:
       "ULTM8 helps you add more life to your years by applying Risk Thinking to eight pillars of healthspan and wealthspan.",
     body,
-    active: "projects",
+    active: "ultm8",
     wide: true,
   });
 }
@@ -706,12 +679,10 @@ async function build() {
   await writeFile(path.join(DIST_DIR, "about", "index.html"), aboutPage(), "utf8");
   await mkdir(path.join(DIST_DIR, "work"), { recursive: true });
   await writeFile(path.join(DIST_DIR, "work", "index.html"), workPage(), "utf8");
-  await mkdir(path.join(DIST_DIR, "projects"), { recursive: true });
-  await writeFile(path.join(DIST_DIR, "projects", "index.html"), projectsPage(), "utf8");
-  await mkdir(path.join(DIST_DIR, "projects", "ovana"), { recursive: true });
-  await writeFile(path.join(DIST_DIR, "projects", "ovana", "index.html"), ovanaPage(), "utf8");
-  await mkdir(path.join(DIST_DIR, "projects", "ultm8"), { recursive: true });
-  await writeFile(path.join(DIST_DIR, "projects", "ultm8", "index.html"), ultm8Page(), "utf8");
+  await mkdir(path.join(DIST_DIR, "ultm8"), { recursive: true });
+  await writeFile(path.join(DIST_DIR, "ultm8", "index.html"), ultm8Page(), "utf8");
+  await mkdir(path.join(DIST_DIR, "ovana"), { recursive: true });
+  await writeFile(path.join(DIST_DIR, "ovana", "index.html"), ovanaPage(), "utf8");
   await copyFile(STYLES_SRC, path.join(DIST_DIR, "styles.css"));
 
   console.log(`Built ${total} post${total === 1 ? "" : "s"} across ${BLOGS.length} folders -> ${path.relative(ROOT, DIST_DIR)}/`);
