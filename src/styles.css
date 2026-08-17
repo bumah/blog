@@ -498,33 +498,59 @@ body {
 
 /* About page */
 .about-page {
-  max-width: 52rem;
+  max-width: 64rem;
   margin: 0.5rem auto 4rem;
 }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 3.5rem;
+  align-items: start;
+}
+.about-main { max-width: none; }
 .about-title {
-  margin: 3rem 0 2rem;
+  margin: 2.5rem 0 1.75rem;
   font-family: var(--serif);
-  font-size: clamp(2.4rem, 6vw, 3.4rem);
+  font-size: clamp(2.2rem, 5vw, 3.1rem);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.12;
   letter-spacing: -0.015em;
   color: var(--fg);
 }
-/* Keep the opening argument at a comfortable reading measure. */
-.about-page > .post-body { max-width: 40rem; }
 .about-lede {
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   line-height: 1.6;
   color: var(--fg);
 }
-.about-me {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 3rem;
-  align-items: start;
-  margin-top: 3.5rem;
-  padding-top: 3rem;
+.about-main h2 {
+  margin: 3rem 0 1rem;
+  padding-top: 2.5rem;
   border-top: 1px solid var(--border);
+  font-family: var(--serif);
+}
+.about-rail {
+  position: sticky;
+  top: 5rem;
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.about-curve { margin: 0; }
+.about-curve .risk-curve-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 0.75rem;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.about-curve figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--muted);
 }
 .about-photo { margin: 0; }
 .about-photo img,
@@ -532,7 +558,7 @@ body {
   display: block;
   width: 100%;
   aspect-ratio: 2 / 3;
-  border-radius: 16px;
+  border-radius: 14px;
   object-fit: cover;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -558,11 +584,14 @@ body {
   text-transform: uppercase;
   color: var(--faint);
 }
-.about-me-body { font-size: 1.12rem; line-height: 1.7; }
-.about-me-body h2 { margin-top: 0; }
-@media (max-width: 640px) {
-  .about-me { grid-template-columns: 1fr; gap: 1.75rem; }
-  .about-photo { max-width: 260px; }
+@media (max-width: 720px) {
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .about-rail {
+    position: static;
+    margin-top: 0;
+    align-items: center;
+  }
+  .about-rail figure { width: 100%; max-width: 320px; }
 }
 
 /* Tags */

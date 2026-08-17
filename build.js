@@ -392,23 +392,27 @@ function aboutPage() {
     ? `<img src="${escapeHtml(SITE.photo)}" alt="${escapeHtml(SITE.author)}">`
     : `<div class="photo-ph"><span>TB</span><small>Your photo</small></div>`;
 
-  const body = `    <article class="post about-page">
-      <h1 class="about-title">Why think like a risk officer?</h1>
-      <div class="post-body">
+  const curve = `<svg class="risk-curve-svg" viewBox="0 0 300 210" role="img" aria-label="A distribution curve with the failure zone marked off on the left"><defs><clipPath id="rc-clip"><path d="M24 170 C 96 170 116 45 150 45 C 184 45 204 170 276 170 Z"/></clipPath></defs><path d="M24 170 C 96 170 116 45 150 45 C 184 45 204 170 276 170 Z" fill="var(--accent)" opacity="0.07"/><g clip-path="url(#rc-clip)"><rect x="24" y="45" width="62" height="125" fill="var(--accent)" opacity="0.22"/></g><line x1="86" y1="55" x2="86" y2="170" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3 4" opacity="0.6"/><line x1="16" y1="170" x2="284" y2="170" stroke="var(--border)" stroke-width="1.5"/><path d="M24 170 C 96 170 116 45 150 45 C 184 45 204 170 276 170" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><g opacity="0.75"><line x1="120" y1="192" x2="250" y2="192" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/><path d="M250 192 L244 188 M250 192 L244 196" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/></g></svg>`;
+
+  const body = `    <article class="post about-page about-grid">
+      <div class="about-main post-body">
+        <h1 class="about-title">Why think like a risk officer?</h1>
         <p class="about-lede">Life is full of risks, some avoidable, others not. Starting a business, investing money, taking a new job or getting married: every important decision involves uncertainty.</p>
         <p>In each case, success starts with not failing. That's what thinking like a risk officer can help you do in everyday life.</p>
         <p>My approach is simple. In each post, I look at how things can go wrong, then share practical frameworks to help you improve your odds.</p>
         <p>This isn't about avoiding risk. The goal is to take the right risks with clarity, not to avoid every risk that comes your way. Whether the subject is health, money, business or personal growth, the method is the same: identify what could go wrong, assess it and make smarter decisions.</p>
         <p>Nothing in life is guaranteed. But you can improve your chances of success by reducing your chances of failure.</p>
+        <h2>About me</h2>
+        <p>I'm Terence Bumah. I spent 20 years managing risk in financial services, where my job was to identify what could go wrong and help people navigate the risks.</p>
+        <p>I try to apply that same discipline to everyday life because I believe frameworks used to protect institutions can be just as useful for improving our health, finances, relationships, and the choices that shape our lives.</p>
       </div>
-      <section class="about-me">
+      <aside class="about-rail">
+        <figure class="about-curve">
+          ${curve}
+          <figcaption>Success starts with eliminating failure.</figcaption>
+        </figure>
         <figure class="about-photo">${photo}</figure>
-        <div class="about-me-body post-body">
-          <h2>About me</h2>
-          <p>I'm Terence Bumah. I spent 20 years managing risk in financial services, where my job was to identify what could go wrong and help people navigate the risks.</p>
-          <p>I try to apply that same discipline to everyday life because I believe frameworks used to protect institutions can be just as useful for improving our health, finances, relationships, and the choices that shape our lives.</p>
-        </div>
-      </section>
+      </aside>
     </article>`;
 
   return layout({
