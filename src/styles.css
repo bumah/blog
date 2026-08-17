@@ -234,6 +234,8 @@ body {
 }
 .card-link { display: block; text-decoration: none; color: var(--fg); }
 .card-cover {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -241,7 +243,17 @@ body {
   padding: 1rem;
   background: #2c2c2c;
 }
+.card-svg {
+  position: absolute;
+  right: 4%;
+  bottom: 6%;
+  width: 40%;
+  height: auto;
+  display: block;
+}
 .card-num {
+  position: relative;
+  z-index: 1;
   font-family: var(--serif);
   font-weight: 700;
   font-size: clamp(1.9rem, 5.5vw, 3rem);

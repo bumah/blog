@@ -241,13 +241,29 @@ const CAT_CLASS = {
 // One card in a stream. Notes carry a series number ("No. 12") on the cover;
 // working papers show their category label instead. `showCat` falls back to the
 // section name when a post has no category label of its own.
+// One category motif per note card: a single-stroke, category-coloured line
+// drawing of the everyday scene (pulse / coins / bars / sprout), reused across
+// every post in that category so the grid reads as one coherent system.
+const CARD_ART = {
+  Health: `<g fill="none" stroke="#ffffff" stroke-opacity=".24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="48,150 168,150 196,150 216,100 240,206 262,150 288,150 322,150 346,126 366,174 386,150 432,150"/></g>`,
+  Money: `<g fill="none" stroke="#ffffff" stroke-opacity=".26" stroke-width="2.6"><ellipse cx="240" cy="112" rx="56" ry="19"/><ellipse cx="240" cy="150" rx="56" ry="19"/><ellipse cx="240" cy="188" rx="56" ry="19"/><line x1="184" y1="112" x2="184" y2="188"/><line x1="296" y1="112" x2="296" y2="188"/></g>`,
+  Business: `<g fill="#ffffff" fill-opacity=".2"><rect x="150" y="178" width="42" height="74" rx="4"/><rect x="212" y="146" width="42" height="106" rx="4"/><rect x="274" y="110" width="42" height="142" rx="4"/><rect x="336" y="74" width="42" height="178" rx="4"/></g>`,
+  "Personal Growth": `<g fill="none" stroke="#ffffff" stroke-opacity=".26" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M240 234 V120"/><path d="M240 170 C214 170 190 156 182 126 C214 124 236 144 240 170 Z"/><path d="M240 148 C266 148 290 134 298 104 C266 102 244 122 240 148 Z"/></g>`,
+};
+
+function cardMotif(category) {
+  const motif = CARD_ART[category];
+  if (!motif) return "";
+  return `<svg class="card-svg" viewBox="0 0 480 300" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true">${motif}</svg>`;
+}
+
 function streamItem(p, showCat) {
   const label = p.category || (showCat ? p.blogName : "");
   const catClass = CAT_CLASS[p.category] || "cat-default";
   const cover = p.number != null ? `ART #${p.number}` : label || "Paper";
   return `        <article class="card ${catClass}" data-topic="${escapeHtml(p.blogSlug)}">
           <a class="card-link" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
-            <div class="card-cover"><span class="card-num">${escapeHtml(cover)}</span></div>
+            <div class="card-cover">${cardMotif(p.category)}<span class="card-num">${escapeHtml(cover)}</span></div>
             <div class="card-body">
               ${label ? `<span class="card-cat">${escapeHtml(label)}</span>` : ""}
               <h2 class="card-title">${escapeHtml(p.title)}</h2>
