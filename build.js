@@ -421,6 +421,7 @@ function aboutPage() {
       "Why Terence Bumah thinks like a risk officer, and how 20 years managing risk in financial services shapes Risk Thinking.",
     body,
     active: "about",
+    wide: true,
   });
 }
 
@@ -454,15 +455,15 @@ function workPage() {
 }
 
 function projectsPage() {
-  const project = (name, tag, href, paras) =>
-    `        <article class="project">
+  const card = (name, tag, href, blurb) =>
+    `        <a class="project" href="${escapeHtml(href)}">
           <div class="project-head">
             <h2 class="project-name">${escapeHtml(name)}</h2>
             <span class="project-tag">${escapeHtml(tag)}</span>
           </div>
-          ${paras.map((p) => `<p>${p}</p>`).join("\n          ")}
-          <a class="project-link" href="${escapeHtml(href)}" target="_blank" rel="noopener">${escapeHtml(href.replace(/^https?:\/\//, ""))} &rarr;</a>
-        </article>`;
+          <p>${escapeHtml(blurb)}</p>
+          <span class="project-link">View project &rarr;</span>
+        </a>`;
 
   const body = `    <article class="post text-page">
       <h1 class="about-title">Projects</h1>
@@ -470,21 +471,17 @@ function projectsPage() {
         <p class="about-lede">Alongside the writing and consulting, I build products of my own. It keeps the thinking honest: every framework here has to survive contact with a real product.</p>
       </div>
       <div class="projects">
-${project(
+${card(
   "Ovana",
   "Heart health",
-  "https://ovanahealth.com",
-  [
-    "Ovana is a hypertension companion that helps people catch high blood pressure early and care for their heart every day. It brings together a simple heart check, blood pressure tracking and practical guidance, built for the places where hypertension does the most damage.",
-  ]
+  "/projects/ovana/",
+  "An intelligent blood pressure companion that helps people catch high blood pressure early and protect their heart every day."
 )}
-${project(
+${card(
   "ULTM8",
   "Longevity",
-  "https://ultm8life.com",
-  [
-    "ULTM8 scores your health and wealth together across eight pillars, then shows you what to focus on next. The idea is simple: a longer, richer life is built on both, and you can only improve what you measure.",
-  ]
+  "/projects/ultm8/",
+  "A longevity app that scores your health and wealth across eight pillars, then shows you what to focus on next."
 )}
       </div>
     </article>`;
@@ -495,6 +492,99 @@ ${project(
       "Products Terence Bumah is building, including Ovana, a hypertension companion, and ULTM8, a longevity app that scores health and wealth together.",
     body,
     active: "projects",
+  });
+}
+
+function ovanaPage() {
+  const stat = (num, label) =>
+    `        <div class="stat"><span class="stat-num">${escapeHtml(num)}</span><span class="stat-label">${escapeHtml(label)}</span></div>`;
+  const get = (t) =>
+    `          <li class="get-item"><svg class="get-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>${escapeHtml(t)}</span></li>`;
+
+  const body = `    <article class="detail-page">
+      <a class="detail-back" href="/projects/">&larr; Projects</a>
+      <span class="detail-kicker">Ovana &middot; Heart health</span>
+      <h1 class="about-title detail-title">An intelligent blood pressure companion</h1>
+      <div class="detail-body">
+        <p class="about-lede">Hypertension is the world's most widespread chronic condition, and the real danger is how many people never find out until the damage is done.</p>
+      </div>
+      <div class="stats">
+${stat("1.4B", "Adults live with hypertension, one in three worldwide.")}
+${stat("46%", "Do not know they have it, over 600 million people.")}
+${stat("23%", "Have it under control, only one in four.")}
+      </div>
+      <div class="detail-body">
+        <p class="concept-label">The concept</p>
+        <p>Ovana learns from your readings, understands your trends, and guides you every day to protect your heart.</p>
+      </div>
+      <div class="getblock">
+        <p class="concept-label">What you get</p>
+        <ul class="getlist">
+${get("Know what is happening")}
+${get("Know what affects you")}
+${get("Know what to do next")}
+${get("Know when you need help")}
+        </ul>
+      </div>
+      <a class="detail-link" href="https://ovanahealth.com" target="_blank" rel="noopener">ovanahealth.com &rarr;</a>
+    </article>`;
+
+  return layout({
+    title: `Ovana — ${SITE.name}`,
+    description:
+      "Ovana is an intelligent blood pressure companion that helps people catch high blood pressure early and protect their heart every day.",
+    body,
+    active: "projects",
+    wide: true,
+  });
+}
+
+function ultm8Page() {
+  const pillar = (name, desc) =>
+    `<div class="pillar"><span class="pillar-name">${escapeHtml(name)}</span><span class="pillar-desc">${escapeHtml(desc)}</span></div>`;
+  const group = (label, desc, items) =>
+    `        <section class="pgroup">
+          <p class="pgroup-kicker">${escapeHtml(label)}</p>
+          <p class="pgroup-desc">${escapeHtml(desc)}</p>
+          <div class="pillars">
+            ${items.map(([n, d]) => pillar(n, d)).join("\n            ")}
+          </div>
+        </section>`;
+
+  const body = `    <article class="detail-page">
+      <a class="detail-back" href="/projects/">&larr; Projects</a>
+      <span class="detail-kicker">ULTM8 &middot; Longevity</span>
+      <h1 class="about-title detail-title">Add more life to your years</h1>
+      <div class="detail-body">
+        <p class="about-lede">We are living longer than previous generations, but too many of those years are shaped by illness and financial insecurity.</p>
+        <p>I started ULTM8 to help people live with more vitality and freedom, so they can make the most of the years they have.</p>
+        <p class="concept-label">The concept</p>
+        <p>ULTM8 is built on eight pillars, four for vitality (health) and four for freedom (wealth). It applies Risk Thinking to eight key risk factors for your healthspan and wealthspan, so you can add more life to your years by strengthening the pillars that need it most.</p>
+      </div>
+      <div class="pillar-groups">
+${group("Vitality", "The physical capacity to stay active, capable and independent.", [
+  ["Heart health", "Your cardiovascular foundations."],
+  ["Strength", "The capacity to stay capable and independent."],
+  ["Stamina", "The endurance to stay active and recover well."],
+  ["Lifestyle", "The daily patterns underneath everything else."],
+])}
+${group("Freedom", "The financial resilience and choices that help you shape your life.", [
+  ["Debt", "What you owe, and what it costs you."],
+  ["Protection", "The buffer that keeps a setback from becoming a crisis."],
+  ["Retirement", "The horizon your savings need to reach."],
+  ["Income", "What funds today and creates tomorrow's choices."],
+])}
+      </div>
+      <a class="detail-link" href="https://ultm8life.com" target="_blank" rel="noopener">ultm8life.com &rarr;</a>
+    </article>`;
+
+  return layout({
+    title: `ULTM8 — ${SITE.name}`,
+    description:
+      "ULTM8 helps you add more life to your years by applying Risk Thinking to eight pillars of healthspan and wealthspan.",
+    body,
+    active: "projects",
+    wide: true,
   });
 }
 
@@ -618,6 +708,10 @@ async function build() {
   await writeFile(path.join(DIST_DIR, "work", "index.html"), workPage(), "utf8");
   await mkdir(path.join(DIST_DIR, "projects"), { recursive: true });
   await writeFile(path.join(DIST_DIR, "projects", "index.html"), projectsPage(), "utf8");
+  await mkdir(path.join(DIST_DIR, "projects", "ovana"), { recursive: true });
+  await writeFile(path.join(DIST_DIR, "projects", "ovana", "index.html"), ovanaPage(), "utf8");
+  await mkdir(path.join(DIST_DIR, "projects", "ultm8"), { recursive: true });
+  await writeFile(path.join(DIST_DIR, "projects", "ultm8", "index.html"), ultm8Page(), "utf8");
   await copyFile(STYLES_SRC, path.join(DIST_DIR, "styles.css"));
 
   console.log(`Built ${total} post${total === 1 ? "" : "s"} across ${BLOGS.length} folders -> ${path.relative(ROOT, DIST_DIR)}/`);
