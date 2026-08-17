@@ -188,7 +188,7 @@ function nav(active) {
     `<a class="nav-link${active === key ? " is-active" : ""}" href="${href}">${escapeHtml(name)}</a>`;
   return `  <nav class="site-nav">
     <a class="nav-brand" href="/">${escapeHtml(SITE.wordmark || SITE.name)}</a>
-    <div class="nav-links">${item("Notes", "/", "notes")}${item("Working Papers", "/working-papers/", "working-papers")}${item("About", "/about/", "about")}</div>
+    <div class="nav-links">${item("Notes", "/", "notes")}${item("Working Papers", "/working-papers/", "working-papers")}${item("Work", "/work/", "work")}${item("Projects", "/projects/", "projects")}${item("About", "/about/", "about")}</div>
   </nav>`;
 }
 
@@ -424,6 +424,80 @@ function aboutPage() {
   });
 }
 
+function workPage() {
+  const body = `    <article class="post text-page">
+      <h1 class="about-title">My work</h1>
+      <div class="post-body">
+        <p class="about-lede">I help founders and businesses build better products by applying Risk Thinking to the way they design, decide and build.</p>
+        <p>Most products don't fail because the idea was bad. They fail because of avoidable mistakes: building the wrong thing, misreading the market, or ignoring a risk that was there all along. My work is to find those risks early, before they get expensive.</p>
+        <p>I spent 20 years managing risk in financial services. I bring that same discipline to product teams: identify what could go wrong, weigh it honestly, and make clearer decisions about what to build and what to leave out.</p>
+        <p>This isn't about slowing you down or avoiding every risk. It is about taking the right risks with your eyes open, so the product you ship actually works.</p>
+        <h2>How I help</h2>
+        <ul>
+          <li><strong>Pressure-test the idea.</strong> Is this the right problem, the right product, the right time?</li>
+          <li><strong>De-risk the build.</strong> Spot the technical, market and execution risks before they cost you.</li>
+          <li><strong>Sharpen the decisions.</strong> Simple frameworks for choosing well under uncertainty.</li>
+        </ul>
+        <h2>Who it is for</h2>
+        <p>Founders building something new, and teams inside businesses launching or fixing a product.</p>
+        <p class="work-cta"><a href="mailto:contact@terencebumah.com?subject=Work%20enquiry">Have something you're building? Get in touch.</a></p>
+      </div>
+    </article>`;
+
+  return layout({
+    title: `Work — ${SITE.name}`,
+    description:
+      "Terence Bumah helps founders and businesses build better products by applying Risk Thinking to how they design, decide and build.",
+    body,
+    active: "work",
+  });
+}
+
+function projectsPage() {
+  const project = (name, tag, href, paras) =>
+    `        <article class="project">
+          <div class="project-head">
+            <h2 class="project-name">${escapeHtml(name)}</h2>
+            <span class="project-tag">${escapeHtml(tag)}</span>
+          </div>
+          ${paras.map((p) => `<p>${p}</p>`).join("\n          ")}
+          <a class="project-link" href="${escapeHtml(href)}" target="_blank" rel="noopener">${escapeHtml(href.replace(/^https?:\/\//, ""))} &rarr;</a>
+        </article>`;
+
+  const body = `    <article class="post text-page">
+      <h1 class="about-title">Projects</h1>
+      <div class="post-body">
+        <p class="about-lede">Alongside the writing and consulting, I build products of my own. It keeps the thinking honest: every framework here has to survive contact with a real product.</p>
+      </div>
+      <div class="projects">
+${project(
+  "Ovana",
+  "Heart health",
+  "https://ovanahealth.com",
+  [
+    "Ovana is a hypertension companion that helps people catch high blood pressure early and care for their heart every day. It brings together a simple heart check, blood pressure tracking and practical guidance, built for the places where hypertension does the most damage.",
+  ]
+)}
+${project(
+  "ULTM8",
+  "Longevity",
+  "https://ultm8life.com",
+  [
+    "ULTM8 scores your health and wealth together across eight pillars, then shows you what to focus on next. The idea is simple: a longer, richer life is built on both, and you can only improve what you measure.",
+  ]
+)}
+      </div>
+    </article>`;
+
+  return layout({
+    title: `Projects — ${SITE.name}`,
+    description:
+      "Products Terence Bumah is building, including Ovana, a hypertension companion, and ULTM8, a longevity app that scores health and wealth together.",
+    body,
+    active: "projects",
+  });
+}
+
 // ---- Build ------------------------------------------------------------------
 
 async function readPostsFor(blog) {
@@ -540,6 +614,10 @@ async function build() {
   await writeFile(path.join(DIST_DIR, "index.html"), homePage(), "utf8");
   await mkdir(path.join(DIST_DIR, "about"), { recursive: true });
   await writeFile(path.join(DIST_DIR, "about", "index.html"), aboutPage(), "utf8");
+  await mkdir(path.join(DIST_DIR, "work"), { recursive: true });
+  await writeFile(path.join(DIST_DIR, "work", "index.html"), workPage(), "utf8");
+  await mkdir(path.join(DIST_DIR, "projects"), { recursive: true });
+  await writeFile(path.join(DIST_DIR, "projects", "index.html"), projectsPage(), "utf8");
   await copyFile(STYLES_SRC, path.join(DIST_DIR, "styles.css"));
 
   console.log(`Built ${total} post${total === 1 ? "" : "s"} across ${BLOGS.length} folders -> ${path.relative(ROOT, DIST_DIR)}/`);
