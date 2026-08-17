@@ -423,40 +423,62 @@ function aboutPage() {
 }
 
 function workPage() {
+  const benefit = (title, desc) =>
+    `        <div class="work-card">
+          <h3 class="wc-title">${title}</h3>
+          <p class="wc-desc">${desc}</p>
+        </div>`;
+  const service = (title, tag, desc) =>
+    `        <div class="work-card">
+          <h3 class="wc-title">${title}</h3>
+          <span class="wc-tag">${tag}</span>
+          <p class="wc-desc">${desc}</p>
+        </div>`;
+
   const body = `    <article class="post text-page">
       <h1 class="about-title">My work</h1>
       <div class="post-body">
-        <p class="about-lede">I help founders and businesses build better products by applying Risk Thinking to the way they design, decide and build.</p>
-        <p>Most products don't fail because the idea was bad. They fail because of avoidable mistakes: building the wrong thing, misreading the market, or ignoring a risk that was there all along. My work is to find those risks early, before they get expensive.</p>
-        <p>I spent 20 years managing risk in financial services. I bring that same discipline to product teams: identify what could go wrong, weigh it honestly, and make clearer decisions about what to build and what to leave out.</p>
-        <p>This isn't about slowing you down or avoiding every risk. It is about taking the right risks with your eyes open, so the product you ship actually works.</p>
-        <h2>How I help</h2>
+        <p class="about-lede">I help founders and businesses build smarter, safer products by applying Risk Thinking to the way they innovate.</p>
+        <h2>Applying Risk Thinking to your vision</h2>
+        <p>Most products don't fail because of code, project management, marketing or sales. They fail because someone built:</p>
         <ul>
-          <li><strong>Pressure-test the idea.</strong> Is this the right problem, the right product, the right time?</li>
-          <li><strong>De-risk the build.</strong> Spot the technical, market and execution risks before they cost you.</li>
-          <li><strong>Sharpen the decisions.</strong> Simple frameworks for choosing well under uncertainty.</li>
+          <li>a good product for the wrong audience, or</li>
+          <li>a bad product for the right audience, or</li>
+          <li>a good product for the right audience, grown the wrong way.</li>
         </ul>
-        <h2>Who it is for</h2>
-        <p>Founders building something new, and teams inside businesses launching or fixing a product.</p>
-        <div class="current">
-          <p class="current-label">Current project</p>
-          <a class="project" href="/ovana/">
-            <div class="project-head">
-              <h2 class="project-name">Ovana</h2>
-              <span class="project-tag">Heart health</span>
-            </div>
-            <p>An intelligent blood pressure companion that helps people catch high blood pressure early and protect their heart every day.</p>
-            <span class="project-link">Learn more &rarr;</span>
-          </a>
-        </div>
-        <p class="work-cta"><a href="mailto:contact@terencebumah.com?subject=Work%20enquiry">Have something you're building? Get in touch.</a></p>
+        <p>I spent 20 years managing risk in financial services. I bring that same discipline to product teams: identify what could go wrong, weigh it honestly, and make clearer decisions about what to build and what to leave out.</p>
       </div>
+      <h2 class="work-h2">Benefits</h2>
+      <div class="work-cards">
+${benefit("Audience fit.", "Target the right users and customers, so you stop selling to everyone and start winning the right people.")}
+${benefit("Value fit.", "Make sure the product gives your audience something they truly value and can't do without.")}
+${benefit("Growth fit.", "Grow at the right time and the right pace, reaching more of the right people without launching too early or scaling before you're ready.")}
+      </div>
+      <p class="work-note">This isn't about slowing you down or avoiding every risk. It is about taking the right risks, so the product you ship actually works.</p>
+      <h2 class="work-h2">How I help</h2>
+      <div class="work-cards">
+${service("Product Strategy", "Solve the right problem.", "Refine the opportunity, validate the problem and define what should be built before expensive engineering begins.")}
+${service("Product Engineering", "Build the right thing.", "Turn ideas into high-quality experiences, from rapid prototype to production platform.")}
+${service("Product Optimisation", "Scale the right way.", "Analytics, experimentation and ongoing product management to improve adoption, engagement, conversion and growth.")}
+      </div>
+      <div class="current">
+        <p class="current-label">Current project</p>
+        <a class="project" href="/ovana/">
+          <div class="project-head">
+            <h2 class="project-name">Ovana</h2>
+            <span class="project-tag">Heart health</span>
+          </div>
+          <p>An intelligent blood pressure companion that helps people catch high blood pressure early and protect their heart every day.</p>
+          <span class="project-link">Learn more &rarr;</span>
+        </a>
+      </div>
+      <p class="work-cta"><a href="mailto:contact@terencebumah.com?subject=Work%20enquiry">Have something you're building? Get in touch.</a></p>
     </article>`;
 
   return layout({
     title: `Work — ${SITE.name}`,
     description:
-      "Terence Bumah helps founders and businesses build better products by applying Risk Thinking to how they design, decide and build.",
+      "Terence Bumah helps founders and businesses build smarter, safer products by applying Risk Thinking to the way they innovate.",
     body,
     active: "work",
   });

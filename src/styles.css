@@ -596,10 +596,60 @@ body {
 
 /* Work + Projects text pages */
 .text-page .about-title { margin-top: 2.5rem; }
+.work-h2 {
+  margin: 2.75rem 0 1.25rem;
+  font-family: var(--sans);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+.work-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.25rem;
+}
+.work-card {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.wc-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--fg);
+}
+.wc-tag {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.wc-desc {
+  margin: 0.75rem 0 0;
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.work-note {
+  max-width: var(--reading-width);
+  margin: 1.5rem 0 0;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  line-height: 1.75;
+  color: var(--fg);
+}
 .work-cta {
   margin-top: 2.5rem;
   padding-top: 1.75rem;
   border-top: 1px solid var(--border);
+  font-family: var(--serif);
   font-size: 1.15rem;
 }
 .work-cta a { font-weight: 600; }
