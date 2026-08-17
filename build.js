@@ -31,7 +31,7 @@ const SITE = {
   // Wordmark shown top-left in the nav on every page (links home).
   wordmark: "Terence Bumah",
   // The big hero on the home page. Use *stars* to accent a word.
-  homeHeading: "Apply Risk Thinking to *your life*",
+  homeHeading: "Applied Risk Thinking for *everyday life*",
   // One line under the home hero.
   subtext: "Bringing 20 years of institutional risk expertise to everyday life, helping you make smarter decisions about health, money, business and life.",
   // Used for the <meta name="description"> SEO tag on the home page.
@@ -188,7 +188,7 @@ function nav(active) {
     `<a class="nav-link${active === key ? " is-active" : ""}" href="${href}">${escapeHtml(name)}</a>`;
   return `  <nav class="site-nav">
     <a class="nav-brand" href="/">${escapeHtml(SITE.wordmark || SITE.name)}</a>
-    <div class="nav-links">${item("Posts", "/", "notes")}${item("Frameworks", "/working-papers/", "working-papers")}${item("Advisory", "/work/", "work")}${item("ULTM8", "/ultm8/", "ultm8")}${item("About", "/about/", "about")}</div>
+    <div class="nav-links">${item("ART", "/", "notes")}${item("Frameworks", "/working-papers/", "working-papers")}${item("Advisory", "/work/", "work")}${item("ULTM8", "/ultm8/", "ultm8")}${item("About", "/about/", "about")}</div>
   </nav>`;
 }
 
@@ -244,7 +244,7 @@ const CAT_CLASS = {
 function streamItem(p, showCat) {
   const label = p.category || (showCat ? p.blogName : "");
   const catClass = CAT_CLASS[p.category] || "cat-default";
-  const cover = p.number != null ? `No. ${p.number}` : label || "Paper";
+  const cover = p.number != null ? `ART #${p.number}` : label || "Paper";
   return `        <article class="card ${catClass}" data-topic="${escapeHtml(p.blogSlug)}">
           <a class="card-link" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
             <div class="card-cover"><span class="card-num">${escapeHtml(cover)}</span></div>
@@ -396,11 +396,12 @@ function aboutPage() {
 
   const body = `    <article class="post about-page about-grid">
       <div class="about-main post-body">
-        <h1 class="about-title">Why think like a risk officer?</h1>
+        <h1 class="about-title">Applied Risk Thinking</h1>
         <p class="about-lede">Life is full of risks, some avoidable, others not. Starting a business, investing money, taking a new job or planning your retirement: every important decision involves uncertainty.</p>
-        <p>In each case, to succeed you have to avoid failing. That is what Risk Thinking is all about, and how it can help you in everyday life.</p>
-        <p>I spent 20 years managing risk across global institutions, helping them avoid catastrophic events. Now I apply the same discipline to everyday life. In each post, I look at how things can go wrong in different life scenarios, then share practical frameworks to help you improve your odds.</p>
-        <p>This is not about avoiding risk. It is quite the opposite. The goal is to seize opportunities by taking the right risks. Whether the subject is health, money, business or personal growth, the method is the same: identify what could go wrong, assess it, and build a plan to mitigate it.</p>
+        <p>In each case, to succeed you first have to avoid failing. That is the core of Risk Thinking, and the discipline I spent 20 years using inside global institutions works just as well on everyday life.</p>
+        <p>For two decades I managed risk across global institutions, helping them see what could go wrong before it did. Applied Risk Thinking is that same discipline, turned toward the decisions that shape your health, money, business and life.</p>
+        <p>Everything I do is an extension of it. In <a href="/">ART</a>, I look at how things go wrong in real life scenarios and how to stay ahead of them. In <a href="/working-papers/">Frameworks</a>, I set out longer, structured ways to think through bigger risks. As a <a href="/work/">Product Advisor</a>, I help founders build products that avoid the mistakes that sink most of them. And with <a href="/ultm8/">ULTM8</a>, I apply it to longevity, helping people protect their health and wealth for the long run.</p>
+        <p>The method never changes: identify what could go wrong, assess it honestly, and build a plan to mitigate it. This is not about avoiding risk. It is about taking the right ones.</p>
         <p>Nothing in life is guaranteed. But you can improve your chances of success by reducing your chances of failure.</p>
       </div>
       <aside class="about-rail">
@@ -415,7 +416,7 @@ function aboutPage() {
   return layout({
     title: `About — ${SITE.name}`,
     description:
-      "Why Terence Bumah thinks like a risk officer, and how 20 years managing risk in financial services shapes Risk Thinking.",
+      "Applied Risk Thinking by Terence Bumah: 20 years managing risk in global institutions, turned toward everyday decisions about health, money, business and life.",
     body,
     active: "about",
     wide: true,
