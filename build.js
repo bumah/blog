@@ -429,12 +429,6 @@ function workPage() {
           <h3 class="wc-title">${title}</h3>
           <p class="wc-desc">${desc}</p>
         </div>`;
-  const service = (title, tag, desc) =>
-    `        <div class="work-card">
-          <h3 class="wc-title">${title}</h3>
-          <span class="wc-tag">${tag}</span>
-          <p class="wc-desc">${desc}</p>
-        </div>`;
 
   const body = `    <article class="post text-page">
       <h1 class="about-title">Product Advisor</h1>
@@ -455,12 +449,6 @@ ${benefit("Audience fit.", "Target the right users and customers, so you stop se
 ${benefit("Value fit.", "Make sure the product gives your audience something they truly value and can't do without.")}
 ${benefit("Growth fit.", "Grow at the right time and the right pace, reaching more of the right people without launching too early or scaling before you're ready.")}
       </div>
-      <h2 class="work-h2">How I help</h2>
-      <div class="work-cards">
-${service("Product Strategy", "Solve the right problem.", "Refine the opportunity, validate the problem and define what should be built before expensive engineering begins.")}
-${service("Product Engineering", "Build the right thing.", "Turn ideas into high-quality experiences, from rapid prototype to production platform.")}
-${service("Product Optimisation", "Scale the right way.", "Analytics, experimentation and ongoing product management to improve adoption, engagement, conversion and growth.")}
-      </div>
       <div class="current">
         <p class="current-label">Current project</p>
         <a class="project" href="/ovana/">
@@ -472,7 +460,9 @@ ${service("Product Optimisation", "Scale the right way.", "Analytics, experiment
           <span class="project-link">Learn more &rarr;</span>
         </a>
       </div>
-      <p class="work-cta"><a href="mailto:contact@terencebumah.com?subject=Work%20enquiry">Have something you're building? Get in touch.</a></p>
+      <h2 class="work-h2">Work with me</h2>
+      <p>I advise through <a href="https://symmba.com" target="_blank" rel="noopener">Symmba</a>, my product studio. If you are building something and want a clear read on the risks, get in touch.</p>
+      <p class="work-cta"><a href="https://symmba.com" target="_blank" rel="noopener">Symmba.com</a> &middot; <a href="mailto:contact@terencebumah.com?subject=Advisory%20enquiry">Email me</a> &middot; <a href="https://wa.me/85297125124" target="_blank" rel="noopener">WhatsApp</a></p>
     </article>`;
 
   return layout({
