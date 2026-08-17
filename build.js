@@ -31,9 +31,9 @@ const SITE = {
   // Wordmark shown top-left in the nav on every page (links home).
   wordmark: "Terence Bumah",
   // The big hero on the home page. Use *stars* to accent a word.
-  homeHeading: "Think like a *risk officer*",
+  homeHeading: "Apply Risk Thinking to *your life*",
   // One line under the home hero.
-  subtext: "20 years of managing risk, applied to real life to help you make smarter decisions about health, money, business and life.",
+  subtext: "Bringing 20 years of institutional risk expertise to everyday life, helping you make smarter decisions about health, money, business and life.",
   // Used for the <meta name="description"> SEO tag on the home page.
   description:
     "Risk Thinking by Terence Bumah. Think like a risk officer: twenty years managing risk in financial services, applied to everyday life. Notes on health, money, business and personal growth.",
@@ -54,17 +54,17 @@ const SITE = {
 const BLOGS = [
   {
     slug: "notes",
-    name: "Notes",
+    name: "Posts",
     section: "posts",
-    heroHeading: "*Notes*.",
+    heroHeading: "*Posts*.",
     description:
       "Short notes on the risks of everyday life, and how to stay ahead of them, by Terence Bumah.",
   },
   {
     slug: "working-papers",
-    name: "Working Papers",
+    name: "Frameworks",
     section: "working-papers",
-    heroHeading: "Working *Papers*",
+    heroHeading: "*Frameworks*",
     description:
       "Longer-form risk frameworks for enterprises, longevity and startups, by Terence Bumah.",
     order: ["Enterprises", "AI", "Longevity", "Startups"],
@@ -188,7 +188,7 @@ function nav(active) {
     `<a class="nav-link${active === key ? " is-active" : ""}" href="${href}">${escapeHtml(name)}</a>`;
   return `  <nav class="site-nav">
     <a class="nav-brand" href="/">${escapeHtml(SITE.wordmark || SITE.name)}</a>
-    <div class="nav-links">${item("Notes", "/", "notes")}${item("Working Papers", "/working-papers/", "working-papers")}${item("Work", "/work/", "work")}${item("ULTM8", "/ultm8/", "ultm8")}${item("About", "/about/", "about")}</div>
+    <div class="nav-links">${item("Posts", "/", "notes")}${item("Frameworks", "/working-papers/", "working-papers")}${item("Advisory", "/work/", "work")}${item("ULTM8", "/ultm8/", "ultm8")}${item("About", "/about/", "about")}</div>
   </nav>`;
 }
 
@@ -313,9 +313,9 @@ function postPage(post, blog) {
   const backHref = blog.slug === "notes" ? "/" : `/${blog.slug}/`;
   const backText =
     blog.slug === "notes"
-      ? "All notes"
+      ? "All posts"
       : blog.slug === "working-papers"
-      ? "All working papers"
+      ? "All frameworks"
       : `Back to ${blog.name}`;
   const body = `    <article class="post">
       <header class="post-header">
@@ -475,7 +475,7 @@ ${service("Product Optimisation", "Scale the right way.", "Analytics, experiment
     </article>`;
 
   return layout({
-    title: `Work — ${SITE.name}`,
+    title: `Advisory — ${SITE.name}`,
     description:
       "Terence Bumah helps founders and businesses build smarter, safer products by applying Risk Thinking to the way they innovate.",
     body,
@@ -490,7 +490,7 @@ function ovanaPage() {
     `          <li class="get-item"><svg class="get-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>${escapeHtml(t)}</span></li>`;
 
   const body = `    <article class="detail-page">
-      <a class="detail-back" href="/work/">&larr; Work</a>
+      <a class="detail-back" href="/work/">&larr; Advisory</a>
       <span class="detail-kicker">Ovana &middot; Heart health</span>
       <h1 class="about-title detail-title">An intelligent blood pressure companion</h1>
       <div class="detail-body">
