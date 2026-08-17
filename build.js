@@ -397,14 +397,11 @@ function aboutPage() {
   const body = `    <article class="post about-page about-grid">
       <div class="about-main post-body">
         <h1 class="about-title">Why think like a risk officer?</h1>
-        <p class="about-lede">Life is full of risks, some avoidable, others not. Starting a business, investing money, taking a new job or getting married: every important decision involves uncertainty.</p>
-        <p>In each case, success starts with not failing. That's what thinking like a risk officer can help you do in everyday life.</p>
-        <p>My approach is simple. In each post, I look at how things can go wrong, then share practical frameworks to help you improve your odds.</p>
-        <p>This isn't about avoiding risk. The goal is to take the right risks with clarity, not to avoid every risk that comes your way. Whether the subject is health, money, business or personal growth, the method is the same: identify what could go wrong, assess it and make smarter decisions.</p>
+        <p class="about-lede">Life is full of risks, some avoidable, others not. Starting a business, investing money, taking a new job or planning your retirement: every important decision involves uncertainty.</p>
+        <p>In each case, to succeed you have to avoid failing. That is what Risk Thinking is all about, and how it can help you in everyday life.</p>
+        <p>I spent 20 years managing risk across global institutions, helping them avoid catastrophic events. Now I apply the same discipline to everyday life. In each post, I look at how things can go wrong in different life scenarios, then share practical frameworks to help you improve your odds.</p>
+        <p>This is not about avoiding risk. It is quite the opposite. The goal is to seize opportunities by taking the right risks. Whether the subject is health, money, business or personal growth, the method is the same: identify what could go wrong, assess it, and build a plan to mitigate it.</p>
         <p>Nothing in life is guaranteed. But you can improve your chances of success by reducing your chances of failure.</p>
-        <h2>About me</h2>
-        <p>I'm Terence Bumah. I spent 20 years managing risk in financial services, where my job was to identify what could go wrong and help people navigate the risks.</p>
-        <p>I try to apply that same discipline to everyday life because I believe frameworks used to protect institutions can be just as useful for improving our health, finances, relationships, and the choices that shape our lives.</p>
       </div>
       <aside class="about-rail">
         <figure class="about-curve">
