@@ -481,7 +481,7 @@ ${card(
   "ULTM8",
   "Longevity",
   "/projects/ultm8/",
-  "A longevity app that scores your health and wealth across eight pillars, then shows you what to focus on next."
+  "A longevity companion that helps you build lasting health and wealth, so you can live with more vitality and freedom, and add more life to your years."
 )}
       </div>
     </article>`;
