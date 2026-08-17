@@ -436,9 +436,9 @@ function workPage() {
         </div>`;
 
   const body = `    <article class="post text-page">
-      <h1 class="about-title">My work</h1>
+      <h1 class="about-title">Product Advisor</h1>
       <div class="post-body">
-        <p class="about-lede">I help founders and businesses build smarter, safer products by applying Risk Thinking to the way they innovate.</p>
+        <p class="about-lede">I help founders and businesses build products smarter and safer by embedding Risk Thinking in the way they innovate.</p>
         <h2>Applying Risk Thinking to your vision</h2>
         <p>Most products don't fail because of code, project management, marketing or sales. They fail because someone built:</p>
         <ul>
@@ -446,7 +446,7 @@ function workPage() {
           <li>a bad product for the right audience, or</li>
           <li>a good product for the right audience, grown the wrong way.</li>
         </ul>
-        <p>I spent 20 years managing risk in financial services. I bring that same discipline to product teams: identify what could go wrong, weigh it honestly, and make clearer decisions about what to build and what to leave out.</p>
+        <p>I bring that same discipline to product teams: identify what could go wrong, assess it critically, and make smarter decisions about what and how to build.</p>
       </div>
       <h2 class="work-h2">Benefits</h2>
       <div class="work-cards">
@@ -454,7 +454,6 @@ ${benefit("Audience fit.", "Target the right users and customers, so you stop se
 ${benefit("Value fit.", "Make sure the product gives your audience something they truly value and can't do without.")}
 ${benefit("Growth fit.", "Grow at the right time and the right pace, reaching more of the right people without launching too early or scaling before you're ready.")}
       </div>
-      <p class="work-note">This isn't about slowing you down or avoiding every risk. It is about taking the right risks, so the product you ship actually works.</p>
       <h2 class="work-h2">How I help</h2>
       <div class="work-cards">
 ${service("Product Strategy", "Solve the right problem.", "Refine the opportunity, validate the problem and define what should be built before expensive engineering begins.")}
