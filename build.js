@@ -307,8 +307,8 @@ const PAPER_ART = {
 // a motif that differs from its category default (e.g. a loop, not a graph).
 const PAPER_ART_SLUG = {
   "product-innovation-loop": {
-    a: "#c07a2e",
-    b: "#8a5320",
+    a: "#b8496b",
+    b: "#7d2a48",
     motif: `<g fill="none" stroke="#ffffff" stroke-opacity=".82" stroke-width=".42" stroke-linecap="round" stroke-linejoin="round" transform="translate(240 150) scale(8) translate(-12 -12)"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></g>`,
   },
 };
