@@ -31,9 +31,9 @@ const SITE = {
   // Wordmark shown top-left in the nav on every page (links home).
   wordmark: "Terence Bumah",
   // The big hero on the home page. Use *stars* to accent a word.
-  homeHeading: "Applying Risk Thinking in *everyday life*",
+  homeHeading: "Applying Risk Thinking in *Everyday Life*",
   // One line under the home hero.
-  subtext: "Bringing 20 years of institutional risk expertise to everyday life, helping you make smarter decisions about health, money, business and life.",
+  subtext: "Applying 20 years of institutional risk expertise to everyday life, helping people make smarter decisions about their health, money, business, and life.",
   // Used for the <meta name="description"> SEO tag on the home page.
   description:
     "Risk Thinking by Terence Bumah. Think like a risk officer: twenty years managing risk in financial services, applied to everyday life. Notes on health, money, business and personal growth.",
@@ -417,13 +417,14 @@ function aboutPage() {
 
   const body = `    <article class="post about-page about-grid">
       <div class="about-main post-body">
-        <h1 class="about-title">Applied Risk Thinking</h1>
-        <p class="about-lede">Life is full of risks, some avoidable, others not. Starting a business, investing money, taking a new job or planning your retirement: every important decision involves uncertainty.</p>
-        <p>In each case, to succeed you first have to avoid failing. That is the core of Risk Thinking, and the discipline I spent 20 years using inside global institutions works just as well on everyday life.</p>
-        <p>For two decades I managed risk across global institutions, helping them see what could go wrong before it did. Applied Risk Thinking is that same discipline, turned toward the decisions that shape your health, money, business and life.</p>
-        <p>Everything I do is an extension of it. In <a href="/">ART</a>, I look at how things go wrong in real life scenarios and how to stay ahead of them. In <a href="/working-papers/">Frameworks</a>, I set out longer, structured ways to think through bigger risks. As a <a href="/work/">Product Coach</a>, I coach founders and innovators to launch and scale products without the mistakes that sink most of them. And with <a href="/ultm8/">ULTM8</a>, I apply it to longevity, helping people protect their health and wealth for the long run.</p>
-        <p>The method never changes: identify what could go wrong, assess it honestly, and build a plan to mitigate it. This is not about avoiding risk. It is about taking the right ones.</p>
-        <p>Nothing in life is guaranteed. But you can improve your chances of success by reducing your chances of failure.</p>
+        <h1 class="about-title">Applying Risk Thinking</h1>
+        <p class="about-lede">Life is full of uncertainty. Starting a business, investing money, taking a new job or planning for retirement all involve decisions about the future, usually without complete information or guaranteed outcomes.</p>
+        <p>For two decades, I managed risk across global financial institutions. My work involved thinking about what could go wrong, how likely it was, what the consequences might be and what could be done about it.</p>
+        <p>I now apply that way of thinking to everyday life.</p>
+        <p>Risk Thinking is a practical way of making decisions when the outcome is uncertain. It helps us think more clearly about our health, finances, businesses and the choices that shape our lives.</p>
+        <p>In <a href="/">ART</a>, I explore how things go wrong in real-life situations and what we might do earlier, differently or better. In <a href="/working-papers/">Frameworks</a>, I set out structured ways to think through bigger risks.</p>
+        <p>As a <a href="/work/">Product Coach</a>, I help founders and innovators build and launch products without making the mistakes that can sink them. Through <a href="/ultm8/">ULTM8</a>, I apply Risk Thinking to longevity, helping people protect their health and wealth over the long term.</p>
+        <p>Nothing is guaranteed. But thinking more carefully about what could go wrong can improve our chances of making better decisions.</p>
       </div>
       <aside class="about-rail">
         <figure class="about-curve">
@@ -437,7 +438,7 @@ function aboutPage() {
   return layout({
     title: `About — ${SITE.name}`,
     description:
-      "Applied Risk Thinking by Terence Bumah: 20 years managing risk in global institutions, turned toward everyday decisions about health, money, business and life.",
+      "Applying Risk Thinking by Terence Bumah: 20 years managing risk in global financial institutions, turned toward everyday decisions about health, money, business and life.",
     body,
     active: "about",
     wide: true,
@@ -469,17 +470,6 @@ function workPage() {
 ${benefit("Audience fit.", "Target the right users and customers, so you stop selling to everyone and start winning the right people.")}
 ${benefit("Value fit.", "Make sure the product gives your audience something they truly value and can't do without.")}
 ${benefit("Growth fit.", "Grow at the right time and the right pace, reaching more of the right people without launching too early or scaling before you're ready.")}
-      </div>
-      <div class="current">
-        <p class="current-label">Current project</p>
-        <a class="project" href="/ovana/">
-          <div class="project-head">
-            <h2 class="project-name">Ovana</h2>
-            <span class="project-tag">Heart health</span>
-          </div>
-          <p>An intelligent blood pressure companion that helps people catch high blood pressure early and protect their heart every day.</p>
-          <span class="project-link">Learn more &rarr;</span>
-        </a>
       </div>
       <h2 class="work-h2">Work with me</h2>
       <p>I coach through <a href="https://symmba.com" target="_blank" rel="noopener">Symmba</a>, my product studio. If you are building something and want a clear read on the risks, get in touch.</p>
