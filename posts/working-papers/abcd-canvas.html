@@ -10,48 +10,167 @@
 <body>
 
 <style>
-.abcd-fig{margin:2.5rem 0;}
-.abcd-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.abcd-card{display:flex;flex-direction:column;gap:.35rem;padding:1.2rem 1.3rem;border:1px solid var(--border);border-radius:14px;background:var(--surface);border-top:4px solid var(--accent);}
-.abcd-let{display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:.95rem;}
-.abcd-name{font-family:var(--serif);font-weight:700;font-size:1.15rem;line-height:1.2;margin-top:.2rem;}
-.abcd-role{color:var(--muted);font-size:.9rem;line-height:1.4;}
-.abcd-fig figcaption{color:var(--muted);font-size:.85rem;text-align:center;line-height:1.5;margin:1rem 0 0;}
-@media (max-width:520px){.abcd-grid{grid-template-columns:1fr;}}
+.wp-byline{font-family:var(--sans);font-size:.9rem;color:var(--muted);line-height:1.7;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1rem 0;margin:0 0 2rem}
+.wp-byline b{color:var(--fg);font-weight:700}
+.wp-summary{font-family:var(--sans);background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);padding:1.2rem 1.4rem;margin:0 0 2.2rem;line-height:1.7}
+.wp-summary .wp-lab{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:.5rem}
+.wp-summary b{color:var(--fg);font-weight:700}
+.wp-sec{font-family:var(--sans);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:2.4rem 0 -.4rem}
+.wp-table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:.9rem;margin:1rem 0 1.8rem}
+.wp-table th,.wp-table td{border:1px solid var(--border);padding:.6rem .7rem;text-align:left;vertical-align:top;line-height:1.5}
+.wp-table th{background:var(--surface);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.wp-table td .pr{font-weight:700;color:var(--fg)}
+.wp-cite{font-family:var(--mono);font-size:.85rem;background:var(--surface);border:1px solid var(--border);padding:1rem 1.2rem;margin:1rem 0 2rem;line-height:1.7;word-break:break-word}
+.how{font-family:var(--sans);font-size:.9rem;color:var(--muted);border-left:2px solid var(--accent);padding-left:.85rem;margin:.35rem 0 1.4rem;line-height:1.6}
+.how b{color:var(--accent);font-weight:700}
+.fig{margin:2.4rem 0}
+.card-fig{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.8rem 1.6rem 1.6rem}
+.fig-kick{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 .6rem}
+.fig-h{font-size:1.35rem;line-height:1.15;letter-spacing:-.01em;font-weight:700;margin:0 0 .5rem;color:var(--fg)}
+.fig-sub{font-size:.9rem;line-height:1.5;color:var(--muted);max-width:34rem;margin:0 0 1.4rem}
+.abcd-cards{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.abcd-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.1rem;border-top:4px solid var(--accent)}
+.abcd-card .let{display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:.95rem;margin-bottom:.7rem}
+.abcd-card h4{font-size:1rem;margin:0 0 .2rem;font-weight:700;color:var(--fg)}
+.abcd-card p{font-size:.82rem;line-height:1.45;color:var(--muted);margin:0}
+@media(max-width:640px){.card-fig{padding:1.4rem 1.1rem}.abcd-cards{grid-template-columns:1fr}.wp-table{font-size:.82rem}}
 </style>
 
-<p>Plenty of businesses win early and then fade. They get a strong start, some real traction, a few good years, and then quietly lose the ground they gained. Often the problem is not the start at all. It is mistaking a good start for a durable position, and never building the things that would have kept them ahead once others noticed.</p>
+<p class="post-subtitle" style="font-family:var(--serif);font-style:italic;color:var(--muted);font-size:1.15rem;margin:0 0 1.6rem">A competitive strategy framework for building businesses that last.</p>
 
-<p>Here is a simple framework I use for building a business that lasts, and it spells ABCD: Activate customers, Build loyalty, Compete long-term, Distribute at scale. Each letter is a place a business can quietly fail, and a strong business has to hold all four.</p>
-
-<figure class="abcd-fig">
-<div class="abcd-grid">
-<div class="abcd-card"><span class="abcd-let">A</span><span class="abcd-name">Activate customers</span><span class="abcd-role">Get people to actually try you</span></div>
-<div class="abcd-card"><span class="abcd-let">B</span><span class="abcd-name">Build loyalty</span><span class="abcd-role">Keep the customers you win</span></div>
-<div class="abcd-card"><span class="abcd-let">C</span><span class="abcd-name">Compete long-term</span><span class="abcd-role">Stay ahead once others copy you</span></div>
-<div class="abcd-card"><span class="abcd-let">D</span><span class="abcd-name">Distribute at scale</span><span class="abcd-role">Reach enough people, reliably</span></div>
+<div class="wp-byline">
+By <b>Terence Bumah</b><br>
+The ABCD Canvas<br>
+Working paper &middot; 2026
 </div>
-<figcaption>The ABCD canvas. Four places a business can fail, and four it has to hold.</figcaption>
-</figure>
 
+<div class="wp-summary">
+<span class="wp-lab">Summary</span>
+There is no shortage of competitive strategy frameworks. Porter's five forces map the structure of an industry. His generic strategies ask whether you win on cost or on differentiation. Blue Ocean says to stop fighting in crowded markets and create uncontested space. VRIO tests whether a resource is a real advantage or merely useful. Each of these explains something important, and each tends to leave you holding a diagnosis rather than a plan. ABCD is built to close that gap. It organises competitive strategy into four things a business can act on: <b>Activate customers, Build loyalty, Compete long-term, Distribute at scale.</b> It draws on the older frameworks, but arranges them as an order of operations.
+</div>
+
+<p class="wp-sec">1. The problem</p>
+<h2>Strategy that stops at analysis</h2>
+
+<p>Most strategy work explains the world well and says little about what to do next. The five forces tell you why an industry is hard to profit in, but not how to win it. Blue Ocean tells you to find uncontested space, but not how to reach it or hold it. VRIO tells you whether a resource counts as an advantage, but only once you already have the resource. A founder can read all of them and still not know which move comes first.</p>
+
+<p>Meanwhile, plenty of businesses win early and then fade. They get a strong start, some real traction, a few good years, and then lose the ground they gained. Usually the cause is the same: they mistook a good start for a durable position, and never built the parts of the business that would have kept them ahead once competitors noticed.</p>
+
+<p class="wp-sec">2. The framework</p>
+<h2>What ABCD is</h2>
+
+<p>Here is a simple framework I use for building a business that lasts, and it spells ABCD: Activate customers, Build loyalty, Compete long-term, Distribute at scale. It takes the ideas the classic frameworks work with and puts them in the order a business actually faces them. First you have to get people to try you. Then you have to keep them. Then you have to stay ahead of the people who copy you. Then you have to reach enough of the market for any of it to matter. Each letter is a place a business can quietly fail, and each points to the older frameworks and playbooks that help you strengthen it.</p>
+
+<div class="fig">
+  <div class="card-fig">
+    <p class="fig-kick">The ABCD Canvas</p>
+    <h3 class="fig-h">Four things a business has to hold</h3>
+    <p class="fig-sub">Each letter is a stage in the life of a business, and a place it can fail. A strong business holds all four at once.</p>
+    <div class="abcd-cards">
+      <div class="abcd-card"><span class="let">A</span><h4>Activate customers</h4><p>Get people to actually try you, not just hear of you.</p></div>
+      <div class="abcd-card"><span class="let">B</span><h4>Build loyalty</h4><p>Keep the customers you win, and make leaving unattractive.</p></div>
+      <div class="abcd-card"><span class="let">C</span><h4>Compete long-term</h4><p>Build a moat so your lead survives being copied.</p></div>
+      <div class="abcd-card"><span class="let">D</span><h4>Distribute at scale</h4><p>Reach enough of the market, through channels you can rely on.</p></div>
+    </div>
+  </div>
+</div>
+
+<p class="wp-sec">3. Activate</p>
 <h2>A: Activate Customers</h2>
 
-<p>The first job is to get people to actually try you, not just hear of you. It is easy to confuse attention with activation. A campaign that everyone talks about but no one uses has produced nothing. Activation is the moment a customer reaches the result they came for, the first time the product does for them what it promised. Until that happens, everything upstream is only cost.</p>
+<p>The first job is to get people to actually try you, not just hear of you. Activation is not awareness. It is the first time a customer reaches the result they came for, the moment the product does for them what it promised. Until that happens, everything upstream is only cost.</p>
 
+<p>The work here is choosing the channels that get you to that moment. There are four broad routes, and most businesses lean on one or two.</p>
+
+<ul>
+<li><strong>Offline.</strong> Retail, events, field sales, and word of mouth. Slower to scale, but strong where the product needs to be seen or trusted in person.</li>
+<li><strong>Online.</strong> Search, content, paid acquisition, and marketplaces. Measurable and fast to test, but crowded and often expensive.</li>
+<li><strong>Strategic partnerships.</strong> Reaching customers through another company that already serves them. You trade margin or control for immediate access to a base you would otherwise have to build.</li>
+<li><strong>Influencers.</strong> Borrowing trust someone else has already built with an audience, so the recommendation carries weight your own advertising would not.</li>
+</ul>
+
+<p class="how"><b>Choose well.</b> The right mix depends on where your customers already are, what they cost to reach, and how much explaining the product needs before someone will try it. A product that sells itself in one sentence can lean on online and influencers; one that needs to be demonstrated usually needs offline or partnerships first.</p>
+
+<p class="wp-sec">4. Build</p>
 <h2>B: Build Loyalty</h2>
 
-<p>Winning a customer once is not the same as keeping them. It is far cheaper to keep a customer than to find a new one, so a business that cannot hold on to the people it wins has to keep spending to replace them. Loyalty comes from delivering the result consistently, and from the cost of leaving being higher than the reason to.</p>
+<p>Winning a customer once is not the same as keeping them, and it is far cheaper to keep one than to find a new one. A business that cannot hold on to the people it wins has to keep spending to replace them. Loyalty starts with value, and value starts with solving a real problem.</p>
 
+<p>This is where SOURCE helps. It scores whether the problem is severe and frequent enough to earn a place in the customer's routine. A product that solves a rare or trivial problem will struggle to hold anyone, regardless of how well it is made.</p>
+
+<p>Once the value is real, the product has to be sticky, so that staying is easier than leaving. The way to get there is to keep improving the product against what customers actually do, and I use a simple loop for this called ABCD Validation: <b>Analyse requirements, Build product, Check feedback, Deliver to users</b>, then repeat. Each pass fits the product a little more closely to the customer, and a product that fits is a product people stay with.</p>
+
+<table class="wp-table">
+<thead><tr><th>Step</th><th>What you do</th></tr></thead>
+<tbody>
+<tr><td><span class="pr">A - Analyse requirements</span></td><td>Work out what the customer actually needs the product to do.</td></tr>
+<tr><td><span class="pr">B - Build product</span></td><td>Build the smallest version that meets that need.</td></tr>
+<tr><td><span class="pr">C - Check feedback</span></td><td>Put it in front of real users and watch what they do, not just what they say.</td></tr>
+<tr><td><span class="pr">D - Deliver to users</span></td><td>Ship the improved version, then start the loop again.</td></tr>
+</tbody>
+</table>
+
+<p>Stickiness comes from delivering the result consistently, from habit, and from value that accumulates the longer a customer stays, such as their history, data, or setup inside the product. The test is simple: when a cheaper or newer alternative appears, does the customer have a reason to stay that is stronger than the reason to go.</p>
+
+<p class="wp-sec">5. Compete</p>
 <h2>C: Compete Long-term</h2>
 
-<p>Anyone can be copied. The question is how quickly, and at what cost to whoever tries. What slows a competitor down is an advantage that is hard to reproduce: a brand people trust, a network that gets more useful as it grows, costs rivals cannot match, or switching costs that make leaving painful. Without one of these, today's lead is temporary, and you should assume someone is already working to take it.</p>
+<p>Anyone can be copied. The question is how quickly, and at what cost to whoever tries. What slows a competitor down is a moat: an advantage that is structurally hard to reproduce.</p>
 
+<p>VRIO is the test for whether you have one. An advantage has to be Valuable, Rare, hard to Imitate, and something the Organisation can actually exploit. If a supposed advantage fails any of these, it is not a moat, and you should not plan as though it is.</p>
+
+<table class="wp-table">
+<thead><tr><th>Test</th><th>The question</th></tr></thead>
+<tbody>
+<tr><td><span class="pr">V - Valuable</span></td><td>Does it let you serve customers better or at lower cost?</td></tr>
+<tr><td><span class="pr">R - Rare</span></td><td>Do few or no competitors already have it?</td></tr>
+<tr><td><span class="pr">I - Imitable</span></td><td>Is it costly or slow for others to copy or substitute?</td></tr>
+<tr><td><span class="pr">O - Organisation</span></td><td>Is the business set up to actually exploit it?</td></tr>
+</tbody>
+</table>
+
+<p>The common moats are a brand people trust, a network that gets more useful as it grows, costs rivals cannot match, proprietary technology or data, switching costs that make leaving painful, or a high barrier to entry that keeps most competitors out entirely. Without at least one, today's lead is temporary, and you should assume someone is already working to take it.</p>
+
+<p class="wp-sec">6. Distribute</p>
 <h2>D: Distribute at Scale</h2>
 
-<p>A good product that few people can reach loses to an average product that everyone can. Distribution is how the product gets in front of enough people, reliably, and ideally through channels you own rather than rent. A business that depends on a single channel it does not control, an ad platform, an app store, one large client, is one policy change away from trouble. Durable distribution is as much an asset as the product itself.</p>
+<p>A good product that few people can reach loses to an average product that everyone can. Distribution is how you grow three things at once: customers, revenue, and reach. The levers differ by business, but they tend to fall into a few groups.</p>
 
+<ul>
+<li><strong>More customers.</strong> Add channels, enter new segments or markets, and widen the top of the funnel.</li>
+<li><strong>More revenue per customer.</strong> Raise prices where you can, sell more to existing customers, and move one-off sales into recurring relationships.</li>
+<li><strong>More reach per customer.</strong> Build loops where existing customers bring new ones, through referrals, sharing, or a product that becomes more visible the more it is used.</li>
+</ul>
+
+<p class="how"><b>Own the channel where you can.</b> Prefer channels you own over channels you rent. A business that depends on a single channel it does not control, an ad platform, an app store, or one large client, is one policy change away from trouble. Durable distribution is as much an asset as the product itself.</p>
+
+<p class="wp-sec">7. The map</p>
+<h2>How the classic frameworks fit</h2>
+
+<p>ABCD does not replace the older frameworks. It puts them to work, each in the stage where it is most useful.</p>
+
+<table class="wp-table">
+<thead><tr><th>Letter</th><th>The question</th><th>Frameworks that help</th></tr></thead>
+<tbody>
+<tr><td><span class="pr">A - Activate</span></td><td>How do we get people to try us?</td><td>Go-to-market and channel strategy, Blue Ocean for new demand</td></tr>
+<tr><td><span class="pr">B - Build loyalty</span></td><td>How do we keep them?</td><td>SOURCE for a real problem, ABCD Validation for stickiness, jobs-to-be-done</td></tr>
+<tr><td><span class="pr">C - Compete long-term</span></td><td>How do we stay ahead once copied?</td><td>VRIO, Porter's generic strategies, barriers to entry</td></tr>
+<tr><td><span class="pr">D - Distribute at scale</span></td><td>How do we reach enough of the market?</td><td>Growth loops, channel economics, owned versus rented reach</td></tr>
+</tbody>
+</table>
+
+<p class="wp-sec">8. The method</p>
 <h2>How you can make this work</h2>
 
-<p>Score your business out of five on each of the four: activation, loyalty, competition, distribution. The lowest score is usually where the real risk sits. A business that activates well but keeps no one spends everything it earns finding replacements. One that has loyal customers but no lasting advantage will lose them the moment a stronger competitor arrives. Work the weakest letter first, then score again. Lasting success comes from keeping all four strong enough that no single one becomes the thing that undoes you.</p>
+<p>Score your business out of five on each of the four: activation, loyalty, competition, distribution. The lowest score is usually where the real risk sits. A business that activates well but keeps no one spends everything it earns finding replacements. One with loyal customers but no moat will lose them the moment a stronger competitor arrives. One with a great product and weak distribution never reaches the scale that would have made it matter. Work the weakest letter first, then score again. Lasting success comes from keeping all four strong enough that no single one becomes the thing that undoes you.</p>
+
+<p class="wp-sec">9. How to cite</p>
+<h2>Citation</h2>
+
+<div class="wp-cite">
+Bumah, T. (2026). <em>The ABCD Canvas: competitive strategy for lasting success.</em> terencebumah.com
+</div>
+
+<p><small>The ABCD Canvas is a framework by Terence Bumah. It draws on established strategy frameworks, including Porter's five forces and generic strategies, Blue Ocean Strategy, and VRIO analysis.</small></p>
 
 </body></html>
