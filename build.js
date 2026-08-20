@@ -40,6 +40,8 @@ const SITE = {
   author: "Terence Bumah",
   // Contact / social links shown in the footer of every page.
   links: [
+    { label: "Coaching", href: "https://symmba.com", blank: true },
+    { label: "ULTM8", href: "https://ultm8life.com", blank: true },
     { label: "Email", href: "mailto:contact@terencebumah.com" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/terencebumah" },
     { label: "Substack", href: "https://bumah.substack.com" },
@@ -186,9 +188,12 @@ function fmtDate(iso) {
 function nav(active) {
   const item = (name, href, key) =>
     `<a class="nav-link${active === key ? " is-active" : ""}" href="${href}">${escapeHtml(name)}</a>`;
+  const ext = (name, href) =>
+    `<a class="nav-menu-link" href="${href}" target="_blank" rel="noopener">${escapeHtml(name)}</a>`;
+  const work = `<div class="nav-group"><button type="button" class="nav-link nav-group-btn" aria-haspopup="true">My work<span class="nav-caret" aria-hidden="true">\u25be</span></button><div class="nav-menu">${ext("Coaching", "https://symmba.com")}${ext("ULTM8", "https://ultm8life.com")}</div></div>`;
   return `  <nav class="site-nav">
     <a class="nav-brand" href="/">${escapeHtml(SITE.wordmark || SITE.name)}</a>
-    <div class="nav-links">${item("ART", "/", "notes")}${item("Frameworks", "/working-papers/", "working-papers")}${item("Coaching", "/work/", "work")}${item("ULTM8", "/ultm8/", "ultm8")}${item("About", "/about/", "about")}</div>
+    <div class="nav-links">${item("Learn", "/", "notes")}${item("Why ART", "/about/", "about")}${item("Frameworks", "/working-papers/", "working-papers")}${work}</div>
   </nav>`;
 }
 
@@ -212,7 +217,10 @@ ${body}
     ${
       SITE.links && SITE.links.length
         ? `<nav class="contact-links">${SITE.links
-            .map((l) => `<a href="${escapeHtml(l.href)}">${escapeHtml(l.label)}</a>`)
+            .map(
+              (l) =>
+                `<a href="${escapeHtml(l.href)}"${l.blank ? ' target="_blank" rel="noopener"' : ""}>${escapeHtml(l.label)}</a>`,
+            )
             .join("")}</nav>`
         : ""
     }
@@ -260,8 +268,9 @@ function cardMotif(category) {
 function streamItem(p, showCat) {
   const label = p.category || (showCat ? p.blogName : "");
   const catClass = CAT_CLASS[p.category] || "cat-default";
+  const catKey = catClass.replace("cat-", "");
   const cover = p.number != null ? `ART #${p.number}` : label || "Paper";
-  return `        <article class="card ${catClass}" data-topic="${escapeHtml(p.blogSlug)}">
+  return `        <article class="card ${catClass}" data-topic="${escapeHtml(p.blogSlug)}" data-cat="${escapeHtml(catKey)}">
           <a class="card-link" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
             <div class="card-cover">${cardMotif(p.category)}<span class="card-num">${escapeHtml(cover)}</span></div>
             <div class="card-body">
@@ -393,20 +402,78 @@ ${feedHtml}
 }
 
 function homePage() {
-  const heroHtml = `  <header class="site-hero">
-    <h1 class="hero-heading">${accent(SITE.homeHeading)}</h1>
-    ${SITE.subtext ? `<p class="hero-subtext">${escapeHtml(SITE.subtext)}</p>` : ""}
+  const heroCurve = `<svg viewBox="0 0 300 210" role="img" aria-label="A distribution curve with the failure zone marked off on the left"><defs><clipPath id="home-rc-clip"><path d="M24 170 C 96 170 116 45 150 45 C 184 45 204 170 276 170 Z"/></clipPath></defs><path d="M24 170 C 96 170 116 45 150 45 C 184 45 204 170 276 170 Z" fill="var(--accent)" opacity="0.07"/><g clip-path="url(#home-rc-clip)"><rect x="24" y="45" width="62" height="125" fill="var(--accent)" opacity="0.22"/></g><line x1="86" y1="55" x2="86" y2="170" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3 4" opacity="0.6"/><line x1="16" y1="170" x2="284" y2="170" stroke="var(--border)" stroke-width="1.5"/><path d="M24 170 C 96 170 116 45 150 45 C 184 45 204 170 276 170" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+  const heroHtml = `  <header class="site-hero home-hero">
+    <div class="hero-copy">
+      <h1 class="hero-heading">${accent(SITE.homeHeading)}</h1>
+      ${SITE.subtext ? `<p class="hero-subtext">${escapeHtml(SITE.subtext)}</p>` : ""}
+    </div>
+    <figure class="hero-visual">
+      ${heroCurve}
+      <figcaption>Better decisions start with reducing your chance of failure.</figcaption>
+    </figure>
   </header>`;
 
   // The Notes stream lands on the home page, newest first.
   const notes = BLOGS.find((b) => b.slug === "notes");
   const stream = notes ? notes.posts : [];
 
+  // Start here: a hand-picked trio spanning the main categories.
+  const featuredSlugs = ["financial-freedom-ladder", "gps-execution", "feeling-alive-at-40"];
+  const featured = featuredSlugs
+    .map((s) => stream.find((p) => p.slug === s))
+    .filter(Boolean);
+
+  const chips = [
+    ["all", "All"],
+    ["health", "Health"],
+    ["money", "Money"],
+    ["business", "Business"],
+    ["growth", "Personal Growth"],
+  ]
+    .map(
+      ([f, name], i) =>
+        `<button class="chip${i === 0 ? " is-active" : ""}" data-filter="${f}">${name}</button>`,
+    )
+    .join("");
+
+  const startHere = featured.length
+    ? `      <div class="start-here">
+        <p class="home-section-label">Start here</p>
+        <div class="feed start-grid">
+${featured.map((p) => streamItem(p, false)).join("\n")}
+        </div>
+      </div>\n`
+    : "";
+
   const body = `    <section class="home-feed">
-      <div class="feed">
+${startHere}      <div class="stream-head">
+        <p class="home-section-label">All posts</p>
+        <div class="chip-row">${chips}</div>
+      </div>
+      <div class="feed" id="post-feed">
 ${stream.map((p) => streamItem(p, false)).join("\n")}
       </div>
-    </section>`;
+    </section>
+    <script>
+      (function () {
+        var chips = document.querySelectorAll(".chip[data-filter]");
+        var cards = document.querySelectorAll("#post-feed .card");
+        for (var i = 0; i < chips.length; i++) {
+          chips[i].addEventListener("click", function () {
+            var f = this.getAttribute("data-filter");
+            for (var j = 0; j < chips.length; j++) {
+              chips[j].classList.toggle("is-active", chips[j] === this);
+            }
+            for (var k = 0; k < cards.length; k++) {
+              var show = f === "all" || cards[k].getAttribute("data-cat") === f;
+              cards[k].style.display = show ? "" : "none";
+            }
+          }.bind(chips[i]));
+        }
+      })();
+    </script>`;
 
   return layout({
     title: `${SITE.name} — ${SITE.author}`,
