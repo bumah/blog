@@ -31,7 +31,7 @@ const SITE = {
   // Wordmark shown top-left in the nav on every page (links home).
   wordmark: "Terence Bumah",
   // The big hero on the home page. Use *stars* to accent a word.
-  homeHeading: "Applied Risk Thinking for *everyday life*",
+  homeHeading: "Applying Risk Thinking in *everyday life*",
   // One line under the home hero.
   subtext: "Bringing 20 years of institutional risk expertise to everyday life, helping you make smarter decisions about health, money, business and life.",
   // Used for the <meta name="description"> SEO tag on the home page.
@@ -188,7 +188,7 @@ function nav(active) {
     `<a class="nav-link${active === key ? " is-active" : ""}" href="${href}">${escapeHtml(name)}</a>`;
   return `  <nav class="site-nav">
     <a class="nav-brand" href="/">${escapeHtml(SITE.wordmark || SITE.name)}</a>
-    <div class="nav-links">${item("ART", "/", "notes")}${item("Frameworks", "/working-papers/", "working-papers")}${item("Advisory", "/work/", "work")}${item("ULTM8", "/ultm8/", "ultm8")}${item("About", "/about/", "about")}</div>
+    <div class="nav-links">${item("ART", "/", "notes")}${item("Frameworks", "/working-papers/", "working-papers")}${item("Coaching", "/work/", "work")}${item("ULTM8", "/ultm8/", "ultm8")}${item("About", "/about/", "about")}</div>
   </nav>`;
 }
 
@@ -421,7 +421,7 @@ function aboutPage() {
         <p class="about-lede">Life is full of risks, some avoidable, others not. Starting a business, investing money, taking a new job or planning your retirement: every important decision involves uncertainty.</p>
         <p>In each case, to succeed you first have to avoid failing. That is the core of Risk Thinking, and the discipline I spent 20 years using inside global institutions works just as well on everyday life.</p>
         <p>For two decades I managed risk across global institutions, helping them see what could go wrong before it did. Applied Risk Thinking is that same discipline, turned toward the decisions that shape your health, money, business and life.</p>
-        <p>Everything I do is an extension of it. In <a href="/">ART</a>, I look at how things go wrong in real life scenarios and how to stay ahead of them. In <a href="/working-papers/">Frameworks</a>, I set out longer, structured ways to think through bigger risks. As a <a href="/work/">Product Advisor</a>, I help founders build products that avoid the mistakes that sink most of them. And with <a href="/ultm8/">ULTM8</a>, I apply it to longevity, helping people protect their health and wealth for the long run.</p>
+        <p>Everything I do is an extension of it. In <a href="/">ART</a>, I look at how things go wrong in real life scenarios and how to stay ahead of them. In <a href="/working-papers/">Frameworks</a>, I set out longer, structured ways to think through bigger risks. As a <a href="/work/">Product Coach</a>, I coach founders and innovators to launch and scale products without the mistakes that sink most of them. And with <a href="/ultm8/">ULTM8</a>, I apply it to longevity, helping people protect their health and wealth for the long run.</p>
         <p>The method never changes: identify what could go wrong, assess it honestly, and build a plan to mitigate it. This is not about avoiding risk. It is about taking the right ones.</p>
         <p>Nothing in life is guaranteed. But you can improve your chances of success by reducing your chances of failure.</p>
       </div>
@@ -452,9 +452,9 @@ function workPage() {
         </div>`;
 
   const body = `    <article class="post text-page">
-      <h1 class="about-title">Product Advisor</h1>
+      <h1 class="about-title">Product Coach</h1>
       <div class="post-body">
-        <p class="about-lede">I help founders and businesses build products smarter and safer by embedding Risk Thinking in the way they innovate.</p>
+        <p class="about-lede">I coach founders and innovators to launch and scale products, applying Risk Thinking to shape how they build.</p>
         <h2>Applying Risk Thinking to your vision</h2>
         <p>Most products don't fail because of code, project management, marketing or sales. They fail because someone built:</p>
         <ul>
@@ -462,7 +462,7 @@ function workPage() {
           <li>a bad product for the right audience, or</li>
           <li>a good product for the right audience, grown the wrong way.</li>
         </ul>
-        <p>I bring that same discipline to product teams: identify what could go wrong, assess it critically, and make smarter decisions about what and how to build.</p>
+        <p>I coach product teams to bring that same discipline to their work: identify what could go wrong, assess it critically, and make smarter decisions about what to build and how to grow it.</p>
       </div>
       <h2 class="work-h2">Benefits</h2>
       <div class="work-cards">
@@ -482,14 +482,14 @@ ${benefit("Growth fit.", "Grow at the right time and the right pace, reaching mo
         </a>
       </div>
       <h2 class="work-h2">Work with me</h2>
-      <p>I advise through <a href="https://symmba.com" target="_blank" rel="noopener">Symmba</a>, my product studio. If you are building something and want a clear read on the risks, get in touch.</p>
-      <p class="work-cta"><a href="https://symmba.com" target="_blank" rel="noopener">Symmba.com</a> &middot; <a href="mailto:contact@terencebumah.com?subject=Advisory%20enquiry">Email me</a> &middot; <a href="https://wa.me/85297125124" target="_blank" rel="noopener">WhatsApp</a></p>
+      <p>I coach through <a href="https://symmba.com" target="_blank" rel="noopener">Symmba</a>, my product studio. If you are building something and want a clear read on the risks, get in touch.</p>
+      <p class="work-cta"><a href="https://symmba.com" target="_blank" rel="noopener">Symmba.com</a> &middot; <a href="mailto:contact@terencebumah.com?subject=Coaching%20enquiry">Email me</a> &middot; <a href="https://wa.me/85297125124" target="_blank" rel="noopener">WhatsApp</a></p>
     </article>`;
 
   return layout({
-    title: `Advisory — ${SITE.name}`,
+    title: `Coaching — ${SITE.name}`,
     description:
-      "Terence Bumah helps founders and businesses build smarter, safer products by applying Risk Thinking to the way they innovate.",
+      "Terence Bumah coaches founders and innovators to launch and scale products, applying Risk Thinking to how they build.",
     body,
     active: "work",
   });
@@ -502,7 +502,7 @@ function ovanaPage() {
     `          <li class="get-item"><svg class="get-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>${escapeHtml(t)}</span></li>`;
 
   const body = `    <article class="detail-page">
-      <a class="detail-back" href="/work/">&larr; Advisory</a>
+      <a class="detail-back" href="/work/">&larr; Coaching</a>
       <span class="detail-kicker">Ovana &middot; Heart health</span>
       <h1 class="about-title detail-title">An intelligent blood pressure companion</h1>
       <div class="detail-body">
