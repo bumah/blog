@@ -66,8 +66,8 @@ const BLOGS = [
     section: "working-papers",
     heroHeading: "*Frameworks*",
     description:
-      "Longer-form risk frameworks for enterprises, longevity and startups, by Terence Bumah.",
-    order: ["Enterprises", "AI", "Longevity", "Startups"],
+      "Longer-form risk frameworks for enterprises, strategy, longevity and startups, by Terence Bumah.",
+    order: ["Enterprises", "Strategy", "AI", "Longevity", "Startups"],
   },
 ];
 
@@ -280,6 +280,11 @@ const PAPER_ART = {
     a: "#3a5a8c",
     b: "#243a63",
     motif: `<g fill="#ffffff"><circle cx="240" cy="150" r="80" fill="none" stroke="#ffffff" stroke-opacity=".22" stroke-width="2"/><circle cx="240" cy="72" r="10" opacity=".9"/><circle cx="301" cy="101" r="10" opacity=".9"/><circle cx="316" cy="167" r="10" opacity=".9"/><circle cx="274" cy="220" r="10" opacity=".9"/><circle cx="206" cy="220" r="10" opacity=".9"/><circle cx="164" cy="167" r="10" opacity=".9"/><circle cx="179" cy="101" r="10" opacity=".9"/><circle cx="240" cy="150" r="15" opacity=".95"/></g>`,
+  },
+  Strategy: {
+    a: "#6b4e9e",
+    b: "#452f6e",
+    motif: `<g stroke="#ffffff" stroke-opacity=".28" stroke-width="2"><rect x="166" y="76" width="148" height="148" rx="8" fill="none"/><line x1="240" y1="76" x2="240" y2="224"/><line x1="166" y1="150" x2="314" y2="150"/></g><g fill="#ffffff" opacity=".9"><circle cx="203" cy="113" r="9"/><circle cx="277" cy="113" r="9"/><circle cx="203" cy="187" r="9"/><circle cx="277" cy="187" r="9"/></g>`,
   },
   AI: {
     a: "#2f6f7d",
