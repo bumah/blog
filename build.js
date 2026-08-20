@@ -303,9 +303,19 @@ const PAPER_ART = {
   },
 };
 
-function paperCover(category) {
-  const art = PAPER_ART[category] || PAPER_ART.Enterprises;
-  const id = "pg-" + slugify(category || "paper");
+// Per-paper cover overrides, keyed by slug. Used when a specific paper needs
+// a motif that differs from its category default (e.g. a loop, not a graph).
+const PAPER_ART_SLUG = {
+  "product-innovation-loop": {
+    a: "#c07a2e",
+    b: "#8a5320",
+    motif: `<g fill="none" stroke="#ffffff" stroke-opacity=".82" stroke-width=".42" stroke-linecap="round" stroke-linejoin="round" transform="translate(240 150) scale(8) translate(-12 -12)"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></g>`,
+  },
+};
+
+function paperCover(category, slug) {
+  const art = PAPER_ART_SLUG[slug] || PAPER_ART[category] || PAPER_ART.Enterprises;
+  const id = "pg-" + slugify(slug || category || "paper");
   return `<svg class="paper-svg" viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${art.a}"/><stop offset="1" stop-color="${art.b}"/></linearGradient></defs><rect width="480" height="300" fill="url(#${id})"/>${art.motif}</svg>`;
 }
 
@@ -314,7 +324,7 @@ function paperItem(p) {
   const summary = p.excerpt || p.description || "";
   return `        <article class="paper" data-topic="${escapeHtml(p.blogSlug)}">
           <a class="paper-link" href="/${p.blogSlug}/${escapeHtml(p.slug)}.html">
-            <div class="paper-cover">${paperCover(p.category)}</div>
+            <div class="paper-cover">${paperCover(p.category, p.slug)}</div>
             <div class="paper-body">
               ${p.category ? `<span class="paper-cat">${escapeHtml(p.category)}</span>` : ""}
               <h2 class="paper-title">${escapeHtml(p.title)}</h2>
