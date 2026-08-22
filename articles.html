@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Articles — Terence Bumah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#15100d; --panel2:#271e19;
+  --ink:#f4ede3; --ink-soft:#cdbfb0; --muted:#a89886; --faint:#6f6357;
+  --orange:#e07a53; --orange-deep:#c8623a;
+  --line:rgba(244,237,227,.12); --line2:rgba(244,237,227,.22);
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(circle at center, rgba(244,237,227,.05) 0 .8px, transparent 1px);background-size:56px 56px;opacity:.6}
+main,nav,footer{position:relative;z-index:1}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+.mono{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+a:focus-visible{outline:2.5px solid var(--orange);outline-offset:3px}
+
+nav{position:sticky;top:0;z-index:60;background:rgba(21,16,13,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 32px;max-width:1240px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-name{font-family:var(--serif);font-weight:500;font-size:17px;letter-spacing:-.01em}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{font-size:.9rem;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a.active{color:var(--ink)}
+
+.page{max-width:700px;margin:0 auto;padding:96px 32px 110px}
+.page .eyebrow{color:var(--orange);display:block;margin-bottom:22px}
+.page h1{font-family:var(--serif);font-weight:360;letter-spacing:-.02em;line-height:1.05;font-size:clamp(40px,5.6vw,68px);margin:0 0 34px}
+.page > p{font-size:19px;line-height:1.7;color:var(--ink-soft);margin:0 0 24px}
+
+.posts{margin:40px 0 0}
+.post{border-top:1px solid var(--line);padding:22px 0;display:block}
+.post:last-child{border-bottom:1px solid var(--line)}
+.post .meta{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:6px}
+.post h2{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;font-size:24px;margin:0 0 4px;transition:color .2s ease}
+.post:hover h2{color:var(--orange)}
+.post p{font-size:16px;color:var(--muted);margin:0}
+
+footer{border-top:1px solid var(--line2);padding:40px 0;color:var(--muted)}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.04em}
+.foot .links{display:flex;gap:22px;flex-wrap:wrap}
+.foot a:hover{color:var(--ink)}
+
+@media (max-width:720px){
+  .wrap{padding:0 22px}
+  .nav-in{padding:14px 22px}
+  .nav-links a:not(.active){display:none}
+  .page{padding:64px 22px 80px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a href="index.html" class="brand" aria-label="Terence Bumah — home">
+      
+      <span class="brand-name">Terence Bumah</span>
+    </a>
+    <div class="nav-links">
+      <a href="rft.html">RFT</a>
+      <a href="articles.html" class="active">Articles</a>
+      <a href="ultm8.html">ULTM8</a>
+      <a href="about.html">About</a>
+      <a href="coaching.html">Coaching</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<section class="page">
+  <span class="mono eyebrow">Articles</span>
+  <h1>Articles</h1>
+  <p>Personal takes on health, money, business, and personal growth.</p>
+
+  <div class="posts">
+    <a class="post" href="posts/placeholder-post.html">
+      <span class="meta">Note &middot; Draft</span>
+      <h2>A placeholder post</h2>
+      <p>A stand-in so you can see how writing will look on the site.</p>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>&copy; 2026 Terence Bumah &middot; Risk-First Thinking</span>
+    <span class="links">
+      <a href="rft.html">RFT</a>
+      <a href="articles.html">Articles</a>
+      <a href="ultm8.html">ULTM8</a>
+      <a href="about.html">About</a>
+      <a href="resources.html">Resources</a>
+      <a href="#">Email</a>
+      <a href="#">LinkedIn</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>

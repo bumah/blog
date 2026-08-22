@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Terence Bumah — Risk-First Thinking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#15100d; --bg2:#1e1613; --panel:#221a16; --panel2:#271e19;
+    --ink:#f4ede3; --muted:#a89886; --faint:#6f6357;
+    --line:rgba(244,237,227,.12); --line2:rgba(244,237,227,.22);
+    --accent:#e07a53; --accent2:#d9a441; --orange:#e07a53;
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --body:Georgia,"Times New Roman",serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;line-height:1.55}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:40;background:rgba(21,16,13,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 40px;max-width:1180px;margin:0 auto}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand-name{font-family:var(--serif);font-weight:500;font-size:17px;letter-spacing:-.01em}
+  .nav-links{display:flex;align-items:center;gap:28px}
+  .nav-links a{font-size:.9rem;color:var(--muted);transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+
+  /* HERO */
+  .hero{padding:84px 0 42px;border-bottom:1px solid var(--line)}
+  .hero .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;color:var(--accent);display:block;margin-bottom:22px}
+  .hero h1{font-family:var(--serif);font-weight:360;letter-spacing:-.02em;font-size:clamp(2.2rem,4.6vw,3.8rem);line-height:1.12;max-width:24ch;margin:0}
+  .hero h1 em{font-style:italic;color:var(--accent)}
+  .hero .sub{font-family:var(--body);font-size:1.15rem;line-height:1.55;color:var(--muted);max-width:52ch;margin:0 0 46px}
+
+  /* CARD GRID (3 x 2 equal tiles) */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:34px 0 90px}
+  .card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:32px 32px 28px;display:flex;flex-direction:column;justify-content:flex-end;min-height:320px;overflow:hidden;transition:border-color .25s,transform .25s,background .25s}
+  .card:hover{border-color:var(--line2);transform:translateY(-3px);background:var(--panel2)}
+  .card h2{font-family:var(--serif);font-weight:360;font-size:clamp(1.9rem,2.6vw,2.3rem);letter-spacing:-.01em;line-height:1.02;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:.96rem;max-width:34ch}
+  .card .go{margin-top:20px;font-size:.86rem;color:var(--ink);display:inline-flex;align-items:center;gap:8px}
+  .card .go .arw{transition:transform .25s}
+  .card:hover .go .arw{transform:translateX(5px)}
+  .card::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 85% 0%,rgba(224,122,83,.14),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+  .card:hover::before{opacity:1}
+
+  .c-ultm8{background:linear-gradient(165deg,#20272a,#171d1f)}
+  .c-ultm8 .badge{position:absolute;top:28px;right:30px;font-family:var(--serif);font-size:.8rem;letter-spacing:.14em;color:#7fd0aa;border:1px solid rgba(127,208,170,.4);border-radius:30px;padding:4px 12px}
+
+  footer{border-top:1px solid var(--line2);padding:40px 0;color:var(--muted)}
+  .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.04em}
+  .foot .links{display:flex;gap:22px;flex-wrap:wrap}
+  .foot a{color:var(--muted)}
+  .foot a:hover{color:var(--ink)}
+
+  @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:640px){
+    .wrap{padding:0 24px}
+    .nav-in{padding:16px 24px}
+    .grid{grid-template-columns:1fr;gap:16px;padding:34px 0 70px}
+    .card{min-height:210px}
+    .nav-links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a href="index.html" class="brand" aria-label="Terence Bumah — home">
+      
+      <span class="brand-name">Terence Bumah</span>
+    </a>
+    <div class="nav-links">
+      <a href="rft.html">RFT</a>
+      <a href="articles.html">Articles</a>
+      <a href="ultm8.html">ULTM8</a>
+      <a href="about.html">About</a>
+      <a href="coaching.html">Coaching</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <span class="eyebrow">Terence Bumah &middot; &#x1F1E8;&#x1F1F2; &#x1F1EC;&#x1F1E7; &#x1F1ED;&#x1F1F0;</span>
+  <h1>20 yrs in risk and banking. Alongside this, I coach founders, build products, and champion <em>risk-first thinking</em>.</h1>
+</header>
+
+<div class="grid wrap">
+
+  <a class="card c-rft" href="rft.html">
+    <h2>Risk-First Thinking</h2>
+    <p>A way of thinking that improves your chances of success across health, money, work and life.</p>
+    <span class="go">Explore RFT <span class="arw">&rarr;</span></span>
+  </a>
+
+  <a class="card c-ultm8" href="ultm8.html">
+    <h2>ULTM8</h2>
+    <p>A longevity tool that shapes your health and wealth so you can live with more vitality and freedom.</p>
+    <span class="go">Open ULTM8 <span class="arw">&rarr;</span></span>
+  </a>
+
+  <a class="card c-articles" href="articles.html">
+    <h2>Articles</h2>
+    <p>Personal takes on health, money, business, and growth, shaped by risk-first thinking.</p>
+    <span class="go">Read the latest <span class="arw">&rarr;</span></span>
+  </a>
+
+  <a class="card c-about" href="about.html">
+    <h2>About</h2>
+    <p>The person behind RFT and ULTM8.</p>
+    <span class="go">My story <span class="arw">&rarr;</span></span>
+  </a>
+
+  <a class="card c-coaching" href="coaching.html">
+    <h2>Coaching</h2>
+    <p>For founders who want to make smarter, safer decisions.</p>
+    <span class="go">Work with me <span class="arw">&rarr;</span></span>
+  </a>
+
+  <a class="card c-resources" href="resources.html">
+    <h2>Resources</h2>
+    <p>The books, tools, and people I rely on, and recommend to others.</p>
+    <span class="go">Browse resources <span class="arw">&rarr;</span></span>
+  </a>
+
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <span>&copy; 2026 Terence Bumah &middot; Risk-First Thinking</span>
+    <span class="links">
+      <a href="rft.html">RFT</a>
+      <a href="articles.html">Articles</a>
+      <a href="ultm8.html">ULTM8</a>
+      <a href="about.html">About</a>
+      <a href="resources.html">Resources</a>
+      <a href="#">Email</a>
+      <a href="#">LinkedIn</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>

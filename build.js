@@ -190,10 +190,12 @@ function nav(active) {
     `<a class="nav-link${active === key ? " is-active" : ""}" href="${href}">${escapeHtml(name)}</a>`;
   const ext = (name, href) =>
     `<a class="nav-menu-link" href="${href}" target="_blank" rel="noopener">${escapeHtml(name)}</a>`;
-  const work = `<div class="nav-group"><button type="button" class="nav-link nav-group-btn" aria-haspopup="true">My work<span class="nav-caret" aria-hidden="true">\u25be</span></button><div class="nav-menu">${ext("Coaching", "https://symmba.com")}${ext("ULTM8", "https://ultm8life.com")}</div></div>`;
+  const work = `<div class="nav-group"><button type="button" class="nav-link nav-group-btn" aria-haspopup="true">My Work<span class="nav-caret" aria-hidden="true">\u25be</span></button><div class="nav-menu">${ext("Coaching", "https://symmba.com")}${ext("ULTM8", "https://ultm8life.com")}</div></div>`;
   return `  <nav class="site-nav">
-    <a class="nav-brand" href="/">${escapeHtml(SITE.wordmark || SITE.name)}</a>
-    <div class="nav-links">${item("Learn", "/", "notes")}${item("Why ART", "/about/", "about")}${item("Frameworks", "/working-papers/", "working-papers")}${work}</div>
+    <div class="nav-in">
+      <a class="nav-brand" href="/">${escapeHtml(SITE.wordmark || SITE.name)}</a>
+      <div class="nav-links">${item("Learn", "/", "notes")}${item("Why ART", "/about/", "about")}${item("Frameworks", "/working-papers/", "working-papers")}${work}</div>
+    </div>
   </nav>`;
 }
 
@@ -205,6 +207,9 @@ function layout({ title, description, body, active = "", heroHtml = "", wide = f
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description || SITE.description)}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -235,6 +240,19 @@ ${body}
 function blogHero(blog) {
   return `  <header class="site-hero">
     <h1 class="hero-heading">${accent(blog.heroHeading)}</h1>
+  </header>`;
+}
+
+// A hero band for the standalone pages (About / Coaching / ULTM8 / Ovana):
+// an eyebrow, the page title, and an optional lede, so every page opens the
+// same way, hero first then content.
+function pageHero({ eyebrow, heading, lede }) {
+  return `  <header class="page-hero">
+    <div class="page-hero-in">
+      ${eyebrow ? `<span class="mono eyebrow">${escapeHtml(eyebrow)}</span>` : ""}
+      <h1 class="hero-heading">${accent(heading)}</h1>
+      ${lede ? `<p class="page-lede">${escapeHtml(lede)}</p>` : ""}
+    </div>
   </header>`;
 }
 
@@ -494,7 +512,6 @@ function aboutPage() {
 
   const body = `    <article class="post about-page about-grid">
       <div class="about-main post-body">
-        <h1 class="about-title">Applying Risk Thinking</h1>
         <p class="about-lede">Life is full of uncertainty. Starting a business, investing money, taking a new job or planning for retirement all involve decisions about the future, usually without complete information or guaranteed outcomes.</p>
         <p>For two decades, I managed risk across global financial institutions. My work involved thinking about what could go wrong, how likely it was, what the consequences might be and what could be done about it.</p>
         <p>I now apply that way of thinking to everyday life.</p>
@@ -518,6 +535,10 @@ function aboutPage() {
       "Applying Risk Thinking by Terence Bumah: 20 years managing risk in global financial institutions, turned toward everyday decisions about health, money, business and life.",
     body,
     active: "about",
+    heroHtml: pageHero({
+      eyebrow: "Why ART",
+      heading: "Applying Risk Thinking",
+    }),
     wide: true,
   });
 }
@@ -530,7 +551,6 @@ function workPage() {
         </div>`;
 
   const body = `    <article class="post text-page">
-      <h1 class="about-title">Product Coach</h1>
       <div class="post-body">
         <p class="about-lede">I coach founders and innovators to launch and scale products, applying Risk Thinking to shape how they build.</p>
         <h2>Applying Risk Thinking to your vision</h2>
@@ -559,6 +579,10 @@ ${benefit("Growth fit.", "Grow at the right time and the right pace, reaching mo
       "Terence Bumah coaches founders and innovators to launch and scale products, applying Risk Thinking to how they build.",
     body,
     active: "work",
+    heroHtml: pageHero({
+      eyebrow: "Coaching",
+      heading: "Product Coach",
+    }),
   });
 }
 
@@ -570,11 +594,6 @@ function ovanaPage() {
 
   const body = `    <article class="detail-page">
       <a class="detail-back" href="/work/">&larr; Coaching</a>
-      <span class="detail-kicker">Ovana &middot; Heart health</span>
-      <h1 class="about-title detail-title">An intelligent blood pressure companion</h1>
-      <div class="detail-body">
-        <p class="about-lede">Hypertension is the world's most widespread chronic condition, and the real danger is how many people never find out until the damage is done.</p>
-      </div>
       <div class="stats">
 ${stat("1.4B", "Adults live with hypertension, one in three worldwide.")}
 ${stat("46%", "Do not know they have it, over 600 million people.")}
@@ -602,6 +621,11 @@ ${get("Know when you need help")}
       "Ovana is an intelligent blood pressure companion that helps people catch high blood pressure early and protect their heart every day.",
     body,
     active: "work",
+    heroHtml: pageHero({
+      eyebrow: "Ovana · Heart health",
+      heading: "An intelligent blood pressure companion",
+      lede: "Hypertension is the world's most widespread chronic condition, and the real danger is how many people never find out until the damage is done.",
+    }),
     wide: true,
   });
 }
@@ -619,14 +643,11 @@ function ultm8Page() {
         </section>`;
 
   const body = `    <article class="detail-page">
-      <span class="detail-kicker">ULTM8 &middot; Longevity</span>
-      <h1 class="about-title detail-title">Add more life to your years</h1>
       <div class="def-box">
         <p class="def-label">What is ULTM8</p>
         <p class="def-text">A longevity companion that helps you build lasting health and wealth so you can live with more vitality and freedom, and make the most of the years you have.</p>
       </div>
       <div class="detail-body">
-        <p class="about-lede">We are living longer than previous generations, but too many of those years are shaped by illness and financial insecurity.</p>
         <p>I started ULTM8 to help people build lasting health and wealth, so they can live with more vitality and freedom, and make the most of the years they have.</p>
         <p class="concept-label">The concept</p>
         <p>ULTM8 is built on eight pillars, four for vitality (health) and four for freedom (wealth). Each one is a key risk factor for your healthspan or wealthspan. ULTM8 helps you see where you stand and strengthen the pillars that need it most.</p>
@@ -654,6 +675,11 @@ ${group("Freedom", "The financial resilience and choices that help you shape you
       "ULTM8 helps you add more life to your years by applying Risk Thinking to eight pillars of healthspan and wealthspan.",
     body,
     active: "ultm8",
+    heroHtml: pageHero({
+      eyebrow: "ULTM8 · Longevity",
+      heading: "Add more life to your years",
+      lede: "We are living longer than previous generations, but too many of those years are shaped by illness and financial insecurity.",
+    }),
     wide: true,
   });
 }

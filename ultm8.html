@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ULTM8 — Terence Bumah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#15100d; --panel:#221a16; --panel2:#271e19;
+  --ink:#f4ede3; --ink-soft:#cdbfb0; --muted:#a89886; --faint:#6f6357;
+  --orange:#e07a53; --orange-deep:#c8623a; --gold:#d9a441; --green:#7fd0aa;
+  --line:rgba(244,237,227,.12); --line2:rgba(244,237,227,.22);
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(circle at center, rgba(244,237,227,.05) 0 .8px, transparent 1px);background-size:56px 56px;opacity:.6}
+main,nav,footer{position:relative;z-index:1}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+.mono{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+a:focus-visible{outline:2.5px solid var(--orange);outline-offset:3px}
+
+nav{position:sticky;top:0;z-index:60;background:rgba(21,16,13,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 32px;max-width:1240px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-name{font-family:var(--serif);font-weight:500;font-size:17px;letter-spacing:-.01em}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{font-size:.9rem;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a.active{color:var(--ink)}
+
+.page{max-width:700px;margin:0 auto;padding:96px 32px 110px}
+.page .eyebrow{color:var(--orange);display:block;margin-bottom:22px}
+.page h1{font-family:var(--serif);font-weight:360;letter-spacing:-.02em;line-height:1.05;font-size:clamp(40px,5.6vw,68px);margin:0 0 34px}
+.page > p{font-size:19px;line-height:1.7;color:var(--ink-soft);margin:0 0 24px}
+
+.grp{margin:40px 0 0}
+.grp h2{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.01em;font-size:28px;margin:0 0 4px}
+.grp.vit h2{color:var(--green)}
+.grp.fre h2{color:var(--gold)}
+.grp .gsub{font-size:16px;color:var(--muted);margin:0 0 14px}
+.pillar{border-top:1px solid var(--line);padding:18px 0}
+.pillar:last-child{border-bottom:1px solid var(--line)}
+.pillar h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;font-size:22px;margin:0 0 3px}
+.pillar p{font-size:16px;color:var(--muted);margin:0}
+
+/* the test */
+.test{margin-top:52px}
+.test .teyebrow{color:var(--orange);display:block;margin-bottom:12px}
+.test .thead{font-family:var(--serif);font-weight:360;letter-spacing:-.015em;font-size:clamp(28px,4vw,40px);line-height:1.1;margin:0 0 12px}
+.test .tsub{font-size:17px;color:var(--muted);margin:0 0 22px}
+.tcard{display:grid;grid-template-columns:132px 1fr;gap:20px;align-items:center;border:1px solid var(--line);border-radius:14px;background:var(--panel2);padding:20px 22px;margin-bottom:12px}
+.tviz svg{display:block;width:120px;height:auto}
+.tbody .tlabel{color:var(--orange);display:block;margin-bottom:6px}
+.tbody p{font-size:15.5px;line-height:1.55;color:var(--muted);margin:0}
+.tplan{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.tplan li{font-size:13.5px;line-height:1.35;color:var(--ink-soft);padding-left:26px;position:relative}
+.tplan li::before{content:"";position:absolute;left:0;top:.1em;width:16px;height:16px;border-radius:50%;background:rgba(244,237,227,.12)}
+.tplan li.done::before{background:var(--green)}
+.tplan li.done::after{content:"";position:absolute;left:4.5px;top:.36em;width:7px;height:4px;border-left:2px solid #15100d;border-bottom:2px solid #15100d;transform:rotate(-45deg)}
+h2.ask{font-family:var(--serif);font-weight:360;letter-spacing:-.015em;font-size:clamp(26px,3.6vw,36px);margin:52px 0 0}
+
+.ctas{display:flex;gap:12px;margin-top:44px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:9px;font-size:.95rem;padding:12px 24px;border:1px solid var(--line2);border-radius:40px;transition:transform .18s ease,background .18s ease,border-color .18s ease;background:transparent;color:var(--ink)}
+.btn:hover{transform:translateY(-2px);border-color:var(--ink)}
+.btn.solid{background:var(--orange);border-color:var(--orange);color:#1b0f09;font-weight:600}
+.btn.solid:hover{background:var(--orange-deep);border-color:var(--orange-deep)}
+
+footer{border-top:1px solid var(--line2);padding:40px 0;color:var(--muted)}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.04em}
+.foot .links{display:flex;gap:22px;flex-wrap:wrap}
+.foot a:hover{color:var(--ink)}
+
+@media (max-width:720px){
+  .wrap{padding:0 22px}
+  .nav-in{padding:14px 22px}
+  .nav-links a:not(.active){display:none}
+  .page{padding:64px 22px 80px}
+  .tcard{grid-template-columns:1fr;gap:14px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a href="index.html" class="brand" aria-label="Terence Bumah — home">
+      
+      <span class="brand-name">Terence Bumah</span>
+    </a>
+    <div class="nav-links">
+      <a href="rft.html">RFT</a>
+      <a href="articles.html">Articles</a>
+      <a href="ultm8.html" class="active">ULTM8</a>
+      <a href="about.html">About</a>
+      <a href="coaching.html">Coaching</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<section class="page">
+  <span class="mono eyebrow">ULTM8</span>
+  <h1>Add more life to your years.</h1>
+  <p>ULTM8 is a free longevity tool that helps you build more vitality and freedom in your life, especially as you grow older.</p>
+  <p>Living longer matters. But so does having the health to enjoy those years, the independence to live them on your terms, and the financial resilience to keep your choices open.</p>
+  <p>ULTM8 focuses on eight areas across two foundations: Vitality and Freedom.</p>
+
+  <div class="grp vit">
+    <h2>Vitality</h2>
+    <p class="gsub">The physical capacity to stay active, capable and independent.</p>
+    <div class="pillar"><h3>Heart health</h3><p>The cardiovascular foundation for a longer, healthier life.</p></div>
+    <div class="pillar"><h3>Strength</h3><p>The physical capacity to remain capable and independent as you age.</p></div>
+    <div class="pillar"><h3>Stamina</h3><p>The endurance to stay active, recover well and keep doing the things you enjoy.</p></div>
+    <div class="pillar"><h3>Lifestyle</h3><p>The everyday behaviours, including sleep, stress, nutrition and habits, that influence everything else.</p></div>
+  </div>
+
+  <div class="grp fre">
+    <h2>Freedom</h2>
+    <p class="gsub">The financial resilience that keeps your choices open.</p>
+    <div class="pillar"><h3>Debt</h3><p>What you owe, what it costs you, and how much it limits your future choices.</p></div>
+    <div class="pillar"><h3>Protection</h3><p>The financial buffers and safeguards that prevent setbacks from becoming crises.</p></div>
+    <div class="pillar"><h3>Retirement</h3><p>Whether what you're building today can support the life you want later.</p></div>
+    <div class="pillar"><h3>Income</h3><p>The resources that fund your life today and create greater choice tomorrow.</p></div>
+  </div>
+
+  <div class="test">
+    <span class="mono teyebrow">The ULTM8 test</span>
+    <h2 class="thead">See where you stand. Close your gap.</h2>
+    <p class="tsub">Two minutes. A clear picture of your health and wealth today, and a plan you can act on tomorrow.</p>
+
+    <div class="tcard">
+      <div class="tviz">
+        <svg viewBox="0 0 120 120" role="img" aria-label="Radar chart of the eight areas">
+          <polygon points="60,12 94,26 108,60 94,94 60,108 26,94 12,60 26,26" fill="none" stroke="rgba(244,237,227,.18)"/>
+          <polygon points="60,36 86,38 96,60 78,84 60,92 40,78 30,60 42,44" fill="rgba(127,208,170,.16)" stroke="#7fd0aa" stroke-width="1.6"/>
+          <circle cx="60" cy="36" r="3.4" fill="#7fd0aa"/><circle cx="86" cy="38" r="3.4" fill="#7fd0aa"/>
+          <circle cx="96" cy="60" r="3.4" fill="#7fd0aa"/><circle cx="78" cy="84" r="3.4" fill="#d9a441"/>
+          <circle cx="60" cy="92" r="3.4" fill="#d9a441"/><circle cx="40" cy="78" r="3.4" fill="#d9a441"/>
+          <circle cx="30" cy="60" r="3.4" fill="#d9a441"/><circle cx="42" cy="44" r="3.4" fill="#7fd0aa"/>
+        </svg>
+      </div>
+      <div class="tbody">
+        <span class="mono tlabel">Profile</span>
+        <p>The whole picture in one shape. All eight areas of your vitality and freedom, showing how fully you are living today.</p>
+      </div>
+    </div>
+
+    <div class="tcard">
+      <div class="tviz">
+        <svg viewBox="0 0 120 120" role="img" aria-label="Two score bars, Vitality and Freedom">
+          <text x="8" y="30" font-family="IBM Plex Mono,monospace" font-size="10" fill="#a89886">Vitality</text>
+          <text x="112" y="30" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" fill="#7fd0aa">78</text>
+          <rect x="8" y="38" width="104" height="7" rx="3.5" fill="rgba(244,237,227,.1)"/>
+          <rect x="8" y="38" width="81" height="7" rx="3.5" fill="#7fd0aa"/>
+          <text x="8" y="76" font-family="IBM Plex Mono,monospace" font-size="10" fill="#a89886">Freedom</text>
+          <text x="112" y="76" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" fill="#d9a441">66</text>
+          <rect x="8" y="84" width="104" height="7" rx="3.5" fill="rgba(244,237,227,.1)"/>
+          <rect x="8" y="84" width="69" height="7" rx="3.5" fill="#d9a441"/>
+        </svg>
+      </div>
+      <div class="tbody">
+        <span class="mono tlabel">Scores</span>
+        <p>Your Vitality and Freedom side by side, so you see your health and wealth at a glance.</p>
+      </div>
+    </div>
+
+    <div class="tcard">
+      <div class="tviz">
+        <ul class="tplan">
+          <li class="done">Bring your blood pressure down</li>
+          <li class="done">Start an emergency fund</li>
+          <li>Build a strength routine</li>
+        </ul>
+      </div>
+      <div class="tbody">
+        <span class="mono tlabel">Plan</span>
+        <p>A few clear next steps to close your gap and live more fully, starting with what needs it most.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="ask">Want to know where you stand?</h2>
+  <div class="ctas" style="margin-top:18px">
+    <a class="btn solid" href="#">Discover your profile <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>&copy; 2026 Terence Bumah &middot; Risk-First Thinking</span>
+    <span class="links">
+      <a href="rft.html">RFT</a>
+      <a href="articles.html">Articles</a>
+      <a href="ultm8.html">ULTM8</a>
+      <a href="about.html">About</a>
+      <a href="resources.html">Resources</a>
+      <a href="#">Email</a>
+      <a href="#">LinkedIn</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>
